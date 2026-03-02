@@ -26,8 +26,6 @@ h1 {
   background: #0a7cff;
   text-decoration: none;
   border-radius: 8px;
-  border: none;
-  cursor: pointer;
 }
 </style>
 </head>
@@ -35,7 +33,7 @@ h1 {
 <div class="container">
   <h1>Mumbai Outstation Taxi</h1>
   <p>24/7 Phone Booking</p>
-  <button id="callButton" class="call-btn">Call Now</button>
+  <a class="call-btn" href="tel:+919999999999">Call Now</a>
 </div>
 
 <script>
@@ -59,28 +57,18 @@ function getCookie(name) {
   if (parts.length === 2) return parts.pop().split(";").shift();
 }
 
-// --- Send GCLID to Google Sheet then trigger call ---
-document.getElementById("callButton").addEventListener("click", function(e) {
-  e.preventDefault(); // prevent immediate call
-
-  const storedGclid = getCookie("gclid");
-  const data = {
-    gclid: storedGclid || "",
-    keyword: ""
-  };
-
+// --- Send GCLID to Google Sheet immediately on page load ---
+const storedGclid = getCookie("gclid");
+if (storedGclid) {
   fetch("https://script.google.com/macros/s/AKfycbzq7TmxCA1Wogb1ZKYbJx6ewhy49rT_w0IDmXMc3OEEuqEkLMjVmnoiKMn9mSXvpS-exQ/exec", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data)
+    body: JSON.stringify({ gclid: storedGclid, keyword: "" })
   })
   .then(res => res.json())
-  .then(() => {
-    // Trigger the phone call after logging
-    window.location.href = "tel:+919999999999";
-  })
-  .catch(err => console.error("Error sending lead:", err));
-});
+  .then(res => console.log("Lead logged on page load:", res))
+  .catch(err => console.error("Error logging lead:", err));
+}
 </script>
 </body>
 </html>
