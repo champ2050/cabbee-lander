@@ -19,7 +19,7 @@ h1 {
 }
 .call-btn {
   display: inline-block;
-  margin-top: 30px;
+  margin-top: 20px;
   padding: 18px 30px;
   font-size: 20px;
   color: #fff;
@@ -27,42 +27,70 @@ h1 {
   text-decoration: none;
   border-radius: 8px;
 }
+.phone-input {
+  margin-top: 20px;
+  padding: 10px;
+  font-size: 16px;
+  width: 80%;
+  max-width: 300px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
 </style>
 </head>
 <body>
 <div class="container">
-<h1>Mumbai Outstation Taxi</h1>
-<p>24/7 Phone Booking</p>
-<a class="call-btn" href="tel:+919999999999">Call Now</a>
+  <h1>Mumbai Outstation Taxi</h1>
+  <p>24/7 Phone Booking</p>
+  <input type="text" id="phoneInput" class="phone-input" placeholder="Enter your phone number">
+  <br>
+  <a class="call-btn" id="callButton" href="tel:+919999999999">Call Now</a>
 </div>
+
 <script>
+// --- Capture gclid from URL and store in cookie ---
 function getParam(param) {
   const urlParams = new URLSearchParams(window.location.search);
   return urlParams.get(param);
 }
 
-// Capture gclid from URL
 const gclid = getParam("gclid");
-
 if (gclid) {
   const expiryDate = new Date();
   expiryDate.setDate(expiryDate.getDate() + 90);
   document.cookie = "gclid=" + gclid + "; expires=" + expiryDate.toUTCString() + "; path=/";
 }
 
-// Retrieve stored gclid
+// --- Retrieve stored gclid from cookie ---
 function getCookie(name) {
   const value = "; " + document.cookie;
   const parts = value.split("; " + name + "=");
   if (parts.length === 2) return parts.pop().split(";").shift();
 }
 
-const storedGclid = getCookie("gclid");
+function sendLeadToSheet(phone) {
+  const storedGclid = getCookie("gclid");
+  const data = {
+    gclid: storedGclid || "",
+    phone: phone || "",
+    keyword: ""
+  };
 
-// Attach to call button (optional logging use)
-if (storedGclid) {
-  console.log("GCLID captured:", storedGclid);
+  fetch("https://script.google.com/macros/s/AKfycbzq7TmxCA1Wogb1ZKYbJx6ewhy49rT_w0IDmXMc3OEEuqEkLMjVmnoiKMn9mSXvpS-exQ/exec", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data)
+  })
+  .then(res => res.json())
+  .then(res => console.log("Lead sent:", res))
+  .catch(err => console.error("Error sending lead:", err));
 }
+
+// --- Attach click handler to call button ---
+document.getElementById("callButton").addEventListener("click", function() {
+  const phone = document.getElementById("phoneInput").value.trim();
+  sendLeadToSheet(phone);
+});
 </script>
 </body>
 </html>
