@@ -35,5 +35,34 @@ h1 {
 <p>24/7 Phone Booking</p>
 <a class="call-btn" href="tel:+919999999999">Call Now</a>
 </div>
+<script>
+function getParam(param) {
+  const urlParams = new URLSearchParams(window.location.search);
+  return urlParams.get(param);
+}
+
+// Capture gclid from URL
+const gclid = getParam("gclid");
+
+if (gclid) {
+  const expiryDate = new Date();
+  expiryDate.setDate(expiryDate.getDate() + 90);
+  document.cookie = "gclid=" + gclid + "; expires=" + expiryDate.toUTCString() + "; path=/";
+}
+
+// Retrieve stored gclid
+function getCookie(name) {
+  const value = "; " + document.cookie;
+  const parts = value.split("; " + name + "=");
+  if (parts.length === 2) return parts.pop().split(";").shift();
+}
+
+const storedGclid = getCookie("gclid");
+
+// Attach to call button (optional logging use)
+if (storedGclid) {
+  console.log("GCLID captured:", storedGclid);
+}
+</script>
 </body>
 </html>
