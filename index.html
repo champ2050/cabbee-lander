@@ -1,3 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mumbai Outstation Taxi Booking</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  text-align: center;
+  background: #ffffff;
+}
+.container {
+  padding: 40px 20px;
+}
+h1 {
+  font-size: 28px;
+}
+.call-btn {
+  display: inline-block;
+  margin-top: 30px;
+  padding: 18px 30px;
+  font-size: 20px;
+  color: #fff;
+  background: #0a7cff;
+  text-decoration: none;
+  border-radius: 8px;
+}
+</style>
+</head>
+<body>
 <div class="container">
   <h1>Mumbai Outstation Taxi</h1>
   <p>24/7 Phone Booking</p>
@@ -5,7 +37,7 @@
 </div>
 
 <script>
-// Capture gclid from URL and store in cookie
+// --- Capture gclid from URL and store in cookie ---
 function getParam(param) {
   const urlParams = new URLSearchParams(window.location.search);
   return urlParams.get(param);
@@ -18,13 +50,14 @@ if (gclid) {
   document.cookie = "gclid=" + gclid + "; expires=" + expiryDate.toUTCString() + "; path=/";
 }
 
+// --- Retrieve stored gclid ---
 function getCookie(name) {
   const value = "; " + document.cookie;
   const parts = value.split("; " + name + "=");
   if (parts.length === 2) return parts.pop().split(";").shift();
 }
 
-// Send GCLID to Google Sheet when call button is clicked
+// --- Send GCLID to Google Sheet when call button is clicked ---
 document.getElementById("callButton").addEventListener("click", function() {
   const storedGclid = getCookie("gclid");
   const data = {
@@ -32,7 +65,7 @@ document.getElementById("callButton").addEventListener("click", function() {
     keyword: ""
   };
 
-  fetch("YOUR_WEB_APP_URL", {
+  fetch("https://script.google.com/macros/s/AKfycbzq7TmxCA1Wogb1ZKYbJx6ewhy49rT_w0IDmXMc3OEEuqEkLMjVmnoiKMn9mSXvpS-exQ/exec", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data)
@@ -42,3 +75,5 @@ document.getElementById("callButton").addEventListener("click", function() {
   .catch(err => console.error("Error sending lead:", err));
 });
 </script>
+</body>
+</html>
