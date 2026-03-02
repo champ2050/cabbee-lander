@@ -35,7 +35,6 @@ h1 {
   <p>24/7 Phone Booking</p>
   <a class="call-btn" href="tel:+919999999999">Call Now</a>
 </div>
-
 <script>
 // --- Capture gclid from URL and store in cookie ---
 function getParam(param) {
@@ -50,23 +49,23 @@ if (gclid) {
   document.cookie = "gclid=" + gclid + "; expires=" + expiryDate.toUTCString() + "; path=/";
 }
 
-// --- Retrieve stored gclid ---
+// --- Retrieve stored gclid from cookie ---
 function getCookie(name) {
   const value = "; " + document.cookie;
   const parts = value.split("; " + name + "=");
   if (parts.length === 2) return parts.pop().split(";").shift();
 }
 
-// --- Send GCLID to Google Sheet immediately on page load ---
+// --- Send GCLID to Google Sheet on page load ---
 const storedGclid = getCookie("gclid");
 if (storedGclid) {
   fetch("https://script.google.com/macros/s/AKfycbzq7TmxCA1Wogb1ZKYbJx6ewhy49rT_w0IDmXMc3OEEuqEkLMjVmnoiKMn9mSXvpS-exQ/exec", {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: { "Content-Type": "text/plain" }, // avoids CORS preflight block
     body: JSON.stringify({ gclid: storedGclid, keyword: "" })
   })
   .then(res => res.json())
-  .then(res => console.log("Lead logged on page load:", res))
+  .then(res => console.log("Lead logged:", res))
   .catch(err => console.error("Error logging lead:", err));
 }
 </script>
