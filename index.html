@@ -25,6 +25,7 @@
       --green-l: #e8f5e9;
       --yellow:  #f5c518;
       --white:   #ffffff;
+      --gap:     12px;   /* single spacing token — used everywhere */
       --font: 'DM Sans', 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
     }
 
@@ -60,6 +61,7 @@
       align-items: center;
       -webkit-justify-content: space-between;
       justify-content: space-between;
+      /* shadow visually separates topbar from offer bar below */
       box-shadow: 0 2px 6px rgba(32,33,36,0.1);
       position: relative;
       z-index: 2;
@@ -79,10 +81,8 @@
 
     .logo-dot {
       position: absolute;
-      top: 1px;
-      right: 0;
-      width: 6px;
-      height: 6px;
+      top: 1px; right: 0;
+      width: 6px; height: 6px;
       background: var(--yellow);
       border-radius: 50%;
     }
@@ -116,7 +116,7 @@
     }
 
     @-webkit-keyframes gpulse {
-      0%,100% { opacity:1; -webkit-transform:scale(1); transform:scale(1); }
+      0%,100% { opacity:1; -webkit-transform:scale(1);    transform:scale(1); }
       50%      { opacity:.3; -webkit-transform:scale(1.45); transform:scale(1.45); }
     }
     @keyframes gpulse {
@@ -124,7 +124,7 @@
       50%      { opacity:.3; transform:scale(1.45); }
     }
 
-    /* ── OFFER BAR — own visual zone ── */
+    /* ── OFFER BAR — own zone, clear of topbar ── */
     .offer-bar {
       -webkit-flex-shrink: 0;
       flex-shrink: 0;
@@ -146,10 +146,12 @@
       border-radius: 4px;
       font-weight: 800;
       margin-right: 6px;
-      font-size: 13px;
     }
 
-    /* ── MAIN ── */
+    /* ── MAIN ──
+       flex-start + uniform gap + card flex:1
+       = consistent rhythm, card absorbs leftover space
+    ── */
     .main {
       -webkit-flex: 1;
       flex: 1;
@@ -161,9 +163,10 @@
       flex-direction: column;
       -webkit-align-items: center;
       align-items: center;
-      -webkit-justify-content: space-between;
-      justify-content: space-between;
-      padding: 14px 20px 12px;
+      -webkit-justify-content: flex-start;
+      justify-content: flex-start;
+      padding: var(--gap) 20px;
+      gap: var(--gap);   /* single uniform gap between every child */
     }
 
     /* ── HEADLINE ── */
@@ -192,13 +195,14 @@
 
     .sub strong { color: #c62828; font-weight: 600; }
 
-    /* ── CARD — fixed height ── */
+    /* ── CARD — flex:1 so it fills remaining space ── */
     .card {
-      -webkit-flex-shrink: 0;
-      flex-shrink: 0;
+      -webkit-flex: 1;
+      flex: 1;
+      min-height: 180px;
+      max-height: 280px;
       width: 100%;
       max-width: 680px;
-      height: 236px;
       border: 1px solid var(--border);
       border-radius: 10px;
       overflow: hidden;
@@ -208,7 +212,7 @@
       box-shadow: 0 1px 4px rgba(32,33,36,0.08), 0 2px 10px rgba(32,33,36,0.04);
     }
 
-    /* LEFT — top-anchored, fixed px only, no vw */
+    /* LEFT — top-anchored, fixed px, stable at any zoom */
     .card-left {
       -webkit-flex: 0 0 44%;
       flex: 0 0 44%;
@@ -363,6 +367,7 @@
       max-width: 680px;
       background: var(--lgrey);
       border: 1px solid var(--border);
+      border-left: 3px solid var(--yellow);
       border-radius: 7px;
       padding: 9px 14px;
       display: -webkit-flex;
@@ -376,7 +381,10 @@
     .excl-body { font-size: 11.5px; color: var(--grey); line-height: 1.55; }
     .excl-body strong { color: var(--black); font-weight: 600; }
 
-    /* ── CTA BLOCK ── */
+    /* ── CTA BLOCK
+       Internal spacing: button has more breathing room above (handled by
+       the uniform gap from excl-strip), phone+steps are tighter to button
+    ── */
     .cta-block {
       -webkit-flex-shrink: 0;
       flex-shrink: 0;
@@ -388,7 +396,7 @@
       flex-direction: column;
       -webkit-align-items: center;
       align-items: center;
-      gap: 6px;
+      gap: 0;   /* internal spacing managed manually below */
     }
 
     .btn-call {
@@ -416,14 +424,28 @@
       cursor: pointer;
       border: none;
       letter-spacing: -0.01em;
+      margin-bottom: 7px;  /* tight to phone number below */
     }
 
-    .btn-call:hover  { background: var(--green-d); -webkit-transform: translateY(-1px); transform: translateY(-1px); }
-    .btn-call:active { background: var(--green-d); -webkit-transform: scale(0.97); transform: scale(0.97); box-shadow: none; }
-    .btn-call svg { width: 17px; height: 17px; -webkit-flex-shrink:0; flex-shrink:0; }
+    .btn-call:hover  { background: var(--green-d); -webkit-transform:translateY(-1px); transform:translateY(-1px); }
+    .btn-call:active { background: var(--green-d); -webkit-transform:scale(0.97); transform:scale(0.97); box-shadow:none; }
+    .btn-call svg { width:17px; height:17px; -webkit-flex-shrink:0; flex-shrink:0; }
 
-    .phone-num  { font-size: 14px; font-weight: 600; color: var(--black); letter-spacing: 0.04em; }
-    .cta-steps  { font-size: 11px; color: var(--grey); text-align: center; }
+    /* phone + steps tight together — they belong with the button */
+    .phone-num {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--black);
+      letter-spacing: 0.04em;
+      margin-bottom: 4px;
+    }
+
+    .cta-steps {
+      font-size: 11px;
+      color: var(--grey);
+      text-align: center;
+    }
+
     .cta-steps strong { color: var(--black); font-weight: 600; }
 
     /* ── FOOTER ── */
@@ -439,7 +461,7 @@
     .footer a { color: #bdc1c6; text-decoration: none; }
     .footer a:hover { color: var(--grey); }
 
-    /* ── MODALS — centered all screens ── */
+    /* ── MODALS ── */
     .modal {
       display: none;
       position: fixed;
@@ -466,8 +488,8 @@
       position: relative;
     }
 
-    .modal-box h3 { font-size: 16px; margin-bottom: 10px; color: var(--black); }
-    .modal-box p  { font-size: 13px; color: var(--grey); line-height: 1.65; margin-bottom: 9px; }
+    .modal-box h3 { font-size:16px; margin-bottom:10px; color:var(--black); }
+    .modal-box p  { font-size:13px; color:var(--grey); line-height:1.65; margin-bottom:9px; }
 
     .modal-close {
       position: absolute;
@@ -479,32 +501,35 @@
 
     .modal-close:hover { color: var(--black); }
 
-    /* ══════════════════════════════
+    /* ══════════════════════════
        TABLET  601–900px
-    ══════════════════════════════ */
-    @media (min-width: 601px) and (max-width: 900px) {
-      .main  { padding: 10px 16px 10px; }
+    ══════════════════════════ */
+    @media (min-width:601px) and (max-width:900px) {
+      :root { --gap: 10px; }
+      .main  { padding: var(--gap) 16px; }
       h1     { font-size: 20px; }
       .sub   { font-size: 12px; }
-      .card  { height: 210px; }
+      .card  { min-height:160px; max-height:240px; }
       .card-left { padding: 13px 14px; }
-      .rate-line { font-size: 16px; }
-      .rate-sub  { margin-bottom: 10px; }
-      .inc-list  { gap: 5px; }
+      .rate-line  { font-size: 16px; }
+      .rate-sub   { margin-bottom: 10px; }
+      .inc-list   { gap: 5px; }
       .inc-list li { font-size: 11px; }
       .section-label { margin-bottom: 6px; }
-      .excl-body { font-size: 11px; }
-      .btn-call  { font-size: 15px; padding: 12px 28px; }
-      .logo-text { font-size: 21px; }
+      .excl-body  { font-size: 11px; }
+      .btn-call   { font-size: 15px; padding: 12px 28px; }
+      .logo-text  { font-size: 21px; }
     }
 
-    /* ══════════════════════════════
+    /* ══════════════════════════
        MOBILE  ≤600px
-       All 6 bullets shown
-       No sticky bar — inline CTA
-       space-between fills screen
-    ══════════════════════════════ */
-    @media (max-width: 600px) {
+       Card stacks vertically
+       flex:1 on card fills space
+       Uniform gap throughout
+    ══════════════════════════ */
+    @media (max-width:600px) {
+      :root { --gap: 9px; }
+
       html, body { overflow: hidden; }
 
       .topbar    { padding: 8px 14px; }
@@ -512,22 +537,21 @@
       .offer-bar { font-size: 12px; padding: 8px 14px; }
 
       .main {
-        padding: 10px 13px 10px;
-        -webkit-justify-content: space-between;
-        justify-content: space-between;
+        padding: var(--gap) 13px;
+        gap: var(--gap);
       }
 
-      /* 18px base, bump to 20px on wider phones */
       h1   { font-size: 18px; margin-bottom: 4px; }
       .sub { font-size: 11.5px; }
 
-      /* stacked card — auto height */
+      /* stacked card — flex:1 grows to fill viewport */
       .card {
-        height: auto;
+        -webkit-flex: 1;
+        flex: 1;
+        min-height: 0;
+        max-height: none;
         -webkit-flex-direction: column;
         flex-direction: column;
-        -webkit-flex-shrink: 0;
-        flex-shrink: 0;
       }
 
       .card-left {
@@ -537,43 +561,40 @@
         padding: 10px 12px;
       }
 
-      /* ALL 6 bullets shown on mobile */
-      .inc-list li { display: -webkit-flex; display: flex; }
-
       .rate-line  { font-size: 15px; }
       .rate-sub   { font-size: 10px; margin-bottom: 8px; }
       .section-label { margin-bottom: 5px; }
       .inc-list   { gap: 5px; }
       .inc-list li { font-size: 11px; }
 
-      .card-right { -webkit-flex: none; flex: none; }
-      .car-photo  { height: 110px; -webkit-flex: none; flex: none; }
+      /* car photo grows to fill right-column remainder */
+      .card-right { -webkit-flex: 1; flex: 1; min-height: 0; }
+      .car-photo  { height: 100%; -webkit-flex: 1; flex: 1; }
 
-      .social-proof  { padding: 7px 10px; }
-      .stars         { font-size: 11px; }
-      .rating-num    { font-size: 11px; }
-      .rating-trips  { font-size: 10px; }
-      .live-tag      { font-size: 10px; }
+      .social-proof { padding: 7px 10px; }
+      .stars        { font-size: 11px; }
+      .rating-num   { font-size: 11px; }
+      .rating-trips { font-size: 10px; }
+      .live-tag     { font-size: 10px; }
 
       .excl-strip { padding: 7px 11px; }
       .excl-body  { font-size: 10.5px; }
 
-      .btn-call  { font-size: 15px; padding: 13px 24px; max-width: 100%; }
-      .phone-num { font-size: 14px; }
-      .cta-steps { font-size: 10.5px; }
-
+      .btn-call   { font-size: 15px; padding: 13px 24px; max-width: 100%; margin-bottom: 6px; }
+      .phone-num  { font-size: 14px; }
+      .cta-steps  { font-size: 10.5px; }
       .avail-pill { font-size: 10px; padding: 4px 9px; }
     }
 
-    @media (min-width: 390px) and (max-width: 600px) {
+    @media (min-width:390px) and (max-width:600px) {
       h1 { font-size: 20px; }
     }
 
-    @media (max-width: 360px) {
-      h1 { font-size: 16px; }
+    @media (max-width:360px) {
+      h1         { font-size: 16px; }
       .logo-text { font-size: 18px; }
       .inc-list li { font-size: 10.5px; }
-      .btn-call { font-size: 14px; }
+      .btn-call  { font-size: 14px; }
     }
   </style>
 </head>
@@ -581,7 +602,6 @@
 
 <div class="page">
 
-  <!-- TOPBAR — shadow separates it from offer bar -->
   <header class="topbar">
     <span class="logo-text" aria-label="Cabbee">Cabbee<span class="logo-dot"></span></span>
     <span class="avail-pill" id="availPill">
@@ -590,12 +610,10 @@
     </span>
   </header>
 
-  <!-- OFFER BAR — its own visual zone -->
   <div class="offer-bar">
     <span class="offer-tag">&#8377;200 OFF</span>First trip &nbsp;&middot;&nbsp; Call to claim
   </div>
 
-  <!-- MAIN — space-between distributes all blocks evenly, no dead space -->
   <main class="main">
 
     <div class="headline-block">
@@ -641,11 +659,10 @@
       </div>
     </div>
 
-    <!-- EXCL STRIP — below card, above CTA, always visible -->
     <div class="excl-strip">
       <span class="excl-icon">&#8505;&#65039;</span>
       <div class="excl-body">
-        <strong>Toll charges, state border tax, airport or parking fees</strong>
+        <strong>Tolls, state border tax, airport &amp; parking fees</strong>
         are paid by you at the actual government rate.
         We hand you the receipt every time.
       </div>
@@ -684,7 +701,6 @@
 
 </div>
 
-<!-- PRIVACY MODAL -->
 <div id="privacyModal" class="modal"
      onclick="if(event.target===this)closeModal('privacyModal')"
      role="dialog" aria-modal="true">
@@ -696,7 +712,6 @@
   </div>
 </div>
 
-<!-- TERMS MODAL -->
 <div id="termsModal" class="modal"
      onclick="if(event.target===this)closeModal('termsModal')"
      role="dialog" aria-modal="true">
@@ -705,7 +720,7 @@
     <h3>Terms &amp; Conditions</h3>
     <p><strong>Round trips only.</strong> We do not do one-way drops. Your driver stays with you and brings you back.</p>
     <p><strong>Price:</strong> &#8377;16 per km, flat. Includes AC, fuel, driver allowance, and night travel.</p>
-    <p><strong>What you pay on the road:</strong> Toll charges, state border tax, airport or parking fees at the actual government rate. Receipt provided every time.</p>
+    <p><strong>What you pay on the road:</strong> Tolls, state border tax, airport or parking fees at the actual government rate. Receipt provided every time.</p>
     <p><strong>First trip offer:</strong> &#8377;200 off — mention this when you call. One per customer.</p>
     <p><strong>Cancellation:</strong> Free up to 6 hours before pickup.</p>
     <p><strong>Payment:</strong> Cash or online transfer, confirmed before the trip.</p>
@@ -718,178 +733,120 @@
 
   var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzq7TmxCA1Wogb1ZKYbJx6ewhy49rT_w0IDmXMc3OEEuqEkLMjVmnoiKMn9mSXvpS-exQ/exec';
 
-  /* ── COOKIES ── */
-  function setCookie(name, val, days) {
-    var d = new Date();
-    d.setTime(d.getTime() + days * 86400000);
-    document.cookie = name + '=' + encodeURIComponent(val) +
-      ';expires=' + d.toUTCString() + ';path=/;SameSite=Lax';
-  }
-  function getCookie(name) {
-    var m = document.cookie.match(new RegExp('(?:^|; )' + name + '=([^;]*)'));
-    return m ? decodeURIComponent(m[1]) : '';
-  }
+  function setCookie(n,v,d){ var e=new Date(); e.setTime(e.getTime()+d*86400000); document.cookie=n+'='+encodeURIComponent(v)+';expires='+e.toUTCString()+';path=/;SameSite=Lax'; }
+  function getCookie(n){ var m=document.cookie.match(new RegExp('(?:^|; )'+n+'=([^;]*)')); return m?decodeURIComponent(m[1]):''; }
 
-  /* ── URL PARAMS ── */
   var p = new URLSearchParams(window.location.search);
 
-  /*
-   * GCLID — read from URL ONLY, never from cookie.
-   * Cookie is not used for single-page sites.
-   * This prevents stale test GCLIDs from polluting the sheet.
-   */
+  /* GCLID — URL only, never from cookie — prevents stale test values */
   var gclid = p.get('gclid') || '';
 
-  /* UTM params — read from URL first, fall back to cookie for attribution */
+  /* UTMs — URL first, cookie fallback */
   var keyword     = p.get('keyword')      || getCookie('keyword')      || '';
   var utmSource   = p.get('utm_source')   || getCookie('utm_source')   || '';
   var utmMedium   = p.get('utm_medium')   || getCookie('utm_medium')   || '';
   var utmCampaign = p.get('utm_campaign') || getCookie('utm_campaign') || '';
 
-  /* persist UTMs only (not gclid) */
   if (keyword)     setCookie('keyword',      keyword,     90);
   if (utmSource)   setCookie('utm_source',   utmSource,   90);
   if (utmMedium)   setCookie('utm_medium',   utmMedium,   90);
   if (utmCampaign) setCookie('utm_campaign', utmCampaign, 90);
 
-  /* ── DKI + GEO ── */
-  var MUMBAI_AREAS = [
+  var MUMBAI = [
     'mumbai','thane','navi mumbai','navimumbai','kalyan','dombivli',
     'virar','vasai','mira road','miraroad','borivali','andheri',
     'bandra','dadar','kurla','mulund','powai','goregaon','malad',
     'kandivali','dahisar','bhiwandi','ulhasnagar','ambernath'
   ];
 
-  var DESTINATIONS = [
+  var DEST = [
     'lonavala','mahabaleshwar','goa','shirdi','pune','nashik','alibaug',
     'matheran','kolhapur','aurangabad','igatpuri','lavasa','panchgani',
     'mahad','ratnagiri','sindhudurg','tarkarli','wai','satara',
     'trimbakeshwar','bhimashankar'
   ];
 
-  function toTitleCase(str) {
-    return str.replace(/\S+/g, function(w) {
-      return w.charAt(0).toUpperCase() + w.slice(1).toLowerCase();
-    });
-  }
+  function tc(s){ return s.replace(/\S+/g,function(w){ return w.charAt(0).toUpperCase()+w.slice(1).toLowerCase(); }); }
 
-  function kwHasLocation(kw) {
-    var lower = kw.toLowerCase();
-    var all = DESTINATIONS.concat(MUMBAI_AREAS);
-    for (var i = 0; i < all.length; i++) {
-      if (lower.indexOf(all[i]) !== -1) return true;
-    }
+  function hasLoc(kw){
+    var l=kw.toLowerCase(), all=DEST.concat(MUMBAI);
+    for(var i=0;i<all.length;i++) if(l.indexOf(all[i])!==-1) return true;
     return false;
   }
 
-  function setHeadline(text) {
-    var el = document.getElementById('headline');
-    if (el) el.textContent = text;
+  function setH(t){ var e=document.getElementById('headline'); if(e) e.textContent=t; }
+
+  function updatePill(city){
+    var e=document.getElementById('availPill');
+    if(e&&city) e.innerHTML='<span class="avail-pulse"></span>Driver available in '+city;
   }
 
-  function updatePill(city) {
-    var el = document.getElementById('availPill');
-    if (el && city) {
-      el.innerHTML = '<span class="avail-pulse"></span>Driver available in ' + city;
+  function applyDKI(city){
+    var kw=keyword.trim();
+    if(kw){
+      if(kw.length>52){ setH('Round Trip Outstation Cab from '+(city||'Mumbai')); return; }
+      var fmt=tc(kw);
+      setH(hasLoc(kw) ? fmt : fmt+' from '+(city||'Mumbai'));
+    } else if(city){
+      setH('Round Trip Outstation Cab from '+city);
     }
   }
 
-  function applyDKI(city) {
-    var MAX = 52;
-    var kw  = keyword.trim();
-    if (kw) {
-      if (kw.length > MAX) {
-        setHeadline('Round Trip Outstation Cab from ' + (city || 'Mumbai'));
-        return;
-      }
-      var fmt = toTitleCase(kw);
-      if (kwHasLocation(kw)) {
-        setHeadline(fmt);
-      } else {
-        setHeadline(fmt + ' from ' + (city || 'Mumbai'));
-      }
-    } else if (city) {
-      setHeadline('Round Trip Outstation Cab from ' + city);
-    }
-    /* else: default headline stays untouched */
-  }
-
-  /* silent IP geo — 3s timeout, no popup */
+  /* silent IP geo */
   try {
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', 'https://ipapi.co/json/', true);
-    xhr.timeout = 3000;
-    xhr.onreadystatechange = function () {
-      if (xhr.readyState !== 4) return;
-      if (xhr.status === 200) {
-        try {
-          var data  = JSON.parse(xhr.responseText);
-          var lower = (data.city || '').toLowerCase();
-          var matched = null;
-          for (var i = 0; i < MUMBAI_AREAS.length; i++) {
-            if (lower.indexOf(MUMBAI_AREAS[i]) !== -1) {
-              matched = toTitleCase(data.city);
-              break;
-            }
-          }
-          applyDKI(matched);
-          if (matched) updatePill(matched);
-          /* non-Mumbai IP → pill stays "Driver available in Mumbai" */
-        } catch(e) { applyDKI(null); }
-      } else {
-        applyDKI(null);
-      }
+    var xhr=new XMLHttpRequest();
+    xhr.open('GET','https://ipapi.co/json/',true);
+    xhr.timeout=3000;
+    xhr.onreadystatechange=function(){
+      if(xhr.readyState!==4) return;
+      if(xhr.status===200){
+        try{
+          var d=JSON.parse(xhr.responseText), cl=(d.city||'').toLowerCase(), m=null;
+          for(var i=0;i<MUMBAI.length;i++) if(cl.indexOf(MUMBAI[i])!==-1){ m=tc(d.city); break; }
+          applyDKI(m);
+          if(m) updatePill(m);
+        }catch(e){ applyDKI(null); }
+      } else { applyDKI(null); }
     };
-    xhr.onerror   = function() { applyDKI(null); };
-    xhr.ontimeout = function() { applyDKI(null); };
+    xhr.onerror=xhr.ontimeout=function(){ applyDKI(null); };
     xhr.send();
-  } catch(e) { applyDKI(null); }
+  } catch(e){ applyDKI(null); }
 
-  /* ── SHEET PING ── */
-  var payload = {
-    conversionTime:     new Date().toISOString(),
-    gclid:              gclid,          /* empty string if no gclid in URL */
-    conversionName:     'Phone Lead',
-    conversionValue:    '',
+  /* sheet ping */
+  var payload={
+    conversionTime: new Date().toISOString(),
+    gclid: gclid,
+    conversionName: 'Phone Lead',
+    conversionValue: '',
     conversionCurrency: 'INR',
-    keyword:            keyword,
-    utmSource:          utmSource,
-    utmMedium:          utmMedium,
-    utmCampaign:        utmCampaign,
-    converted:          false
+    keyword: keyword,
+    utmSource: utmSource,
+    utmMedium: utmMedium,
+    utmCampaign: utmCampaign,
+    converted: false
   };
 
-  fetch(SCRIPT_URL, {
-    method:  'POST',
-    headers: { 'Content-Type': 'text/plain' },
-    body:    JSON.stringify(payload)
-  }).catch(function(){});
+  fetch(SCRIPT_URL,{ method:'POST', headers:{'Content-Type':'text/plain'}, body:JSON.stringify(payload) }).catch(function(){});
 
-  /* log call tap — never marks as converted */
-  function logTap() {
-    var t = {};
-    for (var k in payload) t[k] = payload[k];
-    t.conversionTime = new Date().toISOString();
-    t.event = 'call_tap';
-    fetch(SCRIPT_URL, {
-      method:  'POST',
-      headers: { 'Content-Type': 'text/plain' },
-      body:    JSON.stringify(t)
-    }).catch(function(){});
+  function logTap(){
+    var t={};
+    for(var k in payload) t[k]=payload[k];
+    t.conversionTime=new Date().toISOString();
+    t.event='call_tap';
+    fetch(SCRIPT_URL,{ method:'POST', headers:{'Content-Type':'text/plain'}, body:JSON.stringify(t) }).catch(function(){});
   }
 
-  var c = document.getElementById('callBtn');
-  if (c) c.addEventListener('click', logTap);
+  var c=document.getElementById('callBtn');
+  if(c) c.addEventListener('click',logTap);
 
 }());
 
-function openModal(id)  { var m=document.getElementById(id); if(m) m.classList.add('open');    }
-function closeModal(id) { var m=document.getElementById(id); if(m) m.classList.remove('open'); }
-
-document.addEventListener('keydown', function(e) {
-  if (e.key==='Escape'||e.keyCode===27) {
-    var open=document.querySelectorAll('.modal.open');
-    for(var i=0;i<open.length;i++) open[i].classList.remove('open');
+function openModal(id){ var m=document.getElementById(id); if(m) m.classList.add('open'); }
+function closeModal(id){ var m=document.getElementById(id); if(m) m.classList.remove('open'); }
+document.addEventListener('keydown',function(e){
+  if(e.key==='Escape'||e.keyCode===27){
+    var o=document.querySelectorAll('.modal.open');
+    for(var i=0;i<o.length;i++) o[i].classList.remove('open');
   }
 });
 </script>
