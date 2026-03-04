@@ -557,8 +557,11 @@
       .card-left {
         -webkit-flex: none; flex: none;
         border-right: none;
-        border-bottom: 1px solid var(--border);
+        border-top: 1px solid var(--border);
+        border-bottom: none;
         padding: 10px 12px;
+        -webkit-order: 2;
+        order: 2;
       }
 
       .rate-line  { font-size: 15px; }
@@ -568,8 +571,8 @@
       .inc-list li { font-size: 11px; }
 
       /* car photo grows to fill right-column remainder */
-      .card-right { -webkit-flex: 1; flex: 1; min-height: 0; }
-      .car-photo  { height: 100%; -webkit-flex: 1; flex: 1; }
+      .card-right { -webkit-flex: none; flex: none; -webkit-order: 1; order: 1; }
+      .car-photo  { height: 110px; -webkit-flex: none; flex: none; }
 
       .social-proof { padding: 7px 10px; }
       .stars        { font-size: 11px; }
