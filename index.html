@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Outstation Cab from Mumbai | Cabbee</title>
-  <meta name="description" content="Round trip outstation cab from Mumbai. AC Swift Dzire CNG. Rs.16/km flat. Fuel, driver allowance, night travel included. Rs.200 off first trip.">
+  <meta name="description" content="Round trip outstation cab from Mumbai. AC Swift Dzire CNG. Rs.16/km flat. Only 15% advance. Pay rest after trip. Rs.200 off first booking.">
   <link rel="icon" type="image/png" sizes="64x64" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAABY0lEQVR42u1auxXCMAyM79HRUbEAUzAXUzAXU7AAFR019HxeEts6SfhU8pKc7nTGspJpUigUI0dhAz4u++fcNdvjrfyVAEtIe4lRohJnCVGiE7cWApnIWzwfmchb4CAb+d54yEi+Jy6yku+Fj8zke+SBafBA9uq35rPxSvhw2n38dj3fcxyGWqr/jXhPIdZ2ivCuest1IVvhXqRYIoBh/1oyNfetzU/bYDTrs5eCHCABJIAEMI3W9ta6PZYDrHvtlirW3Bf2LLCWDOtkSF0CS0kxj8XVLxlaByIW84Ca5ek2EPEYfnRdAsw3uJb5aBv0UD1K9bs4wFuEVnxESMITF5GS8cBDxKSYOIicHOP5yJCk5XORpVJWoqoRyrBeLf9X5IDoW5b1riIHRG5cGI2VHBC1d2e11XJAxBMc82QpB7AB56rLnivIAR6gv6rsMVqTA7yA36vtNVgd3gHuEe2rc8Vo8QKigpZC6dIXDAAAAABJRU5ErkJggg==">
   <link rel="shortcut icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAABY0lEQVR42u1auxXCMAyM79HRUbEAUzAXUzAXU7AAFR019HxeEts6SfhU8pKc7nTGspJpUigUI0dhAz4u++fcNdvjrfyVAEtIe4lRohJnCVGiE7cWApnIWzwfmchb4CAb+d54yEi+Jy6yku+Fj8zke+SBafBA9uq35rPxSvhw2n38dj3fcxyGWqr/jXhPIdZ2ivCuest1IVvhXqRYIoBh/1oyNfetzU/bYDTrs5eCHCABJIAEMI3W9ta6PZYDrHvtlirW3Bf2LLCWDOtkSF0CS0kxj8XVLxlaByIW84Ca5ek2EPEYfnRdAsw3uJb5aBv0UD1K9bs4wFuEVnxESMITF5GS8cBDxKSYOIicHOP5yJCk5XORpVJWoqoRyrBeLf9X5IDoW5b1riIHRG5cGI2VHBC1d2e11XJAxBMc82QpB7AB56rLnivIAR6gv6rsMVqTA7yA36vtNVgd3gHuEe2rc8Vo8QKigpZC6dIXDAAAAABJRU5ErkJggg==">
   <link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAABY0lEQVR42u1auxXCMAyM79HRUbEAUzAXUzAXU7AAFR019HxeEts6SfhU8pKc7nTGspJpUigUI0dhAz4u++fcNdvjrfyVAEtIe4lRohJnCVGiE7cWApnIWzwfmchb4CAb+d54yEi+Jy6yku+Fj8zke+SBafBA9uq35rPxSvhw2n38dj3fcxyGWqr/jXhPIdZ2ivCuest1IVvhXqRYIoBh/1oyNfetzU/bYDTrs5eCHCABJIAEMI3W9ta6PZYDrHvtlirW3Bf2LLCWDOtkSF0CS0kxj8XVLxlaByIW84Ca5ek2EPEYfnRdAsw3uJb5aBv0UD1K9bs4wFuEVnxESMITF5GS8cBDxKSYOIicHOP5yJCk5XORpVJWoqoRyrBeLf9X5IDoW5b1riIHRG5cGI2VHBC1d2e11XJAxBMc82QpB7AB56rLnivIAR6gv6rsMVqTA7yA36vtNVgd3gHuEe2rc8Vo8QKigpZC6dIXDAAAAABJRU5ErkJggg==">
@@ -25,7 +25,7 @@
       --green-l: #e8f5e9;
       --yellow:  #f5c518;
       --white:   #ffffff;
-      --gap:     12px;
+      --gap:     11px;
       --font: 'DM Sans','Roboto',-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;
     }
 
@@ -39,7 +39,7 @@
       -moz-osx-font-smoothing: grayscale;
     }
 
-    /* PAGE — locked viewport */
+    /* PAGE — locked to viewport, no scroll ever */
     .page {
       height: 100vh;
       height: 100dvh;
@@ -50,7 +50,9 @@
       overflow: hidden;
     }
 
-    /* ── TOPBAR ── */
+    /* ══════════════════════════════
+       TOPBAR
+    ══════════════════════════════ */
     .topbar {
       -webkit-flex-shrink: 0;
       flex-shrink: 0;
@@ -116,14 +118,16 @@
 
     @-webkit-keyframes gpulse {
       0%,100%{ opacity:1; -webkit-transform:scale(1); transform:scale(1); }
-      50%     { opacity:.3; -webkit-transform:scale(1.45); transform:scale(1.45); }
+      50%    { opacity:.3; -webkit-transform:scale(1.45); transform:scale(1.45); }
     }
     @keyframes gpulse {
       0%,100%{ opacity:1; transform:scale(1); }
-      50%     { opacity:.3; transform:scale(1.45); }
+      50%    { opacity:.3; transform:scale(1.45); }
     }
 
-    /* ── OFFER BAR ── */
+    /* ══════════════════════════════
+       OFFER BAR
+    ══════════════════════════════ */
     .offer-bar {
       -webkit-flex-shrink: 0;
       flex-shrink: 0;
@@ -134,9 +138,6 @@
       font-size: 12.5px;
       font-weight: 700;
       color: #4a3500;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
     }
 
     .offer-tag {
@@ -149,11 +150,13 @@
       margin-right: 5px;
     }
 
-    /* ── MAIN
-       flex:1 + flex-start + single gap token
-       Card is the ONLY flex:1 child — absorbs
-       all leftover space on any screen size
-    ── */
+    /* ══════════════════════════════
+       MAIN
+       flex:1 fills everything between
+       offer bar and footer.
+       Card is the only flex:1 child —
+       it absorbs all leftover space.
+    ══════════════════════════════ */
     .main {
       -webkit-flex: 1;
       flex: 1;
@@ -171,7 +174,9 @@
       gap: var(--gap);
     }
 
-    /* ── HEADLINE ── */
+    /* ══════════════════════════════
+       HEADLINE
+    ══════════════════════════════ */
     .headline-block {
       -webkit-flex-shrink: 0;
       flex-shrink: 0;
@@ -189,18 +194,19 @@
       letter-spacing: -0.02em;
     }
 
-    /* sub: no red, plain grey throughout */
+    /* sub: plain grey, no colour emphasis */
     .sub {
       font-size: 13px;
       color: var(--grey);
       line-height: 1.5;
     }
 
-    /* ── CARD
-       flex:1 — absorbs all leftover viewport height
-       min-height:0 — can shrink on small screens
-       NO max-height — fills large monitors properly
-    ── */
+    /* ══════════════════════════════
+       CARD
+       flex:1 — fills all remaining space
+       NO max-height — works on 4K too
+       card-left: NO overflow:hidden ever
+    ══════════════════════════════ */
     .card {
       -webkit-flex: 1;
       flex: 1;
@@ -215,10 +221,10 @@
       -webkit-flex-direction: row;
       flex-direction: row;
       background: var(--white);
-      box-shadow: 0 1px 4px rgba(32,33,36,0.08), 0 2px 10px rgba(32,33,36,0.04);
+      box-shadow: 0 1px 4px rgba(32,33,36,0.08),0 2px 10px rgba(32,33,36,0.04);
     }
 
-    /* LEFT — bullets top-anchored, NEVER overflow:hidden */
+    /* LEFT — bullets top-anchored, never clipped */
     .card-left {
       -webkit-flex: 0 0 44%;
       flex: 0 0 44%;
@@ -232,6 +238,7 @@
       align-items: flex-start;
       -webkit-justify-content: flex-start;
       justify-content: flex-start;
+      /* NO overflow:hidden — bullets must never clip */
     }
 
     .rate-line {
@@ -279,7 +286,7 @@
       gap: 7px;
       font-weight: 500;
       line-height: 1.35;
-      white-space: normal; /* wraps, never clips */
+      white-space: normal;
     }
 
     .check {
@@ -344,9 +351,9 @@
       overflow: hidden;
     }
 
-    .stars        { color: var(--yellow); font-size: 11px; letter-spacing:1px; line-height:1; }
-    .rating-num   { font-size: 12px; font-weight: 700; color: var(--black); }
-    .rating-sub   { font-size: 10px; color: var(--grey); }
+    .stars      { color: var(--yellow); font-size: 11px; letter-spacing:1px; line-height:1; }
+    .rating-num { font-size: 12px; font-weight: 700; color: var(--black); }
+    .rating-sub { font-size: 10px; color: var(--grey); }
 
     .live-tag {
       margin-left: auto;
@@ -370,7 +377,9 @@
       animation: gpulse 1.8s ease-in-out infinite;
     }
 
-    /* ── EXCL STRIP ── */
+    /* ══════════════════════════════
+       EXCL STRIP
+    ══════════════════════════════ */
     .excl-strip {
       -webkit-flex-shrink: 0;
       flex-shrink: 0;
@@ -388,11 +397,63 @@
       gap: 7px;
     }
 
-    .excl-icon { font-size: 12px; -webkit-flex-shrink:0; flex-shrink:0; margin-top:1px; }
-    .excl-body { font-size: 11px; color: var(--grey); line-height: 1.55; }
-    .excl-body strong { color: var(--black); font-weight: 600; }
+    .excl-icon { font-size:12px; -webkit-flex-shrink:0; flex-shrink:0; margin-top:1px; }
+    .excl-body { font-size:11px; color:var(--grey); line-height:1.55; }
+    .excl-body strong { color:var(--black); font-weight:600; }
 
-    /* ── CTA BLOCK ── */
+    /* ══════════════════════════════
+       TRUST BADGE ROW
+       3 equal badges, inline SVG icons
+    ══════════════════════════════ */
+    .trust-row {
+      -webkit-flex-shrink: 0;
+      flex-shrink: 0;
+      width: 100%;
+      max-width: 700px;
+      display: -webkit-flex;
+      display: flex;
+      gap: 8px;
+    }
+
+    .trust-badge {
+      -webkit-flex: 1;
+      flex: 1;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-align-items: center;
+      align-items: center;
+      gap: 7px;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      padding: 8px 10px;
+    }
+
+    .trust-badge svg {
+      width: 16px; height: 16px;
+      -webkit-flex-shrink: 0;
+      flex-shrink: 0;
+      color: var(--green);
+    }
+
+    .trust-badge-text {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--black);
+      line-height: 1.3;
+    }
+
+    .trust-badge-sub {
+      font-size: 9.5px;
+      color: var(--grey);
+      line-height: 1.2;
+      display: block;
+      font-weight: 400;
+    }
+
+    /* ══════════════════════════════
+       CTA BLOCK
+    ══════════════════════════════ */
     .cta-block {
       -webkit-flex-shrink: 0;
       flex-shrink: 0;
@@ -425,8 +486,8 @@
       width: 100%;
       max-width: 320px;
       box-shadow: 0 3px 12px rgba(26,138,60,0.3);
-      -webkit-transition: background 0.15s, -webkit-transform 0.1s;
-      transition: background 0.15s, transform 0.1s;
+      -webkit-transition: background 0.15s,-webkit-transform 0.1s;
+      transition: background 0.15s,transform 0.1s;
       -webkit-tap-highlight-color: transparent;
       cursor: pointer;
       border: none;
@@ -443,15 +504,7 @@
       font-weight: 600;
       color: var(--black);
       letter-spacing: 0.04em;
-      margin-bottom: 4px;
-    }
-
-    /* reassurance line — kills prepay fear + cancellation worry */
-    .reassure {
-      font-size: 10.5px;
-      color: var(--grey);
-      text-align: center;
-      margin-bottom: 4px;
+      margin-bottom: 5px;
     }
 
     .cta-steps {
@@ -460,9 +513,11 @@
       text-align: center;
     }
 
-    .cta-steps strong { color: var(--black); font-weight: 600; }
+    .cta-steps strong { color:var(--black); font-weight:600; }
 
-    /* ── FOOTER ── */
+    /* ══════════════════════════════
+       FOOTER
+    ══════════════════════════════ */
     .footer {
       -webkit-flex-shrink: 0;
       flex-shrink: 0;
@@ -471,11 +526,13 @@
       text-align: center;
     }
 
-    .footer p { font-size: 10px; color: #bdc1c6; }
-    .footer a { color: #bdc1c6; text-decoration: none; }
-    .footer a:hover { color: var(--grey); }
+    .footer p { font-size:10px; color:#bdc1c6; }
+    .footer a { color:#bdc1c6; text-decoration:none; }
+    .footer a:hover { color:var(--grey); }
 
-    /* ── MODALS ── */
+    /* ══════════════════════════════
+       MODALS
+    ══════════════════════════════ */
     .modal {
       display: none;
       position: fixed;
@@ -511,46 +568,51 @@
       font-size:22px; color:var(--grey);
       cursor:pointer; background:none;
       border:none; line-height:1;
+      font-family: var(--font);
     }
 
     .modal-close:hover { color:var(--black); }
 
-    /* ═══════════════════════════
+    /* ══════════════════════════════
        TABLET  601–900px
-    ═══════════════════════════ */
+    ══════════════════════════════ */
     @media (min-width:601px) and (max-width:900px) {
-      :root { --gap: 10px; }
-      .main      { padding: var(--gap) 16px; }
-      h1         { font-size: 20px; }
-      .sub       { font-size: 12px; }
-      .card-left { padding: 12px 13px; }
-      .rate-line { font-size: 16px; }
-      .rate-sub  { margin-bottom: 10px; }
-      .inc-list  { gap: 6px; }
-      .inc-list li { font-size: 11px; }
+      :root { --gap: 9px; }
+      .main       { padding: var(--gap) 16px; }
+      h1          { font-size: 20px; }
+      .sub        { font-size: 12px; }
+      .card-left  { padding: 12px 13px; }
+      .rate-line  { font-size: 16px; }
+      .rate-sub   { margin-bottom: 10px; }
+      .inc-list   { gap: 6px; }
+      .inc-list li{ font-size: 11px; }
       .section-label { margin-bottom: 7px; }
-      .btn-call  { font-size: 15px; padding: 12px 28px; }
-      .logo-text { font-size: 21px; }
+      .btn-call   { font-size: 15px; padding: 12px 28px; }
+      .logo-text  { font-size: 21px; }
+      .trust-badge { padding: 7px 9px; }
+      .trust-badge-text { font-size: 10.5px; }
+      .trust-badge-sub  { font-size: 9px; }
     }
 
-    /* ═══════════════════════════
+    /* ══════════════════════════════
        MOBILE  ≤600px
 
-       Card layout contract:
-       · card        — flex:1, column
-       · card-right  — flex:0 0 160px, order:1
-       · card-left   — flex:1, order:2
-                        NO overflow:hidden EVER
-                        all 6 bullets always visible
-    ═══════════════════════════ */
+       Card contract:
+       · card       — flex:1, column
+       · card-right — flex:0 0 160px, order:1
+       · card-left  — flex:1, order:2
+                       justify-content:flex-start
+                       NO overflow:hidden EVER
+       Trust badges — 2+1 wrap on small screens
+    ══════════════════════════════ */
     @media (max-width:600px) {
       :root { --gap: 8px; }
 
       html, body { overflow: hidden; }
 
-      .topbar     { padding: 7px 13px; }
-      .logo-text  { font-size: 20px; }
-      .offer-bar  { font-size: 11.5px; padding: 6px 13px; }
+      .topbar    { padding: 7px 13px; }
+      .logo-text { font-size: 20px; }
+      .offer-bar { font-size: 11px; padding: 6px 13px; }
 
       .main {
         padding: var(--gap) 12px;
@@ -560,7 +622,7 @@
       h1   { font-size: 18px; margin-bottom: 3px; }
       .sub { font-size: 11px; }
 
-      /* card: column, fills remaining height */
+      /* card: fills remaining height, column */
       .card {
         -webkit-flex: 1;
         flex: 1;
@@ -569,7 +631,7 @@
         flex-direction: column;
       }
 
-      /* image: fixed 160px, order 1 — appears first */
+      /* image: 160px fixed, order 1 */
       .card-right {
         -webkit-flex: 0 0 160px;
         flex: 0 0 160px;
@@ -591,9 +653,7 @@
         display: block;
       }
 
-      /* bullets: fills remaining card height, order 2
-         flex-start anchors content top
-         NO overflow:hidden — bullets never clip */
+      /* bullets: fills remaining card, order 2, NEVER clips */
       .card-left {
         -webkit-flex: 1; flex: 1;
         min-height: 0;
@@ -608,7 +668,7 @@
         align-items: flex-start;
         border-right: none;
         border-top: 1px solid var(--border);
-        padding: 9px 11px 9px;
+        padding: 9px 11px;
       }
 
       .rate-line     { font-size: 14px; }
@@ -616,21 +676,28 @@
       .section-label { font-size: 8.5px; margin-bottom: 5px; }
       .inc-list      { gap: 5px; width: 100%; }
       .inc-list li   { font-size: 10.5px; gap: 6px; }
-      .check         { width: 13px; height: 13px; min-width: 13px; }
+      .check         { width:13px; height:13px; min-width:13px; }
 
       .social-proof { padding: 6px 10px; }
       .stars        { font-size: 10px; }
       .rating-num   { font-size: 11px; }
-      .rating-sub   { font-size: 9.5px; }
+      .rating-sub   { font-size: 9px; }
       .live-tag     { font-size: 9.5px; }
       .live-dot     { width:5px; height:5px; }
 
       .excl-strip { padding: 6px 10px; }
       .excl-body  { font-size: 10px; }
 
+      /* trust badges: wrap naturally on small screens */
+      .trust-row    { -webkit-flex-wrap: wrap; flex-wrap: wrap; gap: 6px; }
+      .trust-badge  { -webkit-flex: 1 1 calc(50% - 3px); flex: 1 1 calc(50% - 3px); min-width: 0; padding: 7px 8px; gap: 6px; }
+      .trust-badge:last-child { -webkit-flex: 1 1 100%; flex: 1 1 100%; }
+      .trust-badge svg { width:14px; height:14px; }
+      .trust-badge-text { font-size: 10px; }
+      .trust-badge-sub  { font-size: 8.5px; }
+
       .btn-call   { font-size: 15px; padding: 12px 20px; max-width: 100%; margin-bottom: 5px; }
-      .phone-num  { font-size: 13px; margin-bottom: 3px; }
-      .reassure   { font-size: 9.5px; margin-bottom: 3px; }
+      .phone-num  { font-size: 13px; margin-bottom: 4px; }
       .cta-steps  { font-size: 10px; }
       .avail-pill { font-size: 10px; padding: 4px 9px; }
     }
@@ -638,6 +705,9 @@
     @media (min-width:390px) and (max-width:600px) {
       h1 { font-size: 19px; }
       .inc-list li { font-size: 11px; }
+      /* on wider phones all 3 badges fit in one row */
+      .trust-badge { -webkit-flex: 1 1 0; flex: 1 1 0; }
+      .trust-badge:last-child { -webkit-flex: 1 1 0; flex: 1 1 0; }
     }
 
     @media (max-width:360px) {
@@ -645,7 +715,7 @@
       .logo-text    { font-size: 18px; }
       .inc-list li  { font-size: 10px; }
       .btn-call     { font-size: 14px; }
-      .offer-bar    { font-size: 10.5px; }
+      .offer-bar    { font-size: 10px; }
     }
   </style>
 </head>
@@ -683,7 +753,7 @@
     <!-- CARD -->
     <div class="card">
 
-      <!-- LEFT: rate + all 6 bullets -->
+      <!-- LEFT: rate + 6 bullets -->
       <div class="card-left">
         <div class="rate-line">&#8377;16 per km</div>
         <div class="rate-sub">Flat rate &nbsp;&middot;&nbsp; No meter &nbsp;&middot;&nbsp; No surprises</div>
@@ -694,7 +764,7 @@
           <li><span class="check"></span>Driver allowance included</li>
           <li><span class="check"></span>Night travel, no extra charge</li>
           <li><span class="check"></span>Return journey, driver stays with you</li>
-          <li><span class="check"></span>One driver, always the same — no middleman, ever</li>
+          <li><span class="check"></span>One driver, always the same &mdash; no middleman, ever</li>
         </ul>
       </div>
 
@@ -729,6 +799,50 @@
       </div>
     </div>
 
+    <!-- TRUST BADGE ROW -->
+    <div class="trust-row" role="list">
+
+      <!-- Badge 1: 15% advance -->
+      <div class="trust-badge" role="listitem">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+             stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="2" y="5" width="20" height="14" rx="2"/>
+          <path d="M2 10h20"/>
+        </svg>
+        <div>
+          <span class="trust-badge-text">Only 15% advance</span>
+          <span class="trust-badge-sub">to confirm your booking</span>
+        </div>
+      </div>
+
+      <!-- Badge 2: Pay rest after trip -->
+      <div class="trust-badge" role="listitem">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+             stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 2a10 10 0 1 0 0 20A10 10 0 0 0 12 2z"/>
+          <path d="M12 6v6l4 2"/>
+        </svg>
+        <div>
+          <span class="trust-badge-text">Pay rest after trip</span>
+          <span class="trust-badge-sub">Cash or UPI — your choice</span>
+        </div>
+      </div>
+
+      <!-- Badge 3: Free cancellation -->
+      <div class="trust-badge" role="listitem">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+             stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          <path d="M9 12l2 2 4-4"/>
+        </svg>
+        <div>
+          <span class="trust-badge-text">Free cancellation</span>
+          <span class="trust-badge-sub">Up to 6 hours before pickup</span>
+        </div>
+      </div>
+
+    </div><!-- /trust-row -->
+
     <!-- CTA -->
     <div class="cta-block">
       <a href="tel:+919876543210" class="btn-call" id="callBtn">
@@ -743,7 +857,6 @@
         Call to Get Your Price
       </a>
       <div class="phone-num">+91 98765 43210</div>
-      <p class="reassure">Pay after your trip &nbsp;&middot;&nbsp; Cash or UPI &nbsp;&middot;&nbsp; Free cancellation 6hr before</p>
       <p class="cta-steps">
         <strong>Call</strong> &nbsp;&#8594;&nbsp;
         <strong>Get your route price</strong> &nbsp;&#8594;&nbsp;
@@ -785,11 +898,11 @@
     <button class="modal-close" onclick="closeModal('termsModal')">&times;</button>
     <h3>Terms &amp; Conditions</h3>
     <p><strong>Round trips only.</strong> We do not do one-way drops. Your driver stays with you and brings you back.</p>
-    <p><strong>Price:</strong> &#8377;16 per km, flat. Includes AC, fuel, driver allowance, and night travel.</p>
-    <p><strong>What you pay on the road:</strong> Tolls, state border tax, airport or parking fees at the actual government rate. Receipt provided every time.</p>
-    <p><strong>First trip offer:</strong> &#8377;200 off — mention this when you call. One per customer.</p>
-    <p><strong>Cancellation:</strong> Free up to 6 hours before pickup.</p>
-    <p><strong>Payment:</strong> Cash or UPI, settled after your trip.</p>
+    <p><strong>Price:</strong> &#8377;16 per km, flat rate. Includes AC, CNG fuel both ways, driver allowance, and night travel. No hidden charges.</p>
+    <p><strong>Advance payment:</strong> 15% of the total trip cost is collected at time of booking confirmation to secure your slot. The remaining 85% is paid after your trip by cash or UPI.</p>
+    <p><strong>What you pay on the road:</strong> Tolls, state border tax, airport or parking fees at the actual government rate. We provide the receipt every time.</p>
+    <p><strong>Cancellation:</strong> Free cancellation up to 6 hours before your pickup time. Advance is fully refunded. Cancellations within 6 hours forfeit the advance.</p>
+    <p><strong>First trip offer:</strong> &#8377;200 off — mention this when you call. One per customer. Offer can end anytime.</p>
   </div>
 </div>
 
@@ -810,7 +923,7 @@
 
   var p=new URLSearchParams(window.location.search);
 
-  /* GCLID: URL first, cookie fallback for redirect hops */
+  /* GCLID: URL first, cookie fallback handles redirect hops */
   var gclid=p.get('gclid')||getCookie('gclid')||'';
   if(p.get('gclid')) setCookie('gclid',p.get('gclid'),90);
 
@@ -840,7 +953,9 @@
   ];
 
   function tc(s){
-    return s.replace(/\S+/g,function(w){return w.charAt(0).toUpperCase()+w.slice(1).toLowerCase();});
+    return s.replace(/\S+/g,function(w){
+      return w.charAt(0).toUpperCase()+w.slice(1).toLowerCase();
+    });
   }
 
   function hasLoc(kw){
@@ -880,12 +995,12 @@
           for(var i=0;i<MUMBAI.length;i++) if(cl.indexOf(MUMBAI[i])!==-1){m=tc(d.city);break;}
           applyDKI(m);
           if(m) updatePill(m);
-        }catch(e){applyDKI(null);}
+        }catch(e2){applyDKI(null);}
       } else {applyDKI(null);}
     };
     xhr.onerror=xhr.ontimeout=function(){applyDKI(null);};
     xhr.send();
-  }catch(e){applyDKI(null);}
+  }catch(e3){applyDKI(null);}
 
   /* sheet ping on page load */
   var payload={
@@ -901,15 +1016,23 @@
     converted:false
   };
 
-  fetch(SCRIPT_URL,{method:'POST',headers:{'Content-Type':'text/plain'},body:JSON.stringify(payload)}).catch(function(){});
+  fetch(SCRIPT_URL,{
+    method:'POST',
+    headers:{'Content-Type':'text/plain'},
+    body:JSON.stringify(payload)
+  }).catch(function(){});
 
-  /* log call tap — never marks converted */
+  /* log call tap — never marks as converted */
   function logTap(){
     var t={};
     for(var k in payload) t[k]=payload[k];
     t.conversionTime=new Date().toISOString();
     t.event='call_tap';
-    fetch(SCRIPT_URL,{method:'POST',headers:{'Content-Type':'text/plain'},body:JSON.stringify(t)}).catch(function(){});
+    fetch(SCRIPT_URL,{
+      method:'POST',
+      headers:{'Content-Type':'text/plain'},
+      body:JSON.stringify(t)
+    }).catch(function(){});
   }
 
   var c=document.getElementById('callBtn');
