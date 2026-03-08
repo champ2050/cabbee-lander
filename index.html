@@ -208,6 +208,7 @@
     }
 
     .trust-strip svg {
+      display: block;
       width: 13px; height: 13px;
       flex-shrink: 0;
       color: var(--green-d);
@@ -523,6 +524,7 @@
     }
 
     .routes-cta svg {
+      display: block;
       width: 12px; height: 12px;
       flex-shrink: 0;
       color: var(--grey);
@@ -675,18 +677,27 @@
     }
 
     .trust-badge svg {
+      display: block;
       width: 15px; height: 15px;
       flex-shrink: 0;
     }
 
     /* Tinted icon circle — each badge gets its own colour */
     .badge-icon {
-      width: 32px; height: 32px;
-      min-width: 32px;
+      width: 34px; height: 34px;
+      min-width: 34px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
+      flex-shrink: 0;
+      align-self: center;
+    }
+
+    /* Override SVG size specifically inside the icon circle */
+    .badge-icon svg {
+      display: block;
+      width: 16px; height: 16px;
       flex-shrink: 0;
     }
 
@@ -698,6 +709,9 @@
       display: flex;
       flex-direction: column;
       gap: 2px;
+      justify-content: center;
+      align-self: center;
+      min-width: 0;
     }
 
     .trust-badge-text {
@@ -879,7 +893,7 @@
       .btn-call    { font-size: 15px; padding: 13px 24px; }
       .trust-badge-text { font-size: 11px; }
       .trust-badge-sub  { font-size: 9.5px; }
-      .badge-icon   { width: 30px; height: 30px; min-width: 30px; }
+      .badge-icon   { width: 32px; height: 32px; min-width: 32px; }
     }
 
     /* ══════════════════════════════
@@ -979,9 +993,9 @@
 
       /* Trust badges */
       .trust-row    { gap: 6px; }
-      .trust-badge  { padding: 8px; gap: 8px; }
-      .badge-icon   { width: 28px; height: 28px; min-width: 28px; }
-      .trust-badge svg { width: 13px; height: 13px; }
+      .trust-badge  { padding: 9px 8px; gap: 8px; }
+      .badge-icon   { width: 30px; height: 30px; min-width: 30px; }
+      .badge-icon svg { width: 14px; height: 14px; }
       .trust-badge-text { font-size: 10.5px; }
       .trust-badge-sub  { font-size: 9px; }
 
