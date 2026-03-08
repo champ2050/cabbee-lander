@@ -261,18 +261,34 @@
       list-style: none;
       display: flex;
       flex-direction: column;
-      gap: 9px;
+      gap: 10px;
       width: 100%;
     }
 
     .inc-list li {
-      font-size: 12.5px;
-      color: var(--black);
       display: flex;
       align-items: flex-start;
-      gap: 8px;
-      font-weight: 500;
-      line-height: 1.4;
+      gap: 9px;
+    }
+
+    .bullet-text {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+
+    .bullet-label {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--black);
+      line-height: 1.3;
+    }
+
+    .bullet-detail {
+      font-size: 11px;
+      font-weight: 400;
+      color: var(--grey);
+      line-height: 1.35;
     }
 
     .check {
@@ -324,7 +340,7 @@
       display: flex;
       align-items: center;
       gap: 5px;
-      margin-bottom: 5px;
+      margin-bottom: 0;
     }
 
     .stars {
@@ -361,9 +377,7 @@
       display: flex;
       align-items: center;
       gap: 9px;
-      margin-top: 7px;
-      padding-top: 7px;
-      border-top: 1px solid var(--border);
+      margin-top: 8px;
     }
 
     .driver-avatar {
@@ -473,14 +487,13 @@
       border-radius: 8px;
       padding: 7px 12px;
       text-align: center;
-      cursor: default;
       -webkit-user-select: none;
       user-select: none;
+      transition: border-color 0.15s;
     }
 
-    /* First two bullets slightly bolder — most critical info */
-    .inc-list li:nth-child(-n+2) {
-      font-weight: 600;
+    .routes-scroll:hover .route-chip:hover {
+      border-color: #9ca3af;
     }
 
     .route-dest {
@@ -501,19 +514,27 @@
     }
 
     .routes-cta {
-      display: block;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
       margin-top: 9px;
-      font-size: 12px;
+      font-size: 11.5px;
       font-weight: 500;
       color: var(--grey);
-      text-decoration: underline;
-      text-underline-offset: 2px;
-      letter-spacing: 0;
-      transition: color 0.1s;
+      text-decoration: none;
+      transition: color 0.12s;
       padding-left: 1px;
     }
 
-    .routes-cta:hover { color: var(--black); }
+    .routes-cta svg {
+      width: 12px; height: 12px;
+      flex-shrink: 0;
+      color: var(--grey);
+      transition: color 0.12s;
+    }
+
+    .routes-cta:hover,
+    .routes-cta:hover svg { color: var(--black); }
 
     /* Details/summary — show all bullets toggle */
     .inc-more {
@@ -787,8 +808,9 @@
       .card-left   { padding: 15px 16px; }
       .rate-line   { font-size: 20px; }
       .rate-sub    { margin-bottom: 11px; }
-      .inc-list    { gap: 7px; }
-      .inc-list li { font-size: 12px; }
+      .inc-list    { gap: 8px; }
+      .bullet-label  { font-size: 12px; }
+      .bullet-detail { font-size: 10.5px; }
       .btn-call    { font-size: 16px; padding: 13px 28px; }
     }
 
@@ -802,8 +824,9 @@
       .sub         { font-size: 13px; }
       .card-left   { padding: 13px 13px; }
       .rate-line   { font-size: 18px; }
-      .inc-list    { gap: 6px; }
-      .inc-list li { font-size: 11.5px; }
+      .inc-list    { gap: 8px; }
+      .bullet-label  { font-size: 11.5px; }
+      .bullet-detail { font-size: 10.5px; }
       .btn-call    { font-size: 15px; padding: 13px 24px; }
       .trust-badge-text { font-size: 11px; }
       .trust-badge-sub  { font-size: 9.5px; }
@@ -877,8 +900,6 @@
         background: #fafafa;
         border-top: 1px solid var(--border);
         margin-top: 0;
-        padding-top: 8px;
-        border-top: 1px solid var(--border);
       }
 
       .mobile-driver-row .driver-name  { font-size: 12.5px; }
@@ -902,8 +923,9 @@
       .rate-line     { font-size: 16px; }
       .rate-sub      { font-size: 10.5px; margin-bottom: 10px; }
       .section-label { font-size: 8.5px; margin-bottom: 7px; }
-      .inc-list      { gap: 11px; }
-      .inc-list li   { font-size: 12px; }
+      .inc-list      { gap: 10px; }
+      .bullet-label  { font-size: 12px; }
+      .bullet-detail { font-size: 10.5px; }
 
       /* Trust badges */
       .trust-row    { gap: 6px; }
@@ -966,7 +988,8 @@
     @media (max-width: 360px) {
       h1            { font-size: 17px; }
       .logo-text    { font-size: 19px; }
-      .inc-list li  { font-size: 11px; }
+      .bullet-label  { font-size: 11px; }
+      .bullet-detail { font-size: 10px; }
       .offer-bar    { font-size: 11px; }
       .trust-badge-sub { display: none; }
       .mobile-hero-img { height: 200px; }
@@ -1054,31 +1077,56 @@
         <ul class="inc-list">
           <li>
             <span class="check" aria-hidden="true"></span>
-            AC cabin, cool and comfortable — short trips or all-day drives, no sweating it out
+            <span class="bullet-text">
+              <span class="bullet-label">AC all the way</span>
+              <span class="bullet-detail">Cool and comfortable, short trips or 12-hour drives</span>
+            </span>
           </li>
           <li>
             <span class="check" aria-hidden="true"></span>
-            Fuel both ways, fully covered. You never pay for petrol or gas on the road
+            <span class="bullet-text">
+              <span class="bullet-label">Fuel fully covered</span>
+              <span class="bullet-detail">Both ways, you pay nothing extra on the road</span>
+            </span>
           </li>
           <li>
             <span class="check" aria-hidden="true"></span>
-            Roof carrier on top — family bags, big suitcases, all taken care of, no squeezing into the back
+            <span class="bullet-text">
+              <span class="bullet-label">Roof carrier included</span>
+              <span class="bullet-detail">Family bags or big luggage, no squeezing into the back</span>
+            </span>
           </li>
         </ul>
         <details class="inc-more" id="incMore">
-          <summary class="inc-more-toggle">See 3 more things included &#9660;</summary>
+          <summary class="inc-more-toggle">See 4 more things included &#9660;</summary>
           <ul class="inc-list inc-list-extra">
             <li>
               <span class="check" aria-hidden="true"></span>
-              You know who your driver is before the trip day. No surprise driver change on the morning
+              <span class="bullet-text">
+                <span class="bullet-label">Your driver, confirmed</span>
+                <span class="bullet-detail">You know who is coming before the trip day, no last-minute change</span>
+              </span>
             </li>
             <li>
               <span class="check" aria-hidden="true"></span>
-              Night travel included — return at any hour, nothing extra to pay
+              <span class="bullet-text">
+                <span class="bullet-label">Night travel, no extra</span>
+                <span class="bullet-detail">Return at any hour, nothing added to the bill</span>
+              </span>
             </li>
             <li>
               <span class="check" aria-hidden="true"></span>
-              Just 15% to lock in your trip — pay the rest after you are home, cash or UPI
+              <span class="bullet-text">
+                <span class="bullet-label">Music your way</span>
+                <span class="bullet-detail">Connect via Bluetooth or use the car's built-in system</span>
+              </span>
+            </li>
+            <li>
+              <span class="check" aria-hidden="true"></span>
+              <span class="bullet-text">
+                <span class="bullet-label">Only 15% to confirm</span>
+                <span class="bullet-detail">Pay the rest after you are home, cash or UPI</span>
+              </span>
             </li>
           </ul>
         </details>
@@ -1162,7 +1210,17 @@
         </div>
       </div><!-- /.routes-scroll -->
       </div><!-- /.routes-scroll-wrap -->
-      <a href="tel:+919876543210" class="routes-cta" id="routesCallBtn">Call to check the price for your route &rarr;</a>
+      <a href="tel:+919876543210" class="routes-cta" id="routesCallBtn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07
+                   A19.5 19.5 0 013.07 9.8 19.79 19.79 0 01.08 1.18
+                   A2 2 0 012.06 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81
+                   a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27
+                   a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z"/>
+        </svg>
+        Call to check the price for your route
+      </a>
     </div>
 
     <!-- EXCLUSIONS STRIP -->
@@ -1377,7 +1435,7 @@
   if (pd) pd.textContent = monthYear;
   if (td) td.textContent = monthYear;
 
-  /* Open all bullets on desktop — details element */
+  /* Open all bullets on desktop and tablet */
   var incMore = document.getElementById('incMore');
   if (incMore && window.innerWidth > 600) { incMore.open = true; }
 
