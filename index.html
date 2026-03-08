@@ -335,12 +335,11 @@
 
     .car-photo {
       width: 100%;
-      flex: 1;
-      min-height: 200px;
-      max-height: 260px;
+      height: 240px;
       object-fit: cover;
       object-position: center 55%;
       display: block;
+      flex-shrink: 0;
     }
 
     /* Social proof + car credential combined */
@@ -923,6 +922,7 @@
       .trust-badge-text { font-size: 11px; }
       .trust-badge-sub  { font-size: 9.5px; }
       .badge-icon   { width: 32px; height: 32px; min-width: 32px; }
+      .car-photo   { height: 190px; }
     }
 
     /* ══════════════════════════════
