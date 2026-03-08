@@ -580,9 +580,19 @@
       border-top: 1px solid var(--border);
       line-height: 1.5;
       display: flex;
+      flex-direction: column;
+      gap: 3px;
+      max-width: 100%;
+      overflow: hidden;
+    }
+
+    .car-cred-row {
+      display: flex;
       align-items: center;
-      gap: 5px;
-      flex-wrap: wrap;
+      gap: 4px;
+      flex-wrap: nowrap;
+      max-width: 100%;
+      overflow: hidden;
     }
 
     .car-cred-name {
@@ -609,9 +619,9 @@
     .car-cred-pill {
       display: inline-flex;
       align-items: center;
-      background: var(--green-l);
-      border: 1px solid var(--green-b);
-      color: var(--green-d);
+      background: #f3f4f6;
+      border: 1px solid #d1d5db;
+      color: #374151;
       font-size: 9px;
       font-weight: 700;
       padding: 1px 6px;
@@ -1158,8 +1168,8 @@
           <li>
             <span class="check" aria-hidden="true"></span>
             <span class="bullet-text">
-              <span class="bullet-label">AC all the way</span>
-              <span class="bullet-detail">Cool and comfortable, short trips or 12-hour drives</span>
+              <span class="bullet-label">Your driver, confirmed</span>
+              <span class="bullet-detail">Name and number shared before your trip day</span>
             </span>
           </li>
           <li>
@@ -1172,8 +1182,8 @@
           <li>
             <span class="check" aria-hidden="true"></span>
             <span class="bullet-text">
-              <span class="bullet-label">Roof carrier included</span>
-              <span class="bullet-detail">Family bags, big suitcases — fits everything</span>
+              <span class="bullet-label">Only 15% to confirm</span>
+              <span class="bullet-detail">Pay the rest after you are home, cash or UPI</span>
             </span>
           </li>
         </ul>
@@ -1183,8 +1193,15 @@
             <li>
               <span class="check" aria-hidden="true"></span>
               <span class="bullet-text">
-                <span class="bullet-label">Your driver, confirmed</span>
-                <span class="bullet-detail">Name and number shared before your trip day</span>
+                <span class="bullet-label">AC all the way</span>
+                <span class="bullet-detail">Cool and comfortable, short trips or 12-hour drives</span>
+              </span>
+            </li>
+            <li>
+              <span class="check" aria-hidden="true"></span>
+              <span class="bullet-text">
+                <span class="bullet-label">Roof carrier included</span>
+                <span class="bullet-detail">Family bags, big suitcases — fits everything</span>
               </span>
             </li>
             <li>
@@ -1199,13 +1216,6 @@
               <span class="bullet-text">
                 <span class="bullet-label">Music your way</span>
                 <span class="bullet-detail">Bluetooth or built-in — your playlist, your trip</span>
-              </span>
-            </li>
-            <li>
-              <span class="check" aria-hidden="true"></span>
-              <span class="bullet-text">
-                <span class="bullet-label">Only 15% to confirm</span>
-                <span class="bullet-detail">Pay the rest after you are home, cash or UPI</span>
               </span>
             </li>
           </ul>
@@ -1236,30 +1246,33 @@
             <span class="driver-tag">Your driver</span>
           </div>
           <div class="car-cred-line">
-            <span class="car-cred-icon car-cred-icon-car" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M5 17H3a1 1 0 01-1-1v-3l2-6h14l2 6v3a1 1 0 01-1 1h-2"/>
-                <circle cx="7.5" cy="17" r="2.5"/>
-                <circle cx="16.5" cy="17" r="2.5"/>
-                <path d="M5 10h14"/>
-              </svg>
-            </span>
-            <span class="car-cred-name">Maruti Suzuki Dzire Tour S CNG</span>
-            <span class="car-cred-pill">Luxury Sedan</span>
-            <span class="car-cred-dot">&middot;</span>
-            <span class="car-cred-icon car-cred-icon-wrench" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/>
-              </svg>
-            </span>
-            Serviced <span id="serviceYear"></span>
-            <span class="car-cred-dot">&middot;</span>
-            <span class="car-cred-icon car-cred-icon-person" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/>
-              </svg>
-            </span>
-            Single owner
+            <div class="car-cred-row">
+              <span class="car-cred-icon car-cred-icon-car" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M5 17H3a1 1 0 01-1-1v-3l2-6h14l2 6v3a1 1 0 01-1 1h-2"/>
+                  <circle cx="7.5" cy="17" r="2.5"/>
+                  <circle cx="16.5" cy="17" r="2.5"/>
+                  <path d="M5 10h14"/>
+                </svg>
+              </span>
+              <span class="car-cred-name">Maruti Suzuki Dzire Tour S CNG</span>
+              <span class="car-cred-pill">Luxury Sedan</span>
+            </div>
+            <div class="car-cred-row">
+              <span class="car-cred-icon car-cred-icon-wrench" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/>
+                </svg>
+              </span>
+              Serviced <span id="serviceYear"></span>
+              <span class="car-cred-dot">&middot;</span>
+              <span class="car-cred-icon car-cred-icon-person" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/>
+                </svg>
+              </span>
+              Single owner
+            </div>
           </div>
         </div>
       </div>
