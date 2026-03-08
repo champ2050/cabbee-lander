@@ -193,8 +193,19 @@
       gap: 8px;
     }
 
+    .trust-strip-icon {
+      width: 24px; height: 24px;
+      min-width: 24px;
+      background: rgba(255,255,255,0.7);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
     .trust-strip svg {
-      width: 15px; height: 15px;
+      width: 13px; height: 13px;
       flex-shrink: 0;
       color: var(--green-d);
     }
@@ -636,8 +647,8 @@
     .trust-badge {
       flex: 1;
       display: flex;
-      align-items: flex-start;
-      gap: 8px;
+      align-items: center;
+      gap: 10px;
       background: var(--white);
       border: 1px solid var(--border);
       border-radius: var(--r);
@@ -645,11 +656,24 @@
     }
 
     .trust-badge svg {
-      width: 16px; height: 16px;
+      width: 15px; height: 15px;
       flex-shrink: 0;
-      color: #9ca3af;
-      margin-top: 1px;
     }
+
+    /* Tinted icon circle — each badge gets its own colour */
+    .badge-icon {
+      width: 32px; height: 32px;
+      min-width: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .badge-icon-blue   { background: #eff6ff; color: #3b82f6; }
+    .badge-icon-amber  { background: #fffbeb; color: #d97706; }
+    .badge-icon-green  { background: var(--green-l); color: var(--green-d); }
 
     .trust-badge-inner {
       display: flex;
@@ -836,6 +860,7 @@
       .btn-call    { font-size: 15px; padding: 13px 24px; }
       .trust-badge-text { font-size: 11px; }
       .trust-badge-sub  { font-size: 9.5px; }
+      .badge-icon   { width: 30px; height: 30px; min-width: 30px; }
     }
 
     /* ══════════════════════════════
@@ -935,8 +960,9 @@
 
       /* Trust badges */
       .trust-row    { gap: 6px; }
-      .trust-badge  { padding: 9px 9px; gap: 7px; }
-      .trust-badge svg { width: 15px; height: 15px; }
+      .trust-badge  { padding: 8px; gap: 8px; }
+      .badge-icon   { width: 28px; height: 28px; min-width: 28px; }
+      .trust-badge svg { width: 13px; height: 13px; }
       .trust-badge-text { font-size: 10.5px; }
       .trust-badge-sub  { font-size: 9px; }
 
@@ -1030,11 +1056,13 @@
 
     <!-- TRUST STRIP — visible on all devices -->
     <div class="trust-strip">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
-           stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-        <path d="M9 12l2 2 4-4"/>
-      </svg>
+      <div class="trust-strip-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="10"/>
+          <path d="M9 12l2 2 4-4"/>
+        </svg>
+      </div>
       <div class="trust-strip-text">
         Roof carrier included &nbsp;&middot;&nbsp; Single owner &nbsp;&middot;&nbsp; Taking bookings now
       </div>
@@ -1058,8 +1086,7 @@
       <div class="mobile-hero-cred">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
              stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <circle cx="12" cy="12" r="10"/>
-          <path d="M12 6v6l4 2"/>
+          <path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/>
         </svg>
         Maruti Swift Dzire &nbsp;&middot;&nbsp; Serviced <span id="serviceYearMobile"></span> &nbsp;&middot;&nbsp; Single owner
       </div>
@@ -1246,11 +1273,13 @@
     <div class="trust-row" role="list">
 
       <div class="trust-badge" role="listitem">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
-             stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-          <path d="M9 12l2 2 4-4"/>
-        </svg>
+        <div class="badge-icon badge-icon-blue">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+               stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            <path d="M9 12l2 2 4-4"/>
+          </svg>
+        </div>
         <div class="trust-badge-inner">
           <span class="trust-badge-text">Free cancellation</span>
           <span class="trust-badge-sub">Call 6+ hours before pickup</span>
@@ -1258,11 +1287,13 @@
       </div>
 
       <div class="trust-badge" role="listitem">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
-             stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <rect x="2" y="5" width="20" height="14" rx="2"/>
-          <path d="M2 10h20"/>
-        </svg>
+        <div class="badge-icon badge-icon-amber">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+               stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="2" y="5" width="20" height="14" rx="2"/>
+            <path d="M2 10h20"/>
+          </svg>
+        </div>
         <div class="trust-badge-inner">
           <span class="trust-badge-text">Only 15% advance</span>
           <span class="trust-badge-sub">To lock in your trip</span>
@@ -1270,11 +1301,13 @@
       </div>
 
       <div class="trust-badge" role="listitem">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
-             stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <circle cx="12" cy="12" r="10"/>
-          <path d="M12 6v6l4 2"/>
-        </svg>
+        <div class="badge-icon badge-icon-green">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
+               stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M9 12l2 2 4-4"/>
+          </svg>
+        </div>
         <div class="trust-badge-inner">
           <span class="trust-badge-text">Pay rest after trip</span>
           <span class="trust-badge-sub">Cash or UPI</span>
