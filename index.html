@@ -11,6 +11,7 @@
   <link rel="apple-touch-icon" href="/images/favicon.png">
   <meta name="msapplication-TileImage" content="/images/favicon.png">
 
+  <link rel="preload" as="image" href="/images/car.webp">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preload" as="style"
@@ -173,10 +174,11 @@
     }
 
     .sub {
-      font-size: 14px;
-      color: var(--grey);
-      line-height: 1.55;
-      font-weight: 400;
+      font-size: 15px;
+      color: var(--black);
+      line-height: 1.5;
+      font-weight: 500;
+      opacity: 0.75;
     }
 
     /* ── TRUST STRIP — all devices ── */
@@ -191,6 +193,7 @@
       display: flex;
       align-items: center;
       gap: 8px;
+      margin-bottom: 4px;
     }
 
     .trust-strip-icon {
@@ -260,12 +263,11 @@
     }
 
     .section-label {
-      font-size: 9px;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
+      font-size: 10px;
+      font-weight: 600;
       color: var(--grey);
       margin-bottom: 10px;
+      letter-spacing: 0;
     }
 
     .inc-list {
@@ -364,23 +366,6 @@
     .rating-num { font-size: 12px; font-weight: 700; color: var(--black); line-height: 1; }
     .rating-sub { font-size: 10px; color: var(--grey); line-height: 1; }
 
-    .live-tag {
-      margin-left: auto;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      font-size: 10px;
-      color: var(--green-d);
-      font-weight: 600;
-    }
-
-    .live-dot {
-      width: 6px; height: 6px;
-      background: var(--green);
-      border-radius: 50%;
-      flex-shrink: 0;
-      animation: gpulse 1.8s ease-in-out infinite;
-    }
 
     /* Driver row — under photo in desktop card, under hero on mobile */
     .driver-row,
@@ -591,7 +576,33 @@
       margin-top: 6px;
       padding-top: 6px;
       border-top: 1px solid var(--border);
-      line-height: 1.3;
+      line-height: 1.5;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      flex-wrap: wrap;
+    }
+
+    .car-cred-name {
+      font-weight: 600;
+      color: var(--black);
+    }
+
+    .car-cred-icon {
+      display: inline-flex;
+      align-items: center;
+      vertical-align: middle;
+      margin-right: 2px;
+      color: var(--grey);
+    }
+
+    .car-cred-icon svg {
+      width: 9px; height: 9px;
+    }
+
+    .car-cred-dot {
+      color: #d1d5db;
+      font-size: 10px;
     }
 
     /* CTA nudge — small line between button and divider */
@@ -626,7 +637,7 @@
       flex-shrink: 0;
       width: 100%;
       max-width: 700px;
-      text-align: center;
+      text-align: left;
       font-size: 12px;
       color: var(--grey);
       line-height: 1.5;
@@ -634,7 +645,15 @@
 
     .price-example strong { color: var(--black); font-weight: 700; }
 
-    /* ── TRUST BADGE ROW ── */
+    .booking-label {
+      flex-shrink: 0;
+      width: 100%;
+      max-width: 700px;
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--grey);
+      margin-bottom: -4px;
+    }
     .trust-row {
       flex-shrink: 0;
       width: 100%;
@@ -672,7 +691,7 @@
     }
 
     .badge-icon-blue   { background: #eff6ff; color: #3b82f6; }
-    .badge-icon-amber  { background: #fffbeb; color: #d97706; }
+    .badge-icon-indigo { background: #eef2ff; color: #6366f1; }
     .badge-icon-green  { background: var(--green-l); color: var(--green-d); }
 
     .trust-badge-inner {
@@ -703,7 +722,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 10px;
+      gap: 6px;
     }
 
     .btn-call {
@@ -877,7 +896,7 @@
       }
 
       h1   { font-size: 19px; margin-bottom: 5px; }
-      .sub { font-size: 12px; }
+      .sub { font-size: 13px; }
 
       /* Mobile hero — show */
       .mobile-hero {
@@ -1075,6 +1094,7 @@
         alt="2025 Maruti Swift Dzire CNG outstation cab"
         class="mobile-hero-img"
         loading="eager"
+        fetchpriority="high"
         decoding="async"
         width="600"
         height="400">
@@ -1091,11 +1111,7 @@
         Maruti Swift Dzire &nbsp;&middot;&nbsp; Serviced <span id="serviceYearMobile"></span> &nbsp;&middot;&nbsp; Single owner
       </div>
       <div class="mobile-driver-row">
-        <img src="/images/driver.jpg" alt="Rahul Desai, your driver" class="driver-avatar" width="36" height="36">
-        <div class="driver-info">
-          <span class="driver-name">Rahul Desai</span>
-          <span class="driver-cred">11 years, Mumbai outstation routes</span>
-        </div>
+        <img src="/images/driver.jpg" alt="Rahul Desai, your driver" class="driver-avatar" loading="lazy" width="36" height="36">
         <span class="driver-tag">Your driver</span>
       </div>
     </div>
@@ -1105,7 +1121,7 @@
 
       <div class="card-left">
         <div class="rate-line">&#8377;16 per km</div>
-        <div class="rate-sub">Flat rate &nbsp;&middot;&nbsp; Round trip &nbsp;&middot;&nbsp; Fixed price, no surprises</div>
+        <div class="rate-sub">Flat rate &nbsp;&middot;&nbsp; Round trip &nbsp;&middot;&nbsp; <span style="font-weight:600;color:var(--black);">Fixed price, no surprises</span></div>
         <div class="section-label">What's covered in every rupee</div>
         <ul class="inc-list">
           <li>
@@ -1171,6 +1187,7 @@
           alt="2025 Maruti Swift Dzire CNG outstation cab"
           class="car-photo"
           loading="eager"
+          fetchpriority="high"
           decoding="async"
           width="420"
           height="420">
@@ -1181,7 +1198,7 @@
             <span class="rating-sub">200+ trips completed</span>
           </div>
           <div class="driver-row">
-            <img src="/images/driver.jpg" alt="Rahul Desai, your driver" class="driver-avatar" width="36" height="36">
+            <img src="/images/driver.jpg" alt="Rahul Desai, your driver" class="driver-avatar" loading="lazy" width="36" height="36">
             <div class="driver-info">
               <span class="driver-name">Rahul Desai</span>
               <span class="driver-cred">11 years, Mumbai outstation routes</span>
@@ -1189,7 +1206,26 @@
             <span class="driver-tag">Your driver</span>
           </div>
           <div class="car-cred-line">
-            Maruti Swift Dzire &nbsp;&middot;&nbsp; Serviced <span id="serviceYear"></span> &nbsp;&middot;&nbsp; Single owner
+            <span class="car-cred-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 5v3h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/>
+              </svg>
+            </span>
+            <span class="car-cred-name">Maruti Swift Dzire</span>
+            <span class="car-cred-dot">&middot;</span>
+            <span class="car-cred-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/>
+              </svg>
+            </span>
+            Serviced <span id="serviceYear"></span>
+            <span class="car-cred-dot">&middot;</span>
+            <span class="car-cred-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/>
+              </svg>
+            </span>
+            Single owner
           </div>
         </div>
       </div>
@@ -1266,8 +1302,11 @@
 
     <!-- PRICE EXAMPLE -->
     <div class="price-example">
-      For example: <strong>Mumbai &rarr; Lonavala round trip (about 190&thinsp;km) = about &#8377;3,040</strong> &mdash; tolls extra, paid at the booth.
+      <em>For example:</em> <strong>Mumbai &rarr; Lonavala round trip (about 190&thinsp;km) = about &#8377;3,040</strong> &mdash; tolls extra, paid at the booth.
     </div>
+
+    <!-- BOOKING FLOW CONNECTOR -->
+    <div class="booking-label">Here is how the booking works</div>
 
     <!-- TRUST BADGES — ordered: cancellation → advance → pay after -->
     <div class="trust-row" role="list">
@@ -1287,7 +1326,7 @@
       </div>
 
       <div class="trust-badge" role="listitem">
-        <div class="badge-icon badge-icon-amber">
+        <div class="badge-icon badge-icon-indigo">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <rect x="2" y="5" width="20" height="14" rx="2"/>
@@ -1453,7 +1492,7 @@
   </div>
 </div>
 
-<script>
+<script defer>
 (function(){
   'use strict';
 
@@ -1613,38 +1652,61 @@
     }).catch(function(){});
   }
 
-  /* Drag-scroll for routes strip on desktop/mouse */
+  /* Drag-scroll with momentum for routes strip */
   var routesScroll = document.querySelector('.routes-scroll');
   if (routesScroll) {
     var isDragging = false;
     var startX = 0;
     var scrollLeft = 0;
+    var lastX = 0;
+    var lastTime = 0;
+    var velocity = 0;
+    var rafId = null;
 
     routesScroll.addEventListener('mousedown', function(e) {
       isDragging = true;
       startX = e.pageX - routesScroll.offsetLeft;
       scrollLeft = routesScroll.scrollLeft;
+      lastX = e.pageX;
+      lastTime = Date.now();
+      velocity = 0;
+      if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
       routesScroll.classList.add('is-dragging');
       e.preventDefault();
     });
 
     document.addEventListener('mousemove', function(e) {
       if (!isDragging) return;
+      var now = Date.now();
+      var dt = now - lastTime;
+      if (dt > 0) {
+        velocity = (e.pageX - lastX) / dt;
+        lastX = e.pageX;
+        lastTime = now;
+      }
       var x = e.pageX - routesScroll.offsetLeft;
-      var walk = (x - startX) * 1.2;
-      routesScroll.scrollLeft = scrollLeft - walk;
+      routesScroll.scrollLeft = scrollLeft - (x - startX);
     });
 
     document.addEventListener('mouseup', function() {
-      if (isDragging) {
-        isDragging = false;
-        routesScroll.classList.remove('is-dragging');
+      if (!isDragging) return;
+      isDragging = false;
+      routesScroll.classList.remove('is-dragging');
+
+      /* Momentum — keep scrolling with friction after release */
+      var v = velocity * 14;
+      function glide() {
+        if (Math.abs(v) < 0.5) return;
+        routesScroll.scrollLeft -= v;
+        v *= 0.92;
+        rafId = requestAnimationFrame(glide);
       }
+      rafId = requestAnimationFrame(glide);
     });
 
     /* Prevent chip click firing after a drag */
     routesScroll.addEventListener('click', function(e) {
-      if (Math.abs(routesScroll.scrollLeft - scrollLeft) > 4) {
+      if (Math.abs(routesScroll.scrollLeft - scrollLeft) > 6) {
         e.preventDefault();
         e.stopPropagation();
       }
