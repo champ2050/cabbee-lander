@@ -355,22 +355,79 @@
       animation: gpulse 1.8s ease-in-out infinite;
     }
 
-    /* Car credential — lives below social proof, under the photo */
-    .car-credential {
-      font-size: 10px;
-      color: var(--grey);
-      font-weight: 400;
+    /* Driver row — under photo in desktop card, under hero on mobile */
+    .driver-row,
+    .mobile-driver-row {
       display: flex;
       align-items: center;
-      gap: 5px;
-      flex-wrap: wrap;
-      line-height: 1.3;
+      gap: 9px;
+      margin-top: 7px;
+      padding-top: 7px;
+      border-top: 1px solid var(--border);
     }
 
-    .car-credential svg {
-      width: 10px; height: 10px;
-      color: var(--grey);
+    .driver-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: center top;
       flex-shrink: 0;
+      border: 2px solid var(--green-b);
+      display: block;
+    }
+
+    .driver-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .driver-name {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--black);
+      line-height: 1.2;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .driver-cred {
+      font-size: 10px;
+      color: var(--grey);
+      line-height: 1.2;
+      font-weight: 400;
+    }
+
+    .driver-tag {
+      flex-shrink: 0;
+      font-size: 9.5px;
+      font-weight: 700;
+      color: var(--green-d);
+      background: var(--green-l);
+      border: 1px solid var(--green-b);
+      padding: 3px 7px;
+      border-radius: 100px;
+      white-space: nowrap;
+    }
+
+    /* Routes scroll wrapper — for fade gradient */
+    .routes-scroll-wrap {
+      position: relative;
+    }
+
+    .routes-scroll-wrap::after {
+      content: '';
+      position: absolute;
+      top: 0; right: 0;
+      width: 48px;
+      height: 100%;
+      background: linear-gradient(to right, transparent, #fff);
+      pointer-events: none;
+      border-radius: 0 8px 8px 0;
     }
 
     /* ── ROUTES STRIP ── */
@@ -408,6 +465,14 @@
       border-radius: 8px;
       padding: 7px 12px;
       text-align: center;
+      cursor: default;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+
+    /* First two bullets slightly bolder — most critical info */
+    .inc-list li:nth-child(-n+2) {
+      font-weight: 600;
     }
 
     .route-dest {
@@ -742,6 +807,20 @@
         flex-shrink: 0;
       }
 
+      /* Mobile driver row */
+      .mobile-driver-row {
+        padding: 8px 12px 10px;
+        background: #fafafa;
+        border-top: 1px solid var(--border);
+        margin-top: 0;
+        padding-top: 8px;
+        border-top: 1px solid var(--border);
+      }
+
+      .mobile-driver-row .driver-name  { font-size: 12.5px; }
+      .mobile-driver-row .driver-cred  { font-size: 10.5px; }
+      .mobile-driver-row .driver-avatar { width: 34px; height: 34px; }
+
       /* Card — column layout */
       .card { flex-direction: column; }
 
@@ -759,7 +838,7 @@
       .rate-line     { font-size: 16px; }
       .rate-sub      { font-size: 10.5px; margin-bottom: 10px; }
       .section-label { font-size: 8.5px; margin-bottom: 7px; }
-      .inc-list      { gap: 8px; }
+      .inc-list      { gap: 11px; }
       .inc-list li   { font-size: 12px; }
 
       /* Trust badges */
@@ -864,7 +943,7 @@
         <path d="M9 12l2 2 4-4"/>
       </svg>
       <div class="trust-strip-text">
-        2025 Maruti Dzire &nbsp;&middot;&nbsp; Roof carrier included &nbsp;&middot;&nbsp; Serviced <span id="carYear">2026</span> &nbsp;&middot;&nbsp; Single owner &nbsp;&middot;&nbsp; Taking bookings now
+        Maruti Swift Dzire &nbsp;&middot;&nbsp; Last serviced 2026 &nbsp;&middot;&nbsp; Roof carrier included &nbsp;&middot;&nbsp; Single owner &nbsp;&middot;&nbsp; Taking bookings now
       </div>
     </div>
 
@@ -893,7 +972,15 @@
           <circle cx="12" cy="12" r="10"/>
           <path d="M12 6v6l4 2"/>
         </svg>
-        2025 Maruti Dzire &nbsp;&middot;&nbsp; Serviced <span id="carYearMobile">2026</span> &nbsp;&middot;&nbsp; Single owner
+        Maruti Swift Dzire &nbsp;&middot;&nbsp; Last serviced 2026 &nbsp;&middot;&nbsp; Single owner
+      </div>
+      <div class="mobile-driver-row">
+        <img src="/images/driver.jpg" alt="Rahul Desai, your driver" class="driver-avatar" width="36" height="36">
+        <div class="driver-info">
+          <span class="driver-name">Rahul Desai</span>
+          <span class="driver-cred">11 years on outstation routes</span>
+        </div>
+        <span class="driver-tag">Your driver</span>
       </div>
     </div>
 
@@ -951,13 +1038,13 @@
               Available now
             </div>
           </div>
-          <div class="car-credential">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
-                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <circle cx="12" cy="12" r="10"/>
-              <path d="M12 6v6l4 2"/>
-            </svg>
-            2025 Maruti Dzire &nbsp;&middot;&nbsp; Serviced <span id="carYearDesktop">2026</span> &nbsp;&middot;&nbsp; Single owner
+          <div class="driver-row">
+            <img src="/images/driver.jpg" alt="Rahul Desai, your driver" class="driver-avatar" width="36" height="36">
+            <div class="driver-info">
+              <span class="driver-name">Rahul Desai</span>
+              <span class="driver-cred">11 years on outstation routes</span>
+            </div>
+            <span class="driver-tag">Your driver</span>
           </div>
         </div>
       </div>
@@ -967,6 +1054,7 @@
     <!-- ROUTES STRIP -->
     <div class="routes-strip">
       <div class="routes-label">Popular routes from Mumbai</div>
+      <div class="routes-scroll-wrap">
       <div class="routes-scroll" role="list">
         <div class="route-chip" role="listitem">
           <span class="route-dest">Lonavala</span>
@@ -1008,7 +1096,8 @@
           <span class="route-dest">Panchgani</span>
           <span class="route-meta">245 km &middot; about 5 hrs</span>
         </div>
-      </div>
+      </div><!-- /.routes-scroll -->
+      </div><!-- /.routes-scroll-wrap -->
       <a href="tel:+919876543210" class="routes-cta" id="routesCallBtn">Call to check the price for your route &rarr;</a>
     </div>
 
@@ -1022,7 +1111,7 @@
 
     <!-- PRICE EXAMPLE -->
     <div class="price-example">
-      For example: <strong>Mumbai &rarr; Lonavala round trip (about 190&thinsp;km) = about &#8377;3,040</strong> plus tolls at the real price.
+      For example: <strong>Mumbai &rarr; Lonavala round trip (about 190&thinsp;km) = about &#8377;3,040</strong> &mdash; tolls extra, paid at the booth.
     </div>
 
     <!-- TRUST BADGES — ordered: cancellation → advance → pay after -->
@@ -1208,7 +1297,7 @@
 
   /* Dynamic year — all year spans */
   var yr = new Date().getFullYear();
-  var yearIds = ['footerYear', 'carYear', 'carYearDesktop', 'carYearMobile', 'privacyDate', 'termsDate'];
+  var yearIds = ['footerYear', 'privacyDate', 'termsDate'];
   for (var i = 0; i < yearIds.length; i++) {
     var el = document.getElementById(yearIds[i]);
     if (el) {
