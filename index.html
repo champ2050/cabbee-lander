@@ -454,6 +454,14 @@
       padding-bottom: 3px;
       scrollbar-width: none;
       -ms-overflow-style: none;
+      cursor: grab;
+      cursor: -webkit-grab;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .routes-scroll.is-dragging {
+      cursor: grabbing;
+      cursor: -webkit-grabbing;
     }
 
     .routes-scroll::-webkit-scrollbar { display: none; }
@@ -496,15 +504,71 @@
       display: block;
       margin-top: 9px;
       font-size: 12px;
-      font-weight: 600;
-      color: var(--green-d);
-      text-decoration: none;
+      font-weight: 500;
+      color: var(--grey);
+      text-decoration: underline;
+      text-underline-offset: 2px;
       letter-spacing: 0;
       transition: color 0.1s;
       padding-left: 1px;
     }
 
-    .routes-cta:hover { color: var(--green); }
+    .routes-cta:hover { color: var(--black); }
+
+    /* Details/summary — show all bullets toggle */
+    .inc-more {
+      width: 100%;
+    }
+
+    .inc-more > summary {
+      list-style: none;
+      -webkit-appearance: none;
+    }
+
+    .inc-more > summary::-webkit-details-marker { display: none; }
+
+    .inc-more-toggle {
+      display: inline-block;
+      margin-top: 10px;
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--grey);
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    .inc-more-toggle:hover { color: var(--black); }
+
+    .inc-list-extra {
+      margin-top: 9px;
+    }
+
+    /* Desktop: always show all bullets, hide the toggle */
+    @media (min-width: 601px) {
+      .inc-more-toggle { display: none; }
+      .inc-list-extra  { display: flex; }
+    }
+
+    /* Car credential line — below driver row in desktop card */
+    .car-cred-line {
+      font-size: 10px;
+      color: var(--grey);
+      font-weight: 400;
+      margin-top: 6px;
+      padding-top: 6px;
+      border-top: 1px solid var(--border);
+      line-height: 1.3;
+    }
+
+    /* CTA nudge — small line between button and divider */
+    .cta-nudge {
+      font-size: 11.5px;
+      color: var(--grey);
+      text-align: center;
+      line-height: 1.4;
+    }
 
     /* ── EXCLUSIONS STRIP ── */
     .excl-strip {
@@ -562,7 +626,7 @@
     .trust-badge svg {
       width: 16px; height: 16px;
       flex-shrink: 0;
-      color: var(--green);
+      color: #9ca3af;
       margin-top: 1px;
     }
 
@@ -924,7 +988,7 @@
 
   <!-- OFFER BAR -->
   <div class="offer-bar">
-    <span class="offer-tag">&#8377;200 OFF</span>First booking only &nbsp;&middot;&nbsp; Running this month &nbsp;&middot;&nbsp; Mention when you call
+    <span class="offer-tag">&#8377;200 OFF</span>your first trip &mdash; mention this when you call
   </div>
 
   <main class="main">
@@ -932,7 +996,7 @@
     <!-- HEADLINE -->
     <div class="headline-block">
       <h1 id="headline">Round Trip Outstation Cab from Mumbai</h1>
-      <p class="sub">One driver. One fixed price. Same car, every time.<br>Call now to check if your dates are free.</p>
+      <p class="sub">One driver. One fixed price. Same car, every time.</p>
     </div>
 
     <!-- TRUST STRIP — visible on all devices -->
@@ -943,7 +1007,7 @@
         <path d="M9 12l2 2 4-4"/>
       </svg>
       <div class="trust-strip-text">
-        Maruti Swift Dzire &nbsp;&middot;&nbsp; Last serviced 2026 &nbsp;&middot;&nbsp; Roof carrier included &nbsp;&middot;&nbsp; Single owner &nbsp;&middot;&nbsp; Taking bookings now
+        Roof carrier included &nbsp;&middot;&nbsp; Single owner &nbsp;&middot;&nbsp; Taking bookings now
       </div>
     </div>
 
@@ -960,11 +1024,7 @@
       <div class="mobile-hero-proof">
         <span class="stars" aria-label="4.8 out of 5">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
         <span class="rating-num">4.8</span>
-        <span class="rating-sub">200+ trips in 2024&ndash;25</span>
-        <div class="live-tag">
-          <span class="live-dot"></span>
-          Available now
-        </div>
+        <span class="rating-sub">200+ trips completed</span>
       </div>
       <div class="mobile-hero-cred">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"
@@ -972,7 +1032,7 @@
           <circle cx="12" cy="12" r="10"/>
           <path d="M12 6v6l4 2"/>
         </svg>
-        Maruti Swift Dzire &nbsp;&middot;&nbsp; Last serviced 2026 &nbsp;&middot;&nbsp; Single owner
+        Maruti Swift Dzire &nbsp;&middot;&nbsp; Serviced <span id="serviceYearMobile"></span> &nbsp;&middot;&nbsp; Single owner
       </div>
       <div class="mobile-driver-row">
         <img src="/images/driver.jpg" alt="Rahul Desai, your driver" class="driver-avatar" width="36" height="36">
@@ -1004,19 +1064,24 @@
             <span class="check" aria-hidden="true"></span>
             Roof carrier on top — family bags, big suitcases, all taken care of, no squeezing into the back
           </li>
-          <li>
-            <span class="check" aria-hidden="true"></span>
-            You know who your driver is before the trip day. No surprise driver change on the morning
-          </li>
-          <li>
-            <span class="check" aria-hidden="true"></span>
-            Night travel included — return at any hour, nothing extra to pay
-          </li>
-          <li>
-            <span class="check" aria-hidden="true"></span>
-            Just 15% to lock in your trip — pay the rest after you are home, cash or UPI
-          </li>
         </ul>
+        <details class="inc-more" id="incMore">
+          <summary class="inc-more-toggle">See 3 more things included &#9660;</summary>
+          <ul class="inc-list inc-list-extra">
+            <li>
+              <span class="check" aria-hidden="true"></span>
+              You know who your driver is before the trip day. No surprise driver change on the morning
+            </li>
+            <li>
+              <span class="check" aria-hidden="true"></span>
+              Night travel included — return at any hour, nothing extra to pay
+            </li>
+            <li>
+              <span class="check" aria-hidden="true"></span>
+              Just 15% to lock in your trip — pay the rest after you are home, cash or UPI
+            </li>
+          </ul>
+        </details>
       </div>
 
       <div class="card-right">
@@ -1032,11 +1097,7 @@
           <div class="social-proof-row">
             <span class="stars" aria-label="4.8 out of 5">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
             <span class="rating-num">4.8</span>
-            <span class="rating-sub">200+ trips in 2024&ndash;25</span>
-            <div class="live-tag">
-              <span class="live-dot"></span>
-              Available now
-            </div>
+            <span class="rating-sub">200+ trips completed</span>
           </div>
           <div class="driver-row">
             <img src="/images/driver.jpg" alt="Rahul Desai, your driver" class="driver-avatar" width="36" height="36">
@@ -1045,6 +1106,9 @@
               <span class="driver-cred">11 years on outstation routes</span>
             </div>
             <span class="driver-tag">Your driver</span>
+          </div>
+          <div class="car-cred-line">
+            Maruti Swift Dzire &nbsp;&middot;&nbsp; Serviced <span id="serviceYear"></span> &nbsp;&middot;&nbsp; Single owner
           </div>
         </div>
       </div>
@@ -1168,6 +1232,7 @@
         </svg>
         Call to Book Your Trip
       </a>
+      <span class="cta-nudge">Call now to check if your dates are free</span>
       <span class="cta-divider">or tap the number directly</span>
       <a href="tel:+919876543210" class="phone-link" id="phoneLink">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -1295,22 +1360,26 @@
 (function(){
   'use strict';
 
-  /* Dynamic year — all year spans */
+  /* Dynamic year — footer, modals, service year */
   var yr = new Date().getFullYear();
-  var yearIds = ['footerYear', 'privacyDate', 'termsDate'];
+  var yearIds = ['footerYear', 'serviceYear', 'serviceYearMobile'];
   for (var i = 0; i < yearIds.length; i++) {
     var el = document.getElementById(yearIds[i]);
-    if (el) {
-      if (yearIds[i] === 'privacyDate' || yearIds[i] === 'termsDate') {
-        var months = ['January','February','March','April','May','June','July',
-                      'August','September','October','November','December'];
-        var now = new Date();
-        el.textContent = months[now.getMonth()] + ' ' + now.getFullYear();
-      } else {
-        el.textContent = yr;
-      }
-    }
+    if (el) el.textContent = yr;
   }
+  /* Modal dates */
+  var months = ['January','February','March','April','May','June','July',
+                'August','September','October','November','December'];
+  var now = new Date();
+  var monthYear = months[now.getMonth()] + ' ' + now.getFullYear();
+  var pd = document.getElementById('privacyDate');
+  var td = document.getElementById('termsDate');
+  if (pd) pd.textContent = monthYear;
+  if (td) td.textContent = monthYear;
+
+  /* Open all bullets on desktop — details element */
+  var incMore = document.getElementById('incMore');
+  if (incMore && window.innerWidth > 600) { incMore.open = true; }
 
   var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzq7TmxCA1Wogb1ZKYbJx6ewhy49rT_w0IDmXMc3OEEuqEkLMjVmnoiKMn9mSXvpS-exQ/exec';
 
@@ -1445,6 +1514,44 @@
       headers: { 'Content-Type': 'text/plain' },
       body: JSON.stringify(t)
     }).catch(function(){});
+  }
+
+  /* Drag-scroll for routes strip on desktop/mouse */
+  var routesScroll = document.querySelector('.routes-scroll');
+  if (routesScroll) {
+    var isDragging = false;
+    var startX = 0;
+    var scrollLeft = 0;
+
+    routesScroll.addEventListener('mousedown', function(e) {
+      isDragging = true;
+      startX = e.pageX - routesScroll.offsetLeft;
+      scrollLeft = routesScroll.scrollLeft;
+      routesScroll.classList.add('is-dragging');
+      e.preventDefault();
+    });
+
+    document.addEventListener('mousemove', function(e) {
+      if (!isDragging) return;
+      var x = e.pageX - routesScroll.offsetLeft;
+      var walk = (x - startX) * 1.2;
+      routesScroll.scrollLeft = scrollLeft - walk;
+    });
+
+    document.addEventListener('mouseup', function() {
+      if (isDragging) {
+        isDragging = false;
+        routesScroll.classList.remove('is-dragging');
+      }
+    });
+
+    /* Prevent chip click firing after a drag */
+    routesScroll.addEventListener('click', function(e) {
+      if (Math.abs(routesScroll.scrollLeft - scrollLeft) > 4) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+    });
   }
 
   var btnIds = ['callBtn', 'stickyCallBtn', 'phoneLink', 'routesCallBtn'];
