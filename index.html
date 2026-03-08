@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Outstation Cab from Mumbai | Cabbee</title>
-  <meta name="description" content="Round trip outstation cab from Mumbai. 2025 Maruti Dzire CNG. ₹16/km flat rate. Only 15% advance. Pay rest after trip. ₹200 off first booking.">
+  <meta name="description" content="Round trip outstation cab from Mumbai. Maruti Suzuki Dzire Tour S CNG. ₹16/km flat rate. Only 15% advance. Pay rest after trip. ₹200 off first booking.">
 
   <link rel="icon" type="image/png" sizes="64x64" href="/images/favicon.png">
   <link rel="shortcut icon" type="image/png" href="/images/favicon.png">
@@ -595,11 +595,29 @@
       align-items: center;
       vertical-align: middle;
       margin-right: 2px;
-      color: var(--grey);
     }
 
     .car-cred-icon svg {
+      display: block;
       width: 9px; height: 9px;
+    }
+
+    .car-cred-icon-car    { color: #6366f1; }
+    .car-cred-icon-wrench { color: #d97706; }
+    .car-cred-icon-person { color: #3b82f6; }
+
+    .car-cred-pill {
+      display: inline-flex;
+      align-items: center;
+      background: var(--green-l);
+      border: 1px solid var(--green-b);
+      color: var(--green-d);
+      font-size: 9px;
+      font-weight: 700;
+      padding: 1px 6px;
+      border-radius: 100px;
+      white-space: nowrap;
+      letter-spacing: 0.01em;
     }
 
     .car-cred-dot {
@@ -1105,8 +1123,7 @@
     <div class="mobile-hero">
       <img
         src="/images/car.webp"
-        alt="2025 Maruti Swift Dzire CNG outstation cab"
-        class="mobile-hero-img"
+        alt="Maruti Suzuki Dzire Tour S CNG outstation cab"
         loading="eager"
         fetchpriority="high"
         decoding="async"
@@ -1122,7 +1139,7 @@
              stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/>
         </svg>
-        Maruti Swift Dzire &nbsp;&middot;&nbsp; Serviced <span id="serviceYearMobile"></span> &nbsp;&middot;&nbsp; Single owner
+        Maruti Suzuki Dzire Tour S CNG &nbsp;&middot;&nbsp; Serviced <span id="serviceYearMobile"></span> &nbsp;&middot;&nbsp; Single owner
       </div>
       <div class="mobile-driver-row">
         <img src="/images/driver.jpg" alt="Rahul Desai, your driver" class="driver-avatar" loading="lazy" width="36" height="36">
@@ -1198,8 +1215,7 @@
       <div class="card-right">
         <img
           src="/images/car.webp"
-          alt="2025 Maruti Swift Dzire CNG outstation cab"
-          class="car-photo"
+          alt="Maruti Suzuki Dzire Tour S CNG outstation cab"
           loading="eager"
           fetchpriority="high"
           decoding="async"
@@ -1220,21 +1236,25 @@
             <span class="driver-tag">Your driver</span>
           </div>
           <div class="car-cred-line">
-            <span class="car-cred-icon" aria-hidden="true">
+            <span class="car-cred-icon car-cred-icon-car" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 5v3h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/>
+                <path d="M5 17H3a1 1 0 01-1-1v-3l2-6h14l2 6v3a1 1 0 01-1 1h-2"/>
+                <circle cx="7.5" cy="17" r="2.5"/>
+                <circle cx="16.5" cy="17" r="2.5"/>
+                <path d="M5 10h14"/>
               </svg>
             </span>
-            <span class="car-cred-name">Maruti Swift Dzire</span>
+            <span class="car-cred-name">Maruti Suzuki Dzire Tour S CNG</span>
+            <span class="car-cred-pill">Luxury Sedan</span>
             <span class="car-cred-dot">&middot;</span>
-            <span class="car-cred-icon" aria-hidden="true">
+            <span class="car-cred-icon car-cred-icon-wrench" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/>
               </svg>
             </span>
             Serviced <span id="serviceYear"></span>
             <span class="car-cred-dot">&middot;</span>
-            <span class="car-cred-icon" aria-hidden="true">
+            <span class="car-cred-icon car-cred-icon-person" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/>
               </svg>
@@ -1488,7 +1508,7 @@
     You can cancel for free if you inform us 6 or more hours before your pickup time. Your advance will be fully returned within 24 hours. If you cancel within 6 hours of your pickup time, the advance amount will not be returned, as the trip has already been prepared for.</p>
 
     <p><strong>Driver and car</strong><br>
-    You will be told who your driver is and given the car number before your trip day. The car is a 2025 Maruti Swift Dzire. If for any genuine emergency the car or driver changes, you will be informed as early as possible and given the choice to cancel with a full refund.</p>
+    You will be told who your driver is and given the car number before your trip day. The car is a Maruti Suzuki Dzire Tour S CNG. If for any genuine emergency the car or driver changes, you will be informed as early as possible and given the choice to cancel with a full refund.</p>
 
     <p><strong>Conduct during the trip</strong><br>
     We ask that passengers treat the driver with respect. Any damage caused to the car by passengers will be charged at cost. Smoking is not allowed inside the car.</p>
