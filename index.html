@@ -1026,7 +1026,28 @@
       width: 100%;
       max-height: 80vh;
       overflow-y: auto;
+      overflow-x: hidden;
       position: relative;
+      scrollbar-width: thin;
+      scrollbar-color: #d1d5db transparent;
+    }
+
+    .modal-box::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .modal-box::-webkit-scrollbar-track {
+      background: transparent;
+      border-radius: 0 12px 12px 0;
+    }
+
+    .modal-box::-webkit-scrollbar-thumb {
+      background: #d1d5db;
+      border-radius: 3px;
+    }
+
+    .modal-box::-webkit-scrollbar-thumb:hover {
+      background: #9ca3af;
     }
 
     .modal-box h3 {
@@ -1862,7 +1883,7 @@
 
       <p><strong>Google Ads and cookies</strong><br>
         This website uses Google Ads to show our ads to people who may be looking for outstation cabs. Google uses
-        cookies — small files saved on your device — to do this. A cookie may be placed on your device when you visit
+        cookies (small files saved on your device) to do this. A cookie may be placed on your device when you visit
         this page, so that Google knows your visit happened. This helps us understand whether our ads are
         working.<br><br>
         Google may also use this information to show you ads from us on other websites you visit. If you do not want to
@@ -1916,7 +1937,7 @@
 
       <p><strong>What you pay on the road</strong><br>
         Tolls, state border taxes, and parking charges are not included in the &#8377;16 rate. These are paid on the
-        road at the real government price — whatever the toll booth or official counter charges. We will give you a
+        road at the real government price. Whatever the toll booth or official counter charges, that is what you pay. We will give you a
         receipt for every payment made on the road. Nothing is added on top by us.</p>
 
       <p><strong>Booking and advance payment</strong><br>
