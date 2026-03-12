@@ -936,6 +936,73 @@
       flex-shrink: 0;
     }
 
+    .call-reveal {
+      display: none;
+      width: 100%;
+      max-width: 420px;
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      padding: 10px 12px;
+      background: var(--lgrey);
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .call-reveal.is-visible {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .call-reveal-title {
+      font-size: 11px;
+      color: var(--grey);
+      font-weight: 600;
+    }
+
+    .call-reveal-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .call-reveal-number {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--black);
+      letter-spacing: 0.04em;
+    }
+
+    .copy-btn {
+      background: var(--white);
+      border: 1px solid var(--border);
+      color: var(--black);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 6px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: border-color 0.15s, color 0.15s, transform 0.12s;
+    }
+
+    .copy-btn:hover {
+      border-color: var(--green-b);
+      color: var(--green-d);
+      transform: translateY(-1px);
+    }
+
+    .copy-btn:active {
+      transform: scale(0.98);
+    }
+
+    .copy-status {
+      font-size: 10px;
+      color: var(--green-d);
+      min-height: 12px;
+    }
+
     .cta-divider {
       font-size: 11px;
       color: var(--grey);
@@ -963,7 +1030,7 @@
       color: var(--grey);
     }
 
-    /* Desktop CTA — button only, no phone number below */
+    /* Desktop CTA - hide inline phone link */
     @media (min-width: 601px) {
       .cta-divider {
         display: none;
@@ -1810,7 +1877,7 @@
 
       <!-- CTA BLOCK — single action, phone only -->
       <div class="cta-block">
-        <a href="tel:+919876543210" class="btn-call" id="callBtn">
+        <a href="tel:+919876543210" class="btn-call" id="callBtn" aria-controls="callReveal" aria-expanded="false">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
             stroke-linejoin="round" aria-hidden="true">
             <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07
@@ -1819,8 +1886,16 @@
                    a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27
                    a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z" />
           </svg>
-          Call Now to Book
+          <span class="btn-call-text" id="callBtnText">Call Now to Book</span>
         </a>
+        <div class="call-reveal" id="callReveal" aria-hidden="true">
+          <span class="call-reveal-title">Call this number from your phone</span>
+          <div class="call-reveal-row">
+            <span class="call-reveal-number" id="callNumber">+91 98765 43210</span>
+            <button class="copy-btn" id="copyNumberBtn" type="button">Copy</button>
+          </div>
+          <span class="copy-status" id="copyStatus" role="status" aria-live="polite"></span>
+        </div>
         <span class="cta-nudge">Call to lock in your dates. Trips fill up fast</span>
         <span class="cta-divider">or tap the number directly</span>
         <a href="tel:+919876543210" class="phone-link" id="phoneLink">
@@ -2127,17 +2202,102 @@
         body: JSON.stringify(payload)
       }).catch(function () { });
 
-      /* Call tap logger */
-      function logTap() {
+      /* Call event logger */
+      function logEvent(name) {
         var t = {};
         for (var k in payload) { if (payload.hasOwnProperty(k)) t[k] = payload[k]; }
         t.conversionTime = new Date().toISOString();
-        t.event = 'call_tap';
+        t.event = name;
         fetch(SCRIPT_URL, {
           method: 'POST',
           headers: { 'Content-Type': 'text/plain' },
           body: JSON.stringify(t)
         }).catch(function () { });
+      }
+
+      function isMobileDevice() {
+        if (navigator.userAgentData && typeof navigator.userAgentData.mobile === 'boolean') {
+          return navigator.userAgentData.mobile;
+        }
+        return /Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+      }
+
+      var phoneLinkEl = document.getElementById('phoneLink');
+      var callBtnEl = document.getElementById('callBtn');
+      var callBtnTextEl = document.getElementById('callBtnText');
+      var callRevealEl = document.getElementById('callReveal');
+      var callNumberEl = document.getElementById('callNumber');
+      var copyBtnEl = document.getElementById('copyNumberBtn');
+      var copyStatusEl = document.getElementById('copyStatus');
+      var isMobile = isMobileDevice();
+
+      var phoneDisplay = phoneLinkEl ? phoneLinkEl.textContent.trim() : '+91 98765 43210';
+      var phoneRaw = phoneLinkEl ? (phoneLinkEl.getAttribute('href') || '').replace(/^tel:/, '') : '+919876543210';
+      if (callNumberEl && phoneDisplay) callNumberEl.textContent = phoneDisplay;
+
+      function showCallReveal() {
+        if (!callRevealEl) return;
+        callRevealEl.classList.add('is-visible');
+        callRevealEl.setAttribute('aria-hidden', 'false');
+        if (callBtnEl) callBtnEl.setAttribute('aria-expanded', 'true');
+        if (copyStatusEl) copyStatusEl.textContent = '';
+      }
+
+      if (!isMobile) {
+        showCallReveal();
+        if (callBtnTextEl) callBtnTextEl.textContent = 'Copy Number';
+        if (callBtnEl) callBtnEl.setAttribute('aria-label', 'Copy phone number');
+      }
+
+      function setCopyStatus(msg, ok) {
+        if (!copyStatusEl) return;
+        if (ok === undefined) ok = true;
+        copyStatusEl.textContent = msg;
+        copyStatusEl.style.color = ok ? 'var(--green-d)' : '#b91c1c';
+      }
+
+      function copyNumber() {
+        if (!phoneRaw) return;
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(phoneRaw).then(function () {
+            setCopyStatus('Number copied');
+          }).catch(function () {
+            fallbackCopy();
+          });
+        } else {
+          fallbackCopy();
+        }
+      }
+
+      function fallbackCopy() {
+        var temp = document.createElement('textarea');
+        temp.value = phoneRaw;
+        temp.setAttribute('readonly', '');
+        temp.style.position = 'absolute';
+        temp.style.left = '-9999px';
+        document.body.appendChild(temp);
+        temp.select();
+        try {
+          document.execCommand('copy');
+          setCopyStatus('Number copied');
+        } catch (e) {
+          setCopyStatus('Copy failed - select and copy', false);
+        }
+        document.body.removeChild(temp);
+      }
+
+      function handleCallAction(e) {
+        if (isMobile) {
+          logEvent('call_tap');
+          return;
+        }
+        e.preventDefault();
+        showCallReveal();
+        copyNumber();
+        if (callRevealEl && e && e.currentTarget && e.currentTarget.id !== 'callBtn') {
+          callRevealEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+        logEvent('copy_number');
       }
 
       /* Drag-scroll with momentum for routes strip */
@@ -2204,7 +2364,15 @@
       var btnIds = ['callBtn', 'stickyCallBtn', 'phoneLink', 'routesCallBtn'];
       for (var b = 0; b < btnIds.length; b++) {
         var btn = document.getElementById(btnIds[b]);
-        if (btn) btn.addEventListener('click', logTap);
+        if (btn) btn.addEventListener('click', handleCallAction);
+      }
+
+      if (copyBtnEl) {
+        copyBtnEl.addEventListener('click', function (e) {
+          e.preventDefault();
+          copyNumber();
+          logEvent('copy_number');
+        });
       }
 
     }());
