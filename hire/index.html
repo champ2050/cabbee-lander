@@ -170,7 +170,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 16px 20px 28px;
+      padding: 16px 12px 28px;
       gap: 14px;
     }
 
@@ -178,7 +178,7 @@
     .headline-block {
       text-align: center;
       width: 100%;
-      max-width: 600px;
+      max-width: 700px;
     }
 
     h1 {
@@ -201,32 +201,42 @@
     /* ── QUICK FACTS CARD ── */
     .facts-card {
       width: 100%;
-      max-width: 600px;
+      max-width: 700px;
       border: 1px solid var(--border);
       border-radius: 10px;
       background: var(--white);
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.07), 0 4px 16px rgba(0, 0, 0, 0.04);
       overflow: hidden;
+      display: flex;
+      flex-direction: column;
     }
 
     .fact-car-image-container {
       width: 100%;
+      background: #f8fafc;
       border-bottom: 1px solid var(--border);
       display: flex;
       justify-content: center;
+      align-items: center;
       overflow: hidden;
+      padding: 12px 0;
     }
 
     .fact-car-image {
       width: 100%;
       height: 230px;
-      object-fit: cover;
-      object-position: center 40%;
+      object-fit: contain;
       display: block;
       transform: translateZ(0);
       backface-visibility: hidden;
       -webkit-backface-visibility: hidden;
       will-change: transform;
+    }
+
+    .fact-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
     }
 
     .fact-row {
@@ -836,6 +846,21 @@
       .fact-car-image {
         height: 260px;
       }
+
+      .facts-card {
+        flex-direction: row;
+      }
+
+      .fact-content {
+        flex: 0 0 44%;
+        border-right: 1px solid var(--border);
+      }
+
+      .fact-car-image-container {
+        flex: 0 0 56%;
+        border-bottom: none;
+        order: 2;
+      }
     }
 
     /* ── ANIMATIONS ── */
@@ -901,25 +926,27 @@
         <div class="fact-car-image-container">
           <img src="../images/car.webp" alt="Maruti Dzire Tour S CNG 2023" class="fact-car-image">
         </div>
-        <div class="fact-row">
-          <div class="fact-icon fact-icon-time">&#128339;</div>
-          <div class="fact-text">
-            <span class="fact-label">5 AM to 5 PM</span>
-            <span class="fact-detail">Day shift, 12 hours, fixed timing</span>
+        <div class="fact-content">
+          <div class="fact-row">
+            <div class="fact-icon fact-icon-time">&#128339;</div>
+            <div class="fact-text">
+              <span class="fact-label">5 AM to 5 PM</span>
+              <span class="fact-detail">Day shift, 12 hours, fixed timing</span>
+            </div>
           </div>
-        </div>
-        <div class="fact-row">
-          <div class="fact-icon fact-icon-car">&#128663;</div>
-          <div class="fact-text">
-            <span class="fact-label">Maruti Dzire CNG (2023)</span>
-            <span class="fact-detail">AC Sedan, well-maintained car</span>
+          <div class="fact-row">
+            <div class="fact-icon fact-icon-car">&#128663;</div>
+            <div class="fact-text">
+              <span class="fact-label">Maruti Dzire CNG (2023)</span>
+              <span class="fact-detail">AC Sedan, well-maintained car</span>
+            </div>
           </div>
-        </div>
-        <div class="fact-row">
-          <div class="fact-icon fact-icon-loc">&#128205;</div>
-          <div class="fact-text">
-            <span class="fact-label" id="locLabel">Bhandup, Mumbai</span>
-            <span class="fact-detail">Local area, no long travel</span>
+          <div class="fact-row">
+            <div class="fact-icon fact-icon-loc">&#128205;</div>
+            <div class="fact-text">
+              <span class="fact-label" id="locLabel">Bhandup, Mumbai</span>
+              <span class="fact-detail">Local area, no long travel</span>
+            </div>
           </div>
         </div>
       </div>
