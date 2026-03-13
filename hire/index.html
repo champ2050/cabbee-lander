@@ -220,10 +220,13 @@
 
     .fact-car-image {
       width: 100%;
-      max-width: 220px;
       height: auto;
       object-fit: contain;
       mix-blend-mode: multiply;
+      transform: translateZ(0);
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      will-change: transform;
     }
 
     .fact-row {
@@ -744,6 +747,11 @@
         -webkit-backface-visibility: hidden;
       }
 
+      .fact-car-image {
+        max-width: 220px;
+        height: 140px;
+      }
+
       .sticky-cta svg {
         width: 18px;
         height: 18px;
@@ -806,6 +814,11 @@
         font-size: 16px;
         padding: 14px 28px;
       }
+
+      .fact-car-image {
+        max-width: 260px;
+        height: 160px;
+      }
     }
 
     /* Laptop/Desktop */
@@ -817,6 +830,11 @@
       .btn-call {
         font-size: 17px;
         padding: 15px 32px;
+      }
+
+      .fact-car-image {
+        max-width: 320px;
+        height: 180px;
       }
     }
 
