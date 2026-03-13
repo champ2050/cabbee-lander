@@ -8,13 +8,33 @@
   <meta name="description"
     content="Driver needed for Maruti Dzire CNG car in Bhandup, Mumbai. Day shift 5 AM to 5 PM. Immediate joining. Call now to apply.">
   <meta name="robots" content="noindex, nofollow">
+  <!-- noindex is intentional — this is a paid ads lander only, not for organic search -->
 
   <link rel="icon" type="image/png" sizes="64x64" href="../images/favicon.png">
   <link rel="shortcut icon" type="image/png" href="../images/favicon.png">
   <link rel="apple-touch-icon" href="../images/favicon.png">
 
+  <!--
+    FIX 1: Preconnect to Google Fonts origins BEFORE the preload request.
+    Without these, the browser has to do a DNS lookup + TCP + TLS handshake
+    at font load time, adding ~200–400ms on mobile. These hints warm up the
+    connection so the font loads faster, improving FCP/LCP.
+  -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!--
+    FIX 2: Preload the LCP image (car.webp) with high fetch priority.
+    The car image is the Largest Contentful Paint element on mobile.
+    Without a preload hint, the browser discovers this image only after
+    parsing the HTML, rendering the topbar, urgency bar, and headline —
+    causing a significant LCP delay. This hint tells the browser to fetch
+    the image immediately, in parallel with everything else.
+    fetchpriority="high" ensures it is not deprioritised behind other requests.
+  -->
+  <link rel="preload" as="image" href="../images/car.webp" fetchpriority="high">
+
+  <!-- Font: async load to avoid render-blocking -->
   <link rel="preload" as="style"
     href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap"
     onload="this.rel='stylesheet'">
@@ -220,17 +240,28 @@
       align-items: center;
       overflow: hidden;
       padding: 12px 0;
+      /*
+        FIX 3: Explicit min-height on the container prevents Cumulative Layout
+        Shift (CLS). Before the image loads, the browser knows to reserve this
+        space rather than collapsing it to 0px and then reflowing when the image
+        arrives. This is the container-level CLS fix.
+      */
+      min-height: 254px;
     }
 
+    /*
+      FIX 4: Car image — removed will-change, transform: translateZ(0), and
+      backface-visibility hacks. These were intended as GPU compositing tricks
+      but on low-end Android devices they actually HURT performance by forcing
+      the browser to promote the image to its own compositor layer, consuming
+      extra memory and GPU bandwidth for no benefit on a static image.
+      The image renders fine without them.
+    */
     .fact-car-image {
       width: 100%;
       height: 230px;
       object-fit: contain;
       display: block;
-      transform: translateZ(0);
-      backface-visibility: hidden;
-      -webkit-backface-visibility: hidden;
-      will-change: transform;
     }
 
     .fact-content {
@@ -326,20 +357,17 @@
       cursor: pointer;
       border: none;
       letter-spacing: -0.01em;
-      transform: translateZ(0);
-      backface-visibility: hidden;
-      -webkit-backface-visibility: hidden;
     }
 
     .btn-call:hover {
       background: var(--green-d);
-      transform: translateY(-2px) translateZ(0);
+      transform: translateY(-2px);
       box-shadow: 0 8px 24px rgba(26, 138, 60, 0.40);
     }
 
     .btn-call:active {
       background: var(--green-d);
-      transform: scale(0.97) translateZ(0);
+      transform: scale(0.97);
       box-shadow: 0 2px 6px rgba(26, 138, 60, 0.20);
     }
 
@@ -429,6 +457,17 @@
     .section-block {
       width: 100%;
       max-width: 600px;
+      /*
+        FIX 5: content-visibility: auto tells the browser it can skip
+        rendering this section until it is close to the viewport. On a
+        mobile device rendering the page for the first time, the browser
+        will paint the above-fold content (topbar, headline, car card, CTA)
+        first and defer these sections, significantly reducing initial
+        render time. contain-intrinsic-size is a fallback height estimate
+        so the scrollbar doesn't jump when the section renders.
+      */
+      content-visibility: auto;
+      contain-intrinsic-size: 0 200px;
     }
 
     .section-title {
@@ -752,13 +791,14 @@
         gap: 9px;
         text-decoration: none;
         -webkit-tap-highlight-color: transparent;
-        transform: translateZ(0);
-        backface-visibility: hidden;
-        -webkit-backface-visibility: hidden;
       }
 
       .fact-car-image {
         height: 230px;
+      }
+
+      .fact-car-image-container {
+        min-height: 254px;
       }
 
       .sticky-cta svg {
@@ -786,6 +826,10 @@
         height: 200px;
       }
 
+      .fact-car-image-container {
+        min-height: 224px;
+      }
+
       .logo-text {
         font-size: 19px;
       }
@@ -804,6 +848,11 @@
       .fact-car-image {
         height: 250px;
       }
+
+      .fact-car-image-container {
+        min-height: 274px;
+      }
+
       h1 {
         font-size: 21px;
       }
@@ -830,6 +879,10 @@
       .fact-car-image {
         height: 190px;
       }
+
+      .fact-car-image-container {
+        min-height: 214px;
+      }
     }
 
     /* Laptop/Desktop */
@@ -845,6 +898,10 @@
 
       .fact-car-image {
         height: 260px;
+      }
+
+      .fact-car-image-container {
+        min-height: 284px;
       }
 
       .facts-card {
@@ -864,32 +921,35 @@
     }
 
     /* ── ANIMATIONS ── */
+    /*
+      FIX 6: Removed animation from .facts-card and .cta-block.
+      These are above-the-fold elements. The original fadeUp animation
+      started them at opacity:0 with animation-delay:0.1s and 0.2s
+      respectively. This directly caused the LCP element (car image
+      inside facts-card) to be invisible during the delay, which
+      PageSpeed/Lighthouse counts as the element not yet being painted —
+      pushing the LCP score into the red.
+
+      Below-fold sections (.section-block) keep their animation since
+      they are not LCP candidates and the fade-in is a nice touch when
+      the user scrolls down.
+    */
     @media (prefers-reduced-motion: no-preference) {
-      .facts-card {
-        animation: fadeUp 0.4s cubic-bezier(0.4, 0.0, 0.2, 1) both;
-        animation-delay: 0.1s;
-      }
-
-      .cta-block {
-        animation: fadeUp 0.4s cubic-bezier(0.4, 0.0, 0.2, 1) both;
-        animation-delay: 0.2s;
-      }
-
       .section-block {
         animation: fadeUp 0.35s cubic-bezier(0.4, 0.0, 0.2, 1) both;
-        animation-delay: 0.3s;
+        animation-delay: 0.1s;
       }
     }
 
     @keyframes fadeUp {
       from {
         opacity: 0;
-        transform: translateY(12px) translateZ(0);
+        transform: translateY(12px);
       }
 
       to {
         opacity: 1;
-        transform: translateY(0) translateZ(0);
+        transform: translateY(0);
       }
     }
   </style>
@@ -924,7 +984,40 @@
       <!-- QUICK FACTS -->
       <div class="facts-card">
         <div class="fact-car-image-container">
-          <img src="../images/car.webp" alt="Maruti Dzire Tour S CNG 2023" class="fact-car-image">
+          <!--
+            FIX 7: Added width, height, fetchpriority, and loading attributes
+            to the LCP image element.
+
+            width + height: These tell the browser the intrinsic dimensions
+            (and therefore aspect ratio) of the image before it downloads.
+            The browser uses this to reserve the correct space in the layout,
+            preventing Cumulative Layout Shift (CLS). The actual rendered size
+            is still controlled by the CSS height:230px + object-fit:contain —
+            these attributes are purely for the browser's layout reservation.
+            Using 1200x630 as a standard wide-format car image ratio.
+
+            fetchpriority="high": Elevates this image in the browser's fetch
+            queue. Without this, the browser may deprioritise it behind other
+            resources. For the LCP element this is critical.
+
+            loading="eager": Explicitly opts out of lazy loading. Some browsers
+            and third-party scripts apply lazy loading heuristics that could
+            defer the LCP image. This ensures it always loads immediately.
+
+            decoding="sync": Tells the browser to decode this image synchronously
+            before displaying the page, preventing a flash of unstyled content
+            on the initial paint. Worth the small tradeoff for the LCP element.
+          -->
+          <img
+            src="../images/car.webp"
+            alt="Maruti Dzire Tour S CNG 2023"
+            class="fact-car-image"
+            width="1200"
+            height="630"
+            fetchpriority="high"
+            loading="eager"
+            decoding="sync"
+          >
         </div>
         <div class="fact-content">
           <div class="fact-row">
@@ -945,7 +1038,7 @@
             <div class="fact-icon fact-icon-loc">&#128205;</div>
             <div class="fact-text">
               <span class="fact-label" id="locLabel">Bhandup, Mumbai</span>
-              <span class="fact-detail">Local area, no long travel</span>
+              <span class="fact-detail">Parked in Bhandup, close to home</span>
             </div>
           </div>
         </div>
@@ -1034,7 +1127,7 @@
           </li>
           <li>
             <span class="why-icon" aria-hidden="true">&#9989;</span>
-            Bhandup area, no far travel
+            Parked in Bhandup, close to home
           </li>
           <li>
             <span class="why-icon" aria-hidden="true">&#9989;</span>
@@ -1159,7 +1252,15 @@
     </div>
   </div>
 
-  <script defer>
+  <!--
+    FIX 8: Removed the invalid `defer` attribute from this inline script.
+    The `defer` attribute is only valid on external scripts (those with a `src`
+    attribute). On inline scripts it is ignored by the HTML spec and has no
+    effect. Removing it keeps the HTML valid and avoids any edge-case browser
+    behaviour. The script is at the bottom of <body> which achieves the same
+    non-blocking behaviour that `defer` would give an external script.
+  -->
+  <script>
     (function () {
       'use strict';
 
@@ -1177,7 +1278,7 @@
       if (pd) pd.textContent = monthYear;
       if (td) td.textContent = monthYear;
 
-      /* ── Google Sheets endpoint (same as main lander) ── */
+      /* ── Google Sheets endpoint ── */
       var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzq7TmxCA1Wogb1ZKYbJx6ewhy49rT_w0IDmXMc3OEEuqEkLMjVmnoiKMn9mSXvpS-exQ/exec';
 
       /* ── Cookie helpers ── */
@@ -1238,7 +1339,6 @@
         /* Update headline with keyword or location */
         if (headlineEl) {
           if (kw) {
-            /* Keyword too long? fall back to default with location */
             if (kw.length > 45) {
               headlineEl.textContent = 'Driver Needed in ' + locationName;
             } else {
@@ -1299,12 +1399,10 @@
       var callBtn2El = document.getElementById('callBtn2');
       var callBtnText2El = document.getElementById('callBtnText2');
       var callRevealEl = document.getElementById('callReveal');
-      var callNumberEl = document.getElementById('callNumber');
       var copyBtnEl = document.getElementById('copyNumberBtn');
       var copyStatusEl = document.getElementById('copyStatus');
 
       var phoneRaw = '+919833498678';
-      var phoneDisplay = '+91 98334 98678';
 
       /* ── Show number panel for desktop users ── */
       function showCallReveal() {
@@ -1315,7 +1413,6 @@
         if (copyStatusEl) copyStatusEl.textContent = '';
       }
 
-      /* Desktop: show copy panel immediately */
       if (!isMobile) {
         showCallReveal();
         if (callBtnTextEl) callBtnTextEl.textContent = 'Copy Number';
@@ -1364,11 +1461,9 @@
       /* ── Handle call/copy click ── */
       function handleCallAction(e) {
         if (isMobile) {
-          /* Mobile: let tel: link work, just log it */
           logEvent('call_tap');
           return;
         }
-        /* Desktop: prevent tel: link, show copy panel */
         e.preventDefault();
         showCallReveal();
         copyNumber();
@@ -1378,14 +1473,12 @@
         logEvent('copy_number');
       }
 
-      /* Attach click handlers to all call buttons */
       var btnIds = ['callBtn', 'callBtn2', 'stickyCallBtn'];
       for (var b = 0; b < btnIds.length; b++) {
         var btn = document.getElementById(btnIds[b]);
         if (btn) btn.addEventListener('click', handleCallAction);
       }
 
-      /* Copy button click */
       if (copyBtnEl) {
         copyBtnEl.addEventListener('click', function (e) {
           e.preventDefault();
@@ -1416,6 +1509,7 @@
       }
     });
   </script>
+  <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v8c78df7c7c0f484497ecbca7046644da1771523124516" integrity="sha512-8DS7rgIrAmghBFwoOTujcf6D9rXvH8xm8JQ1Ja01h9QX8EzXldiszufYa4IFfKdLUKTTrnSFXLDkUEOTrZQ8Qg==" data-cf-beacon='{"version":"2024.11.0","token":"fc28803adec241b9b046d6da6ecd749c","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
 </body>
 
 </html>
