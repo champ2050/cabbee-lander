@@ -4,43 +4,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Driver Job in Bhandup | Cabbee</title>
+  <title>Outstation Cab from Mumbai | Cabbee</title>
   <meta name="description"
-    content="Driver needed for Maruti Dzire CNG car in Bhandup, Mumbai. Day shift 5 AM to 5 PM. Immediate joining. Call now to apply.">
-  <meta name="robots" content="noindex, nofollow">
-  <!-- noindex is intentional — this is a paid ads lander only, not for organic search -->
+    content="Round trip outstation cab from Mumbai. Maruti Suzuki Dzire Tour S CNG. ₹16/km flat rate. Only 15% advance. Pay rest after trip. ₹200 off first booking.">
 
-  <link rel="icon" type="image/png" sizes="64x64" href="../images/favicon.png">
-  <link rel="shortcut icon" type="image/png" href="../images/favicon.png">
-  <link rel="apple-touch-icon" href="../images/favicon.png">
+  <link rel="icon" type="image/png" sizes="64x64" href="./images/favicon.png">
+  <link rel="shortcut icon" type="image/png" href="./images/favicon.png">
+  <link rel="apple-touch-icon" href="./images/favicon.png">
+  <meta name="msapplication-TileImage" content="./images/favicon.png">
 
-  <!--
-    FIX 1: Preconnect to Google Fonts origins BEFORE the preload request.
-    Without these, the browser has to do a DNS lookup + TCP + TLS handshake
-    at font load time, adding ~200–400ms on mobile. These hints warm up the
-    connection so the font loads faster, improving FCP/LCP.
-  -->
+  <link rel="preload" as="image" href="./images/car.webp">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-  <!--
-    FIX 2: Preload the LCP image (car.webp) with high fetch priority.
-    The car image is the Largest Contentful Paint element on mobile.
-    Without a preload hint, the browser discovers this image only after
-    parsing the HTML, rendering the topbar, urgency bar, and headline —
-    causing a significant LCP delay. This hint tells the browser to fetch
-    the image immediately, in parallel with everything else.
-    fetchpriority="high" ensures it is not deprioritised behind other requests.
-  -->
-  <link rel="preload" as="image" href="../images/car.webp" fetchpriority="high">
-
-  <!-- Font: async load to avoid render-blocking -->
   <link rel="preload" as="style"
     href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap"
     onload="this.rel='stylesheet'">
   <noscript>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap"
-      rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   </noscript>
 
   <style>
@@ -64,8 +44,8 @@
       --yellow: #f59e0b;
       --yel-l: #fffbeb;
       --white: #ffffff;
-      --blue: #2563eb;
-      --blue-l: #eff6ff;
+      --gap: 12px;
+      --r: 10px;
       --font: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
     }
 
@@ -78,8 +58,15 @@
       -moz-osx-font-smoothing: grayscale;
     }
 
+    /* Natural scroll on all breakpoints — no viewport lock */
     html {
       scroll-behavior: smooth;
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding-bottom: 68px;
+      }
     }
 
     /* ── PAGE WRAPPER ── */
@@ -124,7 +111,7 @@
       border-radius: 50%;
     }
 
-    .hiring-pill {
+    .avail-pill {
       flex-shrink: 0;
       display: inline-flex;
       align-items: center;
@@ -139,7 +126,7 @@
       white-space: nowrap;
     }
 
-    .hiring-pulse {
+    .avail-pulse {
       width: 7px;
       height: 7px;
       background: var(--green);
@@ -162,8 +149,8 @@
       }
     }
 
-    /* ── URGENCY BAR ── */
-    .urgency-bar {
+    /* ── OFFER BAR ── */
+    .offer-bar {
       flex-shrink: 0;
       background: var(--yel-l);
       border-bottom: 1px solid #fde68a;
@@ -174,7 +161,7 @@
       color: #78350f;
     }
 
-    .urgency-tag {
+    .offer-tag {
       display: inline-block;
       background: var(--yellow);
       color: var(--black);
@@ -190,12 +177,13 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 16px 12px 28px;
-      gap: 14px;
+      padding: 16px 20px 28px;
+      gap: var(--gap);
     }
 
-    /* ── HEADLINE ── */
+    /* ── HEADLINE BLOCK ── */
     .headline-block {
+      flex-shrink: 0;
       text-align: center;
       width: 100%;
       max-width: 700px;
@@ -218,118 +206,689 @@
       opacity: 0.75;
     }
 
-    /* ── QUICK FACTS CARD ── */
-    .facts-card {
+    /* ── TRUST STRIP — all devices ── */
+    .trust-strip {
+      flex-shrink: 0;
       width: 100%;
       max-width: 700px;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      background: var(--white);
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.07), 0 4px 16px rgba(0, 0, 0, 0.04);
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .fact-car-image-container {
-      width: 100%;
-      background: #f8fafc;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      overflow: hidden;
-      padding: 12px 0;
-      /*
-        FIX 3: Explicit min-height on the container prevents Cumulative Layout
-        Shift (CLS). Before the image loads, the browser knows to reserve this
-        space rather than collapsing it to 0px and then reflowing when the image
-        arrives. This is the container-level CLS fix.
-      */
-      min-height: 254px;
-    }
-
-    /*
-      FIX 4: Car image — removed will-change, transform: translateZ(0), and
-      backface-visibility hacks. These were intended as GPU compositing tricks
-      but on low-end Android devices they actually HURT performance by forcing
-      the browser to promote the image to its own compositor layer, consuming
-      extra memory and GPU bandwidth for no benefit on a static image.
-      The image renders fine without them.
-    */
-    .fact-car-image {
-      width: 100%;
-      height: 230px;
-      object-fit: contain;
-      display: block;
-    }
-
-    .fact-content {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .fact-row {
+      background: var(--green-l);
+      border: 1px solid var(--green-b);
+      border-radius: var(--r);
+      padding: 9px 14px;
       display: flex;
       align-items: center;
-      gap: 12px;
-      padding: 13px 16px;
-      border-bottom: 1px solid var(--border);
+      gap: 8px;
+      margin-bottom: 4px;
     }
 
-    .fact-row:last-child {
-      border-bottom: none;
-    }
-
-    .fact-icon {
-      width: 36px;
-      height: 36px;
-      min-width: 36px;
+    .trust-strip-icon {
+      width: 24px;
+      height: 24px;
+      min-width: 24px;
+      background: rgba(255, 255, 255, 0.7);
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
-      font-size: 17px;
     }
 
-    .fact-icon-time {
-      background: var(--blue-l);
+    .trust-strip svg {
+      display: block;
+      width: 13px;
+      height: 13px;
+      flex-shrink: 0;
+      color: var(--green-d);
     }
 
-    .fact-icon-car {
-      background: #f0fdf4;
+    .trust-strip-text {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--green-d);
+      line-height: 1.4;
     }
 
-    .fact-icon-loc {
-      background: #fef3c7;
+    /* ── MOBILE HERO — hidden on desktop ── */
+    .mobile-hero {
+      display: none;
     }
 
-    .fact-text {
+    /* ── CARD ── */
+    .card {
+      flex-shrink: 0;
+      width: 100%;
+      max-width: 700px;
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      display: flex;
+      flex-direction: row;
+      background: var(--white);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.07), 0 4px 16px rgba(0, 0, 0, 0.04);
+      overflow: hidden;
+    }
+
+    /* ── CARD LEFT ── */
+    .card-left {
+      flex: 0 0 44%;
+      padding: 18px;
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .rate-line {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--black);
+      margin-bottom: 2px;
+      letter-spacing: -0.03em;
+    }
+
+    .rate-sub {
+      font-size: 11px;
+      color: var(--grey);
+      margin-bottom: 14px;
+      font-weight: 400;
+    }
+
+    .section-label {
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--grey);
+      margin-bottom: 10px;
+      letter-spacing: 0;
+    }
+
+    .inc-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      width: 100%;
+    }
+
+    .inc-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 9px;
+    }
+
+    .bullet-text {
       display: flex;
       flex-direction: column;
       gap: 1px;
     }
 
-    .fact-label {
-      font-size: 14px;
+    .bullet-label {
+      font-size: 12.5px;
       font-weight: 700;
       color: var(--black);
       line-height: 1.3;
     }
 
-    .fact-detail {
-      font-size: 12px;
+    .bullet-detail {
+      font-size: 11px;
       font-weight: 400;
       color: var(--grey);
+      line-height: 1.35;
+    }
+
+    .check {
+      width: 15px;
+      height: 15px;
+      min-width: 15px;
+      background: var(--green);
+      border-radius: 50%;
+      flex-shrink: 0;
+      margin-top: 1px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .check::after {
+      content: '';
+      display: block;
+      width: 3.5px;
+      height: 6px;
+      border: 1.8px solid #fff;
+      border-top: none;
+      border-left: none;
+      transform: rotate(45deg) translate(-0.5px, -1px);
+    }
+
+    /* ── CARD RIGHT ── */
+    .card-right {
+      flex: 0 0 56%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .car-photo {
+      width: 100%;
+      height: 260px;
+      object-fit: cover;
+      object-position: center 40%;
+      display: block;
+      flex-shrink: 0;
+    }
+
+    /* Social proof + car credential combined */
+    .social-proof {
+      flex-shrink: 0;
+      padding: 6px 12px 7px;
+      border-top: 1px solid var(--border);
+      background: #fafafa;
+    }
+
+    .social-proof-row {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      margin-bottom: 0;
+    }
+
+    .stars {
+      color: var(--yellow);
+      font-size: 12px;
+      letter-spacing: 0;
+      line-height: 1;
+    }
+
+    .rating-num {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--black);
+      line-height: 1;
+    }
+
+    .rating-sub {
+      font-size: 10px;
+      color: var(--grey);
+      line-height: 1;
+    }
+
+
+    /* Driver row — under photo in desktop card, under hero on mobile */
+    .driver-row,
+    .mobile-driver-row {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      margin-top: 5px;
+    }
+
+    .driver-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: center top;
+      flex-shrink: 0;
+      border: 2px solid var(--green-b);
+      display: block;
+    }
+
+    .driver-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .driver-name {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--black);
+      line-height: 1.2;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .driver-cred {
+      font-size: 10px;
+      color: var(--grey);
+      line-height: 1.2;
+      font-weight: 400;
+    }
+
+    .driver-tag {
+      flex-shrink: 0;
+      font-size: 9.5px;
+      font-weight: 700;
+      color: var(--green-d);
+      background: var(--green-l);
+      border: 1px solid var(--green-b);
+      padding: 3px 7px;
+      border-radius: 100px;
+      white-space: nowrap;
+    }
+
+    /* Routes scroll wrapper — for fade gradient */
+    .routes-scroll-wrap {
+      position: relative;
+    }
+
+    .routes-scroll-wrap::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 48px;
+      height: 100%;
+      background: linear-gradient(to right, transparent, #fff);
+      pointer-events: none;
+      border-radius: 0 8px 8px 0;
+    }
+
+    /* ── ROUTES STRIP ── */
+    .routes-strip {
+      flex-shrink: 0;
+      width: 100%;
+      max-width: 700px;
+    }
+
+    .routes-label {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--grey);
+      margin-bottom: 8px;
+      padding-left: 1px;
+    }
+
+    .routes-scroll {
+      display: flex;
+      gap: 7px;
+      overflow-x: auto;
+      padding-bottom: 3px;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      cursor: grab;
+      cursor: -webkit-grab;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .routes-scroll.is-dragging {
+      cursor: grabbing;
+      cursor: -webkit-grabbing;
+    }
+
+    .routes-scroll::-webkit-scrollbar {
+      display: none;
+    }
+
+    .route-chip {
+      flex-shrink: 0;
+      background: var(--lgrey);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 7px 12px;
+      text-align: center;
+      -webkit-user-select: none;
+      user-select: none;
+      transition: border-color 0.15s;
+    }
+
+
+
+    .route-dest {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--black);
+      line-height: 1.2;
+    }
+
+    .route-meta {
+      display: block;
+      font-size: 10px;
+      color: var(--grey);
+      line-height: 1.4;
+      margin-top: 2px;
+      font-weight: 400;
+    }
+
+    .routes-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      margin-top: 9px;
+      font-size: 11.5px;
+      font-weight: 500;
+      color: var(--grey);
+      text-decoration: none;
+      transition: color 0.12s;
+      padding-left: 1px;
+    }
+
+    .routes-cta svg {
+      display: block;
+      width: 12px;
+      height: 12px;
+      flex-shrink: 0;
+      color: var(--grey);
+      transition: color 0.12s;
+    }
+
+    .routes-cta:hover,
+    .routes-cta:hover svg {
+      color: var(--black);
+    }
+
+    /* Details/summary — show all bullets toggle */
+    .inc-more {
+      width: 100%;
+    }
+
+    .inc-more>summary {
+      list-style: none;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    .inc-more>summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .inc-more-toggle {
+      display: inline-block;
+      margin-top: 10px;
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--grey);
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    .inc-more-toggle:hover {
+      color: var(--black);
+    }
+
+    .inc-list-extra {
+      margin-top: 9px;
+    }
+
+    /* Desktop: always show all bullets, hide the toggle */
+    @media (min-width: 601px) {
+      .inc-more-toggle {
+        display: none;
+      }
+
+      .inc-list-extra {
+        display: flex;
+      }
+    }
+
+    /* Car credential line — below driver row in desktop card */
+    .car-cred-line {
+      font-size: 9.5px;
+      color: var(--grey);
+      font-weight: 400;
+      margin-top: 5px;
+      padding-top: 5px;
+      border-top: 1px solid var(--border);
+      line-height: 1.3;
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      max-width: 100%;
+      overflow: hidden;
+    }
+
+    .car-cred-row {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      flex-wrap: nowrap;
+      max-width: 100%;
+      overflow: hidden;
+    }
+
+    .car-cred-name {
+      font-weight: 600;
+      color: var(--black);
+    }
+
+    .car-cred-icon {
+      display: inline-flex;
+      align-items: center;
+      vertical-align: middle;
+      margin-right: 2px;
+    }
+
+    .car-cred-icon svg {
+      display: block;
+      width: 9px;
+      height: 9px;
+    }
+
+    .car-cred-icon-car {
+      color: #6366f1;
+    }
+
+    .car-cred-icon-wrench {
+      color: #d97706;
+    }
+
+    .car-cred-icon-person {
+      color: #3b82f6;
+    }
+
+    .car-cred-pill {
+      display: inline-flex;
+      align-items: center;
+      background: var(--green-l);
+      border: 1px solid var(--green-b);
+      color: var(--green-d);
+      font-size: 8.5px;
+      font-weight: 700;
+      padding: 1px 6px;
+      border-radius: 100px;
+      white-space: nowrap;
+      letter-spacing: 0.02em;
+    }
+
+    .car-cred-dot {
+      color: #d1d5db;
+      font-size: 10px;
+    }
+
+    /* CTA nudge — small line between button and divider */
+    .cta-nudge {
+      font-size: 11.5px;
+      color: var(--grey);
+      text-align: center;
+      line-height: 1.4;
+    }
+
+    /* ── EXCLUSIONS STRIP ── */
+    .excl-strip {
+      flex-shrink: 0;
+      width: 100%;
+      max-width: 700px;
+      background: var(--lgrey);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--yellow);
+      border-radius: var(--r);
+      padding: 10px 14px;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .excl-icon {
+      font-size: 13px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .excl-body {
+      font-size: 12px;
+      color: var(--grey);
+      line-height: 1.6;
+    }
+
+    .excl-body strong {
+      color: var(--black);
+      font-weight: 600;
+    }
+
+    /* ── HALTS STRIP ── */
+    .halts-strip {
+      flex-shrink: 0;
+      width: 100%;
+      max-width: 700px;
+      background: var(--green-l);
+      border: 1px solid var(--green-b);
+      border-left: 3px solid var(--green);
+      border-radius: var(--r);
+      padding: 10px 14px;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .halts-icon {
+      font-size: 13px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .halts-body {
+      font-size: 12px;
+      color: var(--grey);
+      line-height: 1.6;
+    }
+
+    .halts-body strong {
+      color: var(--black);
+      font-weight: 600;
+    }
+
+    /* ── PRICE EXAMPLE ── */
+    .price-example {
+      flex-shrink: 0;
+      width: 100%;
+      max-width: 700px;
+      text-align: left;
+      font-size: 12px;
+      color: var(--grey);
+      line-height: 1.5;
+    }
+
+    .price-example strong {
+      color: var(--black);
+      font-weight: 700;
+    }
+
+    .booking-label {
+      flex-shrink: 0;
+      width: 100%;
+      max-width: 700px;
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--grey);
+      margin-bottom: -4px;
+    }
+
+    .trust-row {
+      flex-shrink: 0;
+      width: 100%;
+      max-width: 700px;
+      display: flex;
+      gap: 8px;
+      align-items: stretch;
+    }
+
+    .trust-badge {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      padding: 10px;
+    }
+
+    .trust-badge svg {
+      display: block;
+      width: 15px;
+      height: 15px;
+      flex-shrink: 0;
+    }
+
+    /* Tinted icon circle — each badge gets its own colour */
+    .badge-icon {
+      width: 34px;
+      height: 34px;
+      min-width: 34px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      align-self: center;
+    }
+
+    /* Override SVG size specifically inside the icon circle */
+    .badge-icon svg {
+      display: block;
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+    }
+
+    .badge-icon-blue {
+      background: #eff6ff;
+      color: #3b82f6;
+    }
+
+    .badge-icon-indigo {
+      background: #eef2ff;
+      color: #6366f1;
+    }
+
+    .badge-icon-green {
+      background: var(--green-l);
+      color: var(--green-d);
+    }
+
+    .trust-badge-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      justify-content: center;
+      align-self: center;
+      min-width: 0;
+    }
+
+    .trust-badge-text {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--black);
       line-height: 1.3;
     }
 
-    /* ── MAIN CTA ── */
+    .trust-badge-sub {
+      font-size: 10px;
+      color: var(--grey);
+      line-height: 1.2;
+      font-weight: 400;
+    }
+
+    /* ── CTA BLOCK ── */
     .cta-block {
+      flex-shrink: 0;
       width: 100%;
-      max-width: 600px;
+      max-width: 700px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -377,14 +936,6 @@
       flex-shrink: 0;
     }
 
-    .cta-nudge {
-      font-size: 11.5px;
-      color: var(--grey);
-      text-align: center;
-      line-height: 1.4;
-    }
-
-    /* Call reveal for desktop */
     .call-reveal {
       display: none;
       width: 100%;
@@ -433,7 +984,6 @@
       padding: 6px 10px;
       border-radius: 6px;
       cursor: pointer;
-      font-family: var(--font);
       transition: border-color 0.15s, color 0.15s, transform 0.12s;
     }
 
@@ -453,145 +1003,47 @@
       min-height: 12px;
     }
 
-    /* ── DOCUMENTS SECTION ── */
-    .section-block {
-      width: 100%;
-      max-width: 600px;
-      /*
-        FIX 5: content-visibility: auto tells the browser it can skip
-        rendering this section until it is close to the viewport. On a
-        mobile device rendering the page for the first time, the browser
-        will paint the above-fold content (topbar, headline, car card, CTA)
-        first and defer these sections, significantly reducing initial
-        render time. contain-intrinsic-size is a fallback height estimate
-        so the scrollbar doesn't jump when the section renders.
-      */
-      content-visibility: auto;
-      contain-intrinsic-size: 0 200px;
+    .cta-divider {
+      font-size: 11px;
+      color: var(--grey);
     }
 
-    .section-title {
-      font-size: 15px;
+    .phone-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 13.5px;
       font-weight: 700;
       color: var(--black);
-      margin-bottom: 10px;
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      transition: color 0.1s;
     }
 
-    .doc-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 9px;
+    .phone-link:hover {
+      color: var(--green-d);
     }
 
-    .doc-list li {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 13.5px;
-      font-weight: 500;
-      color: var(--black);
-      line-height: 1.4;
-    }
-
-    .doc-check {
-      width: 18px;
-      height: 18px;
-      min-width: 18px;
-      background: var(--green);
-      border-radius: 50%;
-      flex-shrink: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .doc-check::after {
-      content: '';
-      display: block;
-      width: 4px;
-      height: 7px;
-      border: 2px solid #fff;
-      border-top: none;
-      border-left: none;
-      transform: rotate(45deg) translate(-0.5px, -1px);
-    }
-
-    /* ── WHY APPLY ── */
-    .why-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 9px;
-    }
-
-    .why-list li {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 13.5px;
-      font-weight: 500;
-      color: var(--black);
-      line-height: 1.4;
-    }
-
-    .why-icon {
-      width: 18px;
-      height: 18px;
-      min-width: 18px;
-      flex-shrink: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 14px;
-    }
-
-    /* ── DIVIDER ── */
-    .section-divider {
-      width: 100%;
-      max-width: 600px;
-      height: 1px;
-      background: var(--border);
-    }
-
-    /* ── TRUST STRIP ── */
-    .trust-strip {
-      width: 100%;
-      max-width: 600px;
-      background: var(--green-l);
-      border: 1px solid var(--green-b);
-      border-radius: 10px;
-      padding: 10px 14px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .trust-strip-icon {
-      width: 24px;
-      height: 24px;
-      min-width: 24px;
-      background: rgba(255, 255, 255, 0.7);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-
-    .trust-strip svg {
-      display: block;
+    .phone-link svg {
       width: 13px;
       height: 13px;
-      flex-shrink: 0;
-      color: var(--green-d);
+      color: var(--grey);
     }
 
-    .trust-strip-text {
-      font-size: 12px;
-      font-weight: 500;
-      color: var(--green-d);
-      line-height: 1.4;
+    /* Desktop CTA - hide inline phone link */
+    @media (min-width: 601px) {
+      .cta-divider {
+        display: none;
+      }
+
+      .phone-link {
+        display: none;
+      }
+    }
+
+    /* ── STICKY CTA (mobile only) ── */
+    .sticky-cta {
+      display: none;
     }
 
     /* ── FOOTER ── */
@@ -653,11 +1105,16 @@
 
     .modal-box::-webkit-scrollbar-track {
       background: transparent;
+      border-radius: 0 12px 12px 0;
     }
 
     .modal-box::-webkit-scrollbar-thumb {
       background: #d1d5db;
       border-radius: 3px;
+    }
+
+    .modal-box::-webkit-scrollbar-thumb:hover {
+      background: #9ca3af;
     }
 
     .modal-box h3 {
@@ -691,19 +1148,120 @@
       color: var(--black);
     }
 
-    /* ── STICKY CTA (mobile only) ── */
-    .sticky-cta {
-      display: none;
+    /* ══════════════════════════════
+       LAPTOP 901–1280px
+    ══════════════════════════════ */
+    @media (min-width: 901px) and (max-width: 1280px) {
+      :root {
+        --gap: 10px;
+      }
+
+      .main {
+        padding: 14px 18px 22px;
+      }
+
+      h1 {
+        font-size: 23px;
+      }
+
+      .card-left {
+        padding: 15px 16px;
+      }
+
+      .rate-line {
+        font-size: 20px;
+      }
+
+      .rate-sub {
+        margin-bottom: 11px;
+      }
+
+      .inc-list {
+        gap: 8px;
+      }
+
+      .bullet-label {
+        font-size: 12px;
+      }
+
+      .bullet-detail {
+        font-size: 10.5px;
+      }
+
+      .btn-call {
+        font-size: 16px;
+        padding: 13px 28px;
+      }
+    }
+
+    /* ══════════════════════════════
+       TABLET 601–900px
+    ══════════════════════════════ */
+    @media (min-width: 601px) and (max-width: 900px) {
+      :root {
+        --gap: 10px;
+      }
+
+      .main {
+        padding: 12px 16px 20px;
+      }
+
+      h1 {
+        font-size: 21px;
+      }
+
+      .sub {
+        font-size: 13px;
+      }
+
+      .card-left {
+        padding: 13px 13px;
+      }
+
+      .rate-line {
+        font-size: 18px;
+      }
+
+      .inc-list {
+        gap: 8px;
+      }
+
+      .bullet-label {
+        font-size: 11.5px;
+      }
+
+      .bullet-detail {
+        font-size: 10.5px;
+      }
+
+      .btn-call {
+        font-size: 15px;
+        padding: 13px 24px;
+      }
+
+      .trust-badge-text {
+        font-size: 11px;
+      }
+
+      .trust-badge-sub {
+        font-size: 9.5px;
+      }
+
+      .badge-icon {
+        width: 32px;
+        height: 32px;
+        min-width: 32px;
+      }
+
+      .car-photo {
+        height: 190px;
+      }
     }
 
     /* ══════════════════════════════
        MOBILE ≤600px
     ══════════════════════════════ */
     @media (max-width: 600px) {
-      body {
-        padding-bottom: 68px;
-      }
-
       .topbar {
         padding: 8px 14px;
       }
@@ -712,66 +1270,201 @@
         font-size: 21px;
       }
 
-      .urgency-bar {
+      .offer-bar {
         font-size: 12px;
         padding: 6px 14px;
       }
 
       .main {
         padding: 12px 12px 16px;
-        gap: 12px;
+        gap: 10px;
       }
 
       h1 {
-        font-size: 20px;
-        margin-bottom: 4px;
+        font-size: 19px;
+        margin-bottom: 5px;
       }
 
       .sub {
         font-size: 13px;
       }
 
-      .fact-row {
-        padding: 11px 14px;
+      /* Mobile hero — show */
+      .mobile-hero {
+        display: block;
+        width: 100%;
+        border-radius: var(--r);
+        overflow: hidden;
+        border: 1px solid var(--border);
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+        flex-shrink: 0;
+      }
+
+      .mobile-hero-img {
+        width: 100%;
+        height: 230px;
+        object-fit: cover;
+        object-position: center 60%;
+        display: block;
+      }
+
+      .mobile-hero-proof {
+        padding: 8px 12px;
+        border-top: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        background: #fafafa;
+      }
+
+      .mobile-hero-cred {
+        padding: 5px 12px 7px;
+        background: #fafafa;
+        border-top: 1px solid var(--border);
+        font-size: 10.5px;
+        color: var(--grey);
+        font-weight: 400;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
+
+      .mobile-hero-cred svg {
+        width: 10px;
+        height: 10px;
+        color: var(--grey);
+        flex-shrink: 0;
+      }
+
+      /* Mobile driver row */
+      .mobile-driver-row {
+        padding: 8px 12px 10px;
+        background: #fafafa;
+        border-top: 1px solid var(--border);
+        margin-top: 0;
+      }
+
+      .mobile-driver-row .driver-name {
+        font-size: 12.5px;
+      }
+
+      .mobile-driver-row .driver-cred {
+        font-size: 10.5px;
+      }
+
+      .mobile-driver-row .driver-avatar {
+        width: 34px;
+        height: 34px;
+      }
+
+      /* Card — column layout */
+      .card {
+        flex-direction: column;
+      }
+
+      /* Hide desktop photo side on mobile */
+      .card-right {
+        display: none;
+      }
+
+      /* Card left — full width */
+      .card-left {
+        flex: none;
+        width: 100%;
+        border-right: none;
+        padding: 13px 13px 14px;
+      }
+
+      .rate-line {
+        font-size: 16px;
+      }
+
+      .rate-sub {
+        font-size: 10.5px;
+        margin-bottom: 10px;
+      }
+
+      .section-label {
+        font-size: 8.5px;
+        margin-bottom: 7px;
+      }
+
+      .inc-list {
         gap: 10px;
       }
 
-      .fact-icon {
-        width: 32px;
-        height: 32px;
-        min-width: 32px;
-        font-size: 15px;
+      .bullet-label {
+        font-size: 12px;
       }
 
-      .fact-label {
-        font-size: 13px;
+      .bullet-detail {
+        font-size: 10.5px;
       }
 
-      .fact-detail {
-        font-size: 11px;
+      /* Trust badges */
+      .trust-row {
+        gap: 6px;
+        flex-wrap: wrap;
       }
 
-      /* Hide inline CTA button, use sticky bar */
+      .trust-badge {
+        padding: 9px 8px;
+        gap: 8px;
+        flex: 1 1 calc(50% - 4px);
+        min-width: 140px;
+      }
+
+      .badge-icon {
+        width: 30px;
+        height: 30px;
+        min-width: 30px;
+      }
+
+      .badge-icon svg {
+        width: 14px;
+        height: 14px;
+      }
+
+      .trust-badge-text {
+        font-size: 10.5px;
+      }
+
+      .trust-badge-sub {
+        font-size: 9px;
+      }
+
+      /* CTA: button hidden — sticky bar handles it */
       .btn-call {
         display: none;
       }
 
-      .cta-nudge {
+      .cta-divider {
         display: none;
       }
 
-      .hiring-pill {
+      .phone-link {
+        font-size: 13px;
+      }
+
+      .avail-pill {
         font-size: 10px;
         padding: 4px 9px;
       }
 
-      .section-title {
-        font-size: 14px;
+      .routes-label {
+        font-size: 8.5px;
       }
 
-      .doc-list li,
-      .why-list li {
-        font-size: 13px;
+      .excl-strip {
+        padding: 9px 11px;
+      }
+
+      .excl-body {
+        font-size: 11px;
+      }
+
+      .price-example {
+        font-size: 11.5px;
       }
 
       /* STICKY CTA BAR */
@@ -791,14 +1484,6 @@
         gap: 9px;
         text-decoration: none;
         -webkit-tap-highlight-color: transparent;
-      }
-
-      .fact-car-image {
-        height: 230px;
-      }
-
-      .fact-car-image-container {
-        min-height: 254px;
       }
 
       .sticky-cta svg {
@@ -821,135 +1506,43 @@
       }
     }
 
-    @media (max-width: 360px) {
-      .fact-car-image {
-        height: 200px;
+    @media (min-width: 390px) and (max-width: 600px) {
+      h1 {
+        font-size: 20px;
       }
 
-      .fact-car-image-container {
-        min-height: 224px;
+      .mobile-hero-img {
+        height: 250px;
+      }
+    }
+
+    @media (max-width: 360px) {
+      h1 {
+        font-size: 17px;
       }
 
       .logo-text {
         font-size: 19px;
       }
 
-      .doc-list li,
-      .why-list li {
-        font-size: 12px;
-      }
-
-      .urgency-bar {
+      .bullet-label {
         font-size: 11px;
       }
-    }
 
-    @media (min-width: 390px) and (max-width: 600px) {
-      .fact-car-image {
-        height: 250px;
+      .bullet-detail {
+        font-size: 10px;
       }
 
-      .fact-car-image-container {
-        min-height: 274px;
+      .offer-bar {
+        font-size: 11px;
       }
 
-      h1 {
-        font-size: 21px;
-      }
-    }
-
-    /* Desktop CTA — hide phone link on desktop */
-    @media (min-width: 601px) {
-      .main {
-        padding: 20px 20px 32px;
-      }
-    }
-
-    /* Tablet */
-    @media (min-width: 601px) and (max-width: 900px) {
-      h1 {
-        font-size: 23px;
+      .trust-badge-sub {
+        display: none;
       }
 
-      .btn-call {
-        font-size: 16px;
-        padding: 14px 28px;
-      }
-
-      .fact-car-image {
-        height: 190px;
-      }
-
-      .fact-car-image-container {
-        min-height: 214px;
-      }
-    }
-
-    /* Laptop/Desktop */
-    @media (min-width: 901px) {
-      h1 {
-        font-size: 28px;
-      }
-
-      .btn-call {
-        font-size: 17px;
-        padding: 15px 32px;
-      }
-
-      .fact-car-image {
-        height: 260px;
-      }
-
-      .fact-car-image-container {
-        min-height: 284px;
-      }
-
-      .facts-card {
-        flex-direction: row;
-      }
-
-      .fact-content {
-        flex: 0 0 44%;
-        border-right: 1px solid var(--border);
-      }
-
-      .fact-car-image-container {
-        flex: 0 0 56%;
-        border-bottom: none;
-        order: 2;
-      }
-    }
-
-    /* ── ANIMATIONS ── */
-    /*
-      FIX 6: Removed animation from .facts-card and .cta-block.
-      These are above-the-fold elements. The original fadeUp animation
-      started them at opacity:0 with animation-delay:0.1s and 0.2s
-      respectively. This directly caused the LCP element (car image
-      inside facts-card) to be invisible during the delay, which
-      PageSpeed/Lighthouse counts as the element not yet being painted —
-      pushing the LCP score into the red.
-
-      Below-fold sections (.section-block) keep their animation since
-      they are not LCP candidates and the fade-in is a nice touch when
-      the user scrolls down.
-    */
-    @media (prefers-reduced-motion: no-preference) {
-      .section-block {
-        animation: fadeUp 0.35s cubic-bezier(0.4, 0.0, 0.2, 1) both;
-        animation-delay: 0.1s;
-      }
-    }
-
-    @keyframes fadeUp {
-      from {
-        opacity: 0;
-        transform: translateY(12px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
+      .mobile-hero-img {
+        height: 200px;
       }
     }
   </style>
@@ -962,113 +1555,26 @@
     <!-- TOPBAR -->
     <header class="topbar">
       <span class="logo-text" aria-label="Cabbee">Cabbee<span class="logo-dot"></span></span>
-      <span class="hiring-pill" id="hiringPill">
-        <span class="hiring-pulse"></span>
-        Hiring in Bhandup
+      <span class="avail-pill" id="availPill">
+        <span class="avail-pulse"></span>
+        Available now in Mumbai
       </span>
     </header>
 
-    <!-- URGENCY BAR -->
-    <div class="urgency-bar">
-      <span class="urgency-tag">URGENT</span>Immediate joining. Call now to apply
+    <!-- OFFER BAR -->
+    <div class="offer-bar">
+      <span class="offer-tag">&#8377;200 OFF</span>your first trip. Mention this when you call
     </div>
 
     <main class="main">
 
       <!-- HEADLINE -->
       <div class="headline-block">
-        <h1 id="headline">Driver Needed in Bhandup</h1>
-        <p class="sub">Day shift &middot; Dzire CNG (2023) &middot; Call to apply</p>
+        <h1 id="headline">Round Trip Outstation Cab from Mumbai</h1>
+        <p class="sub">One driver. One fixed price. Same car, every time.</p>
       </div>
 
-      <!-- QUICK FACTS -->
-      <div class="facts-card">
-        <div class="fact-car-image-container">
-          <!--
-            FIX 7: Added width, height, fetchpriority, and loading attributes
-            to the LCP image element.
-
-            width + height: These tell the browser the intrinsic dimensions
-            (and therefore aspect ratio) of the image before it downloads.
-            The browser uses this to reserve the correct space in the layout,
-            preventing Cumulative Layout Shift (CLS). The actual rendered size
-            is still controlled by the CSS height:230px + object-fit:contain —
-            these attributes are purely for the browser's layout reservation.
-            Using 1200x630 as a standard wide-format car image ratio.
-
-            fetchpriority="high": Elevates this image in the browser's fetch
-            queue. Without this, the browser may deprioritise it behind other
-            resources. For the LCP element this is critical.
-
-            loading="eager": Explicitly opts out of lazy loading. Some browsers
-            and third-party scripts apply lazy loading heuristics that could
-            defer the LCP image. This ensures it always loads immediately.
-
-            decoding="sync": Tells the browser to decode this image synchronously
-            before displaying the page, preventing a flash of unstyled content
-            on the initial paint. Worth the small tradeoff for the LCP element.
-          -->
-          <img
-            src="../images/car.webp"
-            alt="Maruti Dzire Tour S CNG 2023"
-            class="fact-car-image"
-            width="1200"
-            height="630"
-            fetchpriority="high"
-            loading="eager"
-            decoding="sync"
-          >
-        </div>
-        <div class="fact-content">
-          <div class="fact-row">
-            <div class="fact-icon fact-icon-time">&#128339;</div>
-            <div class="fact-text">
-              <span class="fact-label">5 AM to 5 PM</span>
-              <span class="fact-detail">Day shift, 12 hours, fixed timing</span>
-            </div>
-          </div>
-          <div class="fact-row">
-            <div class="fact-icon fact-icon-car">&#128663;</div>
-            <div class="fact-text">
-              <span class="fact-label">Maruti Dzire CNG (2023)</span>
-              <span class="fact-detail">AC Sedan, well-maintained car</span>
-            </div>
-          </div>
-          <div class="fact-row">
-            <div class="fact-icon fact-icon-loc">&#128205;</div>
-            <div class="fact-text">
-              <span class="fact-label" id="locLabel">Bhandup, Mumbai</span>
-              <span class="fact-detail">Local area, no long travel</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- MAIN CTA -->
-      <div class="cta-block">
-        <a href="tel:+919833498678" class="btn-call" id="callBtn">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
-            stroke-linejoin="round" aria-hidden="true">
-            <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07
-                   A19.5 19.5 0 013.07 9.8 19.79 19.79 0 01.08 1.18
-                   A2 2 0 012.06 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81
-                   a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27
-                   a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z" />
-          </svg>
-          <span id="callBtnText">Call Now to Apply</span>
-        </a>
-        <div class="call-reveal" id="callReveal" aria-hidden="true">
-          <span class="call-reveal-title">Call this number from your phone</span>
-          <div class="call-reveal-row">
-            <span class="call-reveal-number" id="callNumber">+91 98334 98678</span>
-            <button class="copy-btn" id="copyNumberBtn" type="button">Copy</button>
-          </div>
-          <span class="copy-status" id="copyStatus" role="status" aria-live="polite"></span>
-        </div>
-        <span class="cta-nudge">Only for experienced drivers. Call to know the pay</span>
-      </div>
-
-      <!-- TRUST STRIP -->
+      <!-- TRUST STRIP — visible on all devices -->
       <div class="trust-strip">
         <div class="trust-strip-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -1078,69 +1584,300 @@
           </svg>
         </div>
         <div class="trust-strip-text">
-          2023 AC sedan car &nbsp;&middot;&nbsp; Fixed daily timing &nbsp;&middot;&nbsp; Bhandup area only
+          Roof carrier included &nbsp;&middot;&nbsp; Single owner &nbsp;&middot;&nbsp; Driver ID verified &nbsp;&middot;&nbsp; Taking bookings now
         </div>
       </div>
 
-      <div class="section-divider"></div>
-
-      <!-- WHAT YOU NEED -->
-      <div class="section-block">
-        <div class="section-title">What you need to apply</div>
-        <ul class="doc-list">
-          <li>
-            <span class="doc-check" aria-hidden="true"></span>
-            Driving license (transport / TR)
-          </li>
-          <li>
-            <span class="doc-check" aria-hidden="true"></span>
-            Aadhar card
-          </li>
-          <li>
-            <span class="doc-check" aria-hidden="true"></span>
-            PAN card
-          </li>
-          <li>
-            <span class="doc-check" aria-hidden="true"></span>
-            Family member contact number
-          </li>
-          <li>
-            <span class="doc-check" aria-hidden="true"></span>
-            Your photo (selfie)
-          </li>
-        </ul>
+      <!-- MOBILE HERO — shown only on mobile -->
+      <div class="mobile-hero">
+        <img class="mobile-hero-img" src="./images/car.webp" alt="Maruti Suzuki Dzire Tour S CNG outstation cab"
+          loading="eager" fetchpriority="high" decoding="async" width="640" height="480">
+        <div class="mobile-hero-proof">
+          <span class="stars" aria-label="4.8 out of 5">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+          <span class="rating-num">4.8</span>
+          <span class="rating-sub">200+ trips completed</span>
+        </div>
+        <div class="mobile-hero-cred">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+            stroke-linejoin="round" aria-hidden="true">
+            <path
+              d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z" />
+          </svg>
+          Maruti Suzuki Dzire Tour S CNG &nbsp;&middot;&nbsp; Serviced <span id="serviceYearMobile"></span>
+          &nbsp;&middot;&nbsp; Single owner
+        </div>
+        <div class="mobile-driver-row">
+          <img src="./images/driver.jpg" alt="Rahul Desai, your driver" class="driver-avatar" loading="lazy" width="36"
+            height="36">
+          <div class="driver-info">
+            <span class="driver-name">Rahul Desai</span>
+            <span class="driver-cred">11 years, Mumbai outstation routes · ID verified</span>
+          </div>
+          <span class="driver-tag">Your driver</span>
+        </div>
       </div>
 
-      <div class="section-divider"></div>
+      <!-- MAIN CARD -->
+      <div class="card">
 
-      <!-- WHY APPLY -->
-      <div class="section-block">
-        <div class="section-title">Why this job</div>
-        <ul class="why-list">
-          <li>
-            <span class="why-icon" aria-hidden="true">&#9989;</span>
-            Day shift only, fixed time every day
-          </li>
-          <li>
-            <span class="why-icon" aria-hidden="true">&#9989;</span>
-            Clean AC sedan (2023 model) to drive
-          </li>
-          <li>
-            <span class="why-icon" aria-hidden="true">&#9989;</span>
-            Bhandup area, no far travel
-          </li>
-          <li>
-            <span class="why-icon" aria-hidden="true">&#9989;</span>
-            Call to know the pay
-          </li>
-        </ul>
+        <div class="card-left">
+          <div class="rate-line">&#8377;16 per km</div>
+          <div class="rate-sub">Flat rate &nbsp;&middot;&nbsp; Round trip &nbsp;&middot;&nbsp; <span
+              style="font-weight:600;color:var(--black);">Fixed price, no surprises</span></div>
+          <div class="section-label">What's covered in every rupee</div>
+          <ul class="inc-list">
+            <li>
+              <span class="check" aria-hidden="true"></span>
+              <span class="bullet-text">
+                <span class="bullet-label">Your driver, confirmed</span>
+                <span class="bullet-detail">ID-verified driver. Name, photo, and number shared before your trip day</span>
+              </span>
+            </li>
+            <li>
+              <span class="check" aria-hidden="true"></span>
+              <span class="bullet-text">
+                <span class="bullet-label">Fuel fully covered</span>
+                <span class="bullet-detail">Both ways, you pay nothing extra on the road</span>
+              </span>
+            </li>
+            <li>
+              <span class="check" aria-hidden="true"></span>
+              <span class="bullet-text">
+                <span class="bullet-label">Only 15% to confirm</span>
+                <span class="bullet-detail">Pay the rest after you are home, cash or UPI</span>
+              </span>
+            </li>
+          </ul>
+          <details class="inc-more" id="incMore">
+            <summary class="inc-more-toggle">See 4 more things included &#9660;</summary>
+            <ul class="inc-list inc-list-extra">
+              <li>
+                <span class="check" aria-hidden="true"></span>
+                <span class="bullet-text">
+                  <span class="bullet-label">AC all the way</span>
+                  <span class="bullet-detail">Cool and comfortable, short trips or 12-hour drives</span>
+                </span>
+              </li>
+              <li>
+                <span class="check" aria-hidden="true"></span>
+                <span class="bullet-text">
+                  <span class="bullet-label">Roof carrier included</span>
+                  <span class="bullet-detail">Family bags, big suitcases. Fits everything</span>
+                </span>
+              </li>
+              <li>
+                <span class="check" aria-hidden="true"></span>
+                <span class="bullet-text">
+                  <span class="bullet-label">Night travel, no extra</span>
+                  <span class="bullet-detail">Return at any hour, nothing added to the bill</span>
+                </span>
+              </li>
+              <li>
+                <span class="check" aria-hidden="true"></span>
+                <span class="bullet-text">
+                  <span class="bullet-label">Music your way</span>
+                  <span class="bullet-detail">Bluetooth or built-in. Your playlist, your trip</span>
+                </span>
+              </li>
+            </ul>
+          </details>
+        </div>
+
+        <div class="card-right">
+          <img class="car-photo" src="./images/car.webp" alt="Maruti Suzuki Dzire Tour S CNG outstation cab"
+            loading="eager" fetchpriority="high" decoding="async" width="640" height="480">
+          <div class="social-proof">
+            <div class="social-proof-row">
+              <span class="stars" aria-label="4.8 out of 5">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+              <span class="rating-num">4.8</span>
+              <span class="rating-sub">200+ trips completed</span>
+            </div>
+            <div class="driver-row">
+              <img src="./images/driver.jpg" alt="Rahul Desai, your driver" class="driver-avatar" loading="lazy"
+                width="36" height="36">
+              <div class="driver-info">
+                <span class="driver-name">Rahul Desai</span>
+                <span class="driver-cred">11 years, Mumbai outstation routes · ID verified</span>
+              </div>
+              <span class="driver-tag">Your driver</span>
+            </div>
+            <div class="car-cred-line">
+              <div class="car-cred-row">
+                <span class="car-cred-icon car-cred-icon-car" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path d="M5 17H3a1 1 0 01-1-1v-3l2-6h14l2 6v3a1 1 0 01-1 1h-2" />
+                    <circle cx="7.5" cy="17" r="2.5" />
+                    <circle cx="16.5" cy="17" r="2.5" />
+                    <path d="M5 10h14" />
+                  </svg>
+                </span>
+                <span class="car-cred-name">Maruti Suzuki Dzire Tour S CNG</span>
+                <span class="car-cred-pill">AC Sedan</span>
+              </div>
+              <div class="car-cred-row">
+                <span class="car-cred-icon car-cred-icon-wrench" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path
+                      d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z" />
+                  </svg>
+                </span>
+                Serviced <span id="serviceYear"></span>
+                <span class="car-cred-dot">&middot;</span>
+                <span class="car-cred-icon car-cred-icon-person" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
+                    <circle cx="12" cy="7" r="4" />
+                  </svg>
+                </span>
+                Single owner
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
 
-      <div class="section-divider"></div>
+      <!-- ROUTES STRIP -->
+      <div class="routes-strip">
+        <div class="routes-label">Popular routes from Mumbai</div>
+        <div class="routes-scroll-wrap">
+          <div class="routes-scroll" role="list">
+            <div class="route-chip" role="listitem">
+              <span class="route-dest">Lonavala</span>
+              <span class="route-meta">190 km round trip</span>
+            </div>
+            <div class="route-chip" role="listitem">
+              <span class="route-dest">Alibaug</span>
+              <span class="route-meta">200 km round trip</span>
+            </div>
+            <div class="route-chip" role="listitem">
+              <span class="route-dest">Mahabaleshwar</span>
+              <span class="route-meta">520 km round trip</span>
+            </div>
+            <div class="route-chip" role="listitem">
+              <span class="route-dest">Shirdi</span>
+              <span class="route-meta">490 km round trip</span>
+            </div>
+            <div class="route-chip" role="listitem">
+              <span class="route-dest">Goa</span>
+              <span class="route-meta">1180 km round trip</span>
+            </div>
+            <div class="route-chip" role="listitem">
+              <span class="route-dest">Pune</span>
+              <span class="route-meta">300 km round trip</span>
+            </div>
+            <div class="route-chip" role="listitem">
+              <span class="route-dest">Matheran</span>
+              <span class="route-meta">160 km round trip</span>
+            </div>
+            <div class="route-chip" role="listitem">
+              <span class="route-dest">Nashik</span>
+              <span class="route-meta">330 km round trip</span>
+            </div>
+            <div class="route-chip" role="listitem">
+              <span class="route-dest">Igatpuri</span>
+              <span class="route-meta">250 km round trip</span>
+            </div>
+            <div class="route-chip" role="listitem">
+              <span class="route-dest">Panchgani</span>
+              <span class="route-meta">490 km round trip</span>
+            </div>
+          </div><!-- /.routes-scroll -->
+        </div><!-- /.routes-scroll-wrap -->
+        <a href="tel:+919876543210" class="routes-cta" id="routesCallBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round" aria-hidden="true">
+            <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07
+                   A19.5 19.5 0 013.07 9.8 19.79 19.79 0 01.08 1.18
+                   A2 2 0 012.06 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81
+                   a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27
+                   a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z" />
+          </svg>
+          Know your exact fare. Call now
+        </a>
+      </div>
 
-      <!-- SECOND CTA -->
+      <!-- EXCLUSIONS STRIP -->
+      <div class="excl-strip">
+        <span class="excl-icon">&#8505;&#65039;</span>
+        <div class="excl-body">
+          <strong>Tolls, state border tax, and parking</strong> are paid on the road at the real government price.
+          Whatever the toll booth charges, that is exactly what you pay. We give you the receipt every time. No extra
+          added on top.
+        </div>
+      </div>
+
+      <!-- HALTS STRIP -->
+      <div class="halts-strip">
+        <span class="halts-icon">&#9989;</span>
+        <div class="halts-body">
+          <strong>Halt anywhere on the way.</strong> Temple, dhaba, petrol pump, scenic stop. Both ways. No
+          extra charge, just tell your driver.
+        </div>
+      </div>
+
+      <!-- PRICE EXAMPLE -->
+      <div class="price-example">
+        <em>For example:</em> <strong>Mumbai &rarr; Lonavala round trip (about 190&thinsp;km) = about
+          &#8377;3,040.</strong> Tolls extra, paid at the booth.
+      </div>
+
+      <!-- BOOKING FLOW CONNECTOR -->
+      <div class="booking-label">Here is how the booking works</div>
+
+      <!-- TRUST BADGES — ordered: cancellation → advance → pay after -->
+      <div class="trust-row" role="list">
+
+        <div class="trust-badge" role="listitem">
+          <div class="badge-icon badge-icon-blue">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+              stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+              <path d="M9 12l2 2 4-4" />
+            </svg>
+          </div>
+          <div class="trust-badge-inner">
+            <span class="trust-badge-text">Free cancellation</span>
+            <span class="trust-badge-sub">Call 6+ hours before pickup</span>
+          </div>
+        </div>
+
+        <div class="trust-badge" role="listitem">
+          <div class="badge-icon badge-icon-indigo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+              stroke-linejoin="round" aria-hidden="true">
+              <rect x="2" y="5" width="20" height="14" rx="2" />
+              <path d="M2 10h20" />
+            </svg>
+          </div>
+          <div class="trust-badge-inner">
+            <span class="trust-badge-text">Only 15% advance</span>
+            <span class="trust-badge-sub">To lock in your trip</span>
+          </div>
+        </div>
+
+        <div class="trust-badge" role="listitem">
+          <div class="badge-icon badge-icon-green">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+              stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="10" />
+              <path d="M9 12l2 2 4-4" />
+            </svg>
+          </div>
+          <div class="trust-badge-inner">
+            <span class="trust-badge-text">Pay rest after trip</span>
+            <span class="trust-badge-sub">Cash or UPI</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- CTA BLOCK — single action, phone only -->
       <div class="cta-block">
-        <a href="tel:+919833498678" class="btn-call" id="callBtn2">
+        <a href="tel:+919876543210" class="btn-call" id="callBtn" aria-controls="callReveal" aria-expanded="false">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
             stroke-linejoin="round" aria-hidden="true">
             <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07
@@ -1149,9 +1886,29 @@
                    a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27
                    a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z" />
           </svg>
-          <span id="callBtnText2">Call Now to Apply</span>
+          <span class="btn-call-text" id="callBtnText">Call Now to Book</span>
         </a>
-        <span class="cta-nudge">Limited vacancy. Do not wait</span>
+        <div class="call-reveal" id="callReveal" aria-hidden="true">
+          <span class="call-reveal-title">Call this number from your phone</span>
+          <div class="call-reveal-row">
+            <span class="call-reveal-number" id="callNumber">+91 98765 43210</span>
+            <button class="copy-btn" id="copyNumberBtn" type="button">Copy</button>
+          </div>
+          <span class="copy-status" id="copyStatus" role="status" aria-live="polite"></span>
+        </div>
+        <span class="cta-nudge">Call to lock in your dates. Trips fill up fast</span>
+        <span class="cta-divider">or tap the number directly</span>
+        <a href="tel:+919876543210" class="phone-link" id="phoneLink">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round" aria-hidden="true">
+            <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07
+                   A19.5 19.5 0 013.07 9.8 19.79 19.79 0 01.08 1.18
+                   A2 2 0 012.06 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81
+                   a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27
+                   a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z" />
+          </svg>
+          +91 98765 43210
+        </a>
       </div>
 
     </main>
@@ -1161,14 +1918,14 @@
         &copy; <span id="footerYear">2026</span> Cabbee &nbsp;&middot;&nbsp;
         <a href="#" onclick="openModal('privacyModal');return false;">Privacy Policy</a>
         &nbsp;&middot;&nbsp;
-        <a href="#" onclick="openModal('termsModal');return false;">Terms</a>
+        <a href="#" onclick="openModal('termsModal');return false;">Terms &amp; Conditions</a>
       </p>
     </footer>
 
   </div>
 
   <!-- STICKY CTA BAR — mobile only -->
-  <a href="tel:+919833498678" class="sticky-cta" id="stickyCallBtn">
+  <a href="tel:+919876543210" class="sticky-cta" id="stickyCallBtn">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
       stroke-linejoin="round" aria-hidden="true">
       <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07
@@ -1177,7 +1934,7 @@
              a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27
              a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z" />
     </svg>
-    <span class="sticky-cta-text">Call Now to Apply</span>
+    <span class="sticky-cta-text">Call Now to Book</span>
   </a>
 
   <!-- PRIVACY MODAL -->
@@ -1188,33 +1945,48 @@
       <h3 id="privacyTitle">Privacy Policy</h3>
 
       <p><strong>Who we are</strong><br>
-        Cabbee is a private cab service based in Mumbai. This page is our website used specifically for recruiting drivers. We do not have an app.</p>
+        Cabbee is a private outstation cab service based in Mumbai. This page is our only website. We do not have an
+        app.</p>
 
       <p><strong>What information we collect</strong><br>
-        When you call us to apply for the driver job, we take your name and phone number. That is the only personal information we collect directly through this page. We do not collect your email, your address, or any payment details through this website.</p>
+        When you call us to book a trip, we take your name and phone number. That is the only personal information we
+        collect directly. We do not collect your email, your address, or any payment details through this website.</p>
 
       <p><strong>How we use your information</strong><br>
-        Your phone number is used only to discuss the driver vacancy, schedule a meeting, or coordinate document verification. We do not call you for any other reason. We do not send marketing messages.</p>
+        Your phone number is used only to confirm your booking, send you your driver's details before the trip, and
+        coordinate your pickup. We do not call you for any other reason. We do not send marketing messages.</p>
 
       <p><strong>Google Ads and cookies</strong><br>
-        This website uses Google Ads to show our recruitment ads to drivers. Google uses cookies (small files saved on your device) to do this. A cookie may be placed on your device when you visit this page, so that Google knows your visit happened. This helps us understand whether our ads are working.<br><br>
-        Google may also use this information to show you ads from us on other websites you visit. If you do not want to see personalised ads from Google, you can change your settings at <a href="https://adssettings.google.com" target="_blank" rel="noopener">adssettings.google.com</a>.<br><br>
-        You can also read Google's own privacy policy at <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">policies.google.com/privacy</a>.</p>
+        This website uses Google Ads to show our ads to people who may be looking for outstation cabs. Google uses
+        cookies (small files saved on your device) to do this. A cookie may be placed on your device when you visit
+        this page, so that Google knows your visit happened. This helps us understand whether our ads are
+        working.<br><br>
+        Google may also use this information to show you ads from us on other websites you visit. If you do not want to
+        see personalised ads from Google, you can change your settings at <a href="https://adssettings.google.com"
+          target="_blank" rel="noopener">adssettings.google.com</a>.<br><br>
+        You can also read Google's own privacy policy at <a href="https://policies.google.com/privacy" target="_blank"
+          rel="noopener">policies.google.com/privacy</a>.</p>
 
       <p><strong>Conversion tracking</strong><br>
-        When you tap the call button on this page, we record that the call happened. We use this information only to understand how many people who saw our ad went on to call us. This data is processed through Google's conversion tracking system. We do not store your personal details as part of this.</p>
+        When you tap the call button on this page, we record that the call happened. We use this information only to
+        understand how many people who saw our ad went on to call us. This data is processed through Google's conversion
+        tracking system. We do not store your personal details as part of this.</p>
 
       <p><strong>How long data is kept</strong><br>
-        Your phone number stays with us only as long as needed to fill the vacancy. After that it is not used unless you are hired. Google keeps its own tracking data as per its own privacy policy linked above.</p>
+        Your phone number stays with us only as long as needed to complete your trip. After that it is not used. Google
+        keeps its own tracking data as per its own privacy policy linked above.</p>
 
       <p><strong>Sharing your data</strong><br>
-        We do not sell, rent, or share your personal information with anyone. The only third party involved is Google, which processes anonymised tracking data as described above.</p>
+        We do not sell, rent, or share your personal information with anyone. The only third party involved is Google,
+        which processes anonymised tracking data as described above.</p>
 
       <p><strong>Your rights</strong><br>
-        You can ask us to delete your phone number from our records at any time. Just call or message us and we will remove it.</p>
+        You can ask us to delete your phone number from our records at any time. Just call or message us and we will
+        remove it.</p>
 
       <p><strong>Questions</strong><br>
-        If you have any question about how we handle your information, call us on the number shown on this page and we will be happy to explain.</p>
+        If you have any question about how we handle your information, call us on the number shown on this page and we
+        will be happy to explain.</p>
 
       <p style="font-size:10px;color:#b0b8c1;margin-top:4px;">Last updated: <span id="privacyDate"></span></p>
     </div>
@@ -1227,48 +1999,74 @@
       <button class="modal-close" onclick="closeModal('termsModal')" aria-label="Close">&times;</button>
       <h3 id="termsTitle">Terms &amp; Conditions</h3>
 
-      <p><strong>About this page</strong><br>
-        This page is for finding a driver for a private commercial car (Maruti Suzuki Dzire Tour S CNG) located in Bhandup, Mumbai. Cabbee is a private outstation cab service. This is not a taxi company offering multiple cars or a ride-sharing app.</p>
+      <p><strong>The service</strong><br>
+        Cabbee is a single-driver, private outstation cab service operating from Mumbai. We do round trips only. We do
+        not do one-way drops. Your driver stays with you for the full trip and brings you back home.</p>
 
-      <p><strong>The job</strong><br>
-        The driver position is strictly for a day shift (5 AM to 5 PM). The car is located in Bhandup and will remain there. The driver is expected to report to Bhandup for the shift. All specific details about the job, including pay structure, rules, and duties, are discussed exclusively on the phone call.</p>
+      <p><strong>Price</strong><br>
+        The rate is &#8377;16 per km, fixed. This covers AC, fuel both ways, driver charges, roof carrier, and night
+        travel. The price is calculated on the total round trip distance. There are no hidden charges in the &#8377;16
+        rate. The rate shown on this page is the current rate at the time of your visit. Rates may be revised during
+        peak seasons, festivals, or based on demand. Your final rate is confirmed when you call and book. Once
+        confirmed, your rate will not change for that trip.</p>
 
-      <p><strong>No guarantee of employment</strong><br>
-        Calling the number on this page does not guarantee you will be hired. Selection depends on a phone interview, document verification, background checks, and a driving test if required.</p>
+      <p><strong>What you pay on the road</strong><br>
+        Tolls, state border taxes, and parking charges are not included in the &#8377;16 rate. These are paid on the
+        road at the real government price. Whatever the toll booth or official counter charges, that is what you pay. We will give you a
+        receipt for every payment made on the road. Nothing is added on top by us.</p>
 
-      <p><strong>Required documents</strong><br>
-        To be considered for the position, you must hold a valid Indian driving license with transport (TR) endorsement. You will also need to provide a valid Aadhar card, PAN card, a reliable family member's emergency contact number, and a recent selfie photo. These are non-negotiable and will be thoroughly checked before any job offer is made.</p>
+      <p><strong>Booking and advance payment</strong><br>
+        To confirm your trip, we collect 15% of the total trip cost in advance. This amount is paid before the trip
+        starts, via UPI or bank transfer. Your trip is only confirmed once this advance is received. The remaining 85%
+        is paid after your trip is complete, in cash or UPI.</p>
+
+      <p><strong>Cancellation</strong><br>
+        You can cancel for free if you inform us 6 or more hours before your pickup time. Your advance will be fully
+        returned within 24 hours. If you cancel within 6 hours of your pickup time, the advance amount will not be
+        returned, as the trip has already been prepared for.</p>
+
+      <p><strong>Driver and car</strong><br>
+        You will be told who your driver is and given the car number before your trip day. The car is a Maruti Suzuki
+        Dzire Tour S CNG. If for any genuine emergency the car or driver changes, you will be informed as early as
+        possible and given the choice to cancel with a full refund.</p>
 
       <p><strong>Driver verification and safety</strong><br>
-        We run a background check before hiring any driver. Providing false documents or incorrect information will result in immediate disqualification from the hiring process.</p>
+        All drivers are Aadhaar-verified and hold a valid commercial driving licence. We run a background check before
+        any driver is assigned a trip. Your driver's name, photo, and phone number are shared with you before the trip
+        day so you know exactly who is picking you up. If you are travelling solo or would like someone at home to have
+        the driver's details, we are happy to share them with a family member or friend as well.</p>
 
-      <p><strong>Problems or questions</strong><br>
-        If you have any issues or questions regarding the vacancy, call the number shown on this page.</p>
+      <p><strong>Conduct during the trip</strong><br>
+        We ask that passengers treat the driver with respect. Any damage caused to the car by passengers will be charged
+        at cost. Smoking is not allowed inside the car.</p>
+
+      <p><strong>First booking offer</strong><br>
+        The &#8377;200 discount is for first-time customers only. You must mention it when you call to book. It cannot
+        be applied after the booking is confirmed. One discount per customer.</p>
+
+      <p><strong>Problems or complaints</strong><br>
+        If anything goes wrong with your trip, call us directly and we will sort it out. We take complaints seriously.
+        Our goal is for you to have a good trip and come back the next time.</p>
 
       <p><strong>Governing rules</strong><br>
-        This recruitment process and any resulting employment operate under the laws of India. Any disputes will be handled in Mumbai.</p>
+        This service operates under the laws of India. Any disputes will be handled in Mumbai.</p>
 
       <p style="font-size:10px;color:#b0b8c1;margin-top:4px;">Last updated: <span id="termsDate"></span></p>
     </div>
   </div>
 
-  <!--
-    FIX 8: Removed the invalid `defer` attribute from this inline script.
-    The `defer` attribute is only valid on external scripts (those with a `src`
-    attribute). On inline scripts it is ignored by the HTML spec and has no
-    effect. Removing it keeps the HTML valid and avoids any edge-case browser
-    behaviour. The script is at the bottom of <body> which achieves the same
-    non-blocking behaviour that `defer` would give an external script.
-  -->
-  <script>
+  <script defer>
     (function () {
       'use strict';
 
-      /* ── Dynamic year for footer and modal dates ── */
+      /* Dynamic year — footer, modals, service year */
       var yr = new Date().getFullYear();
-      var footerYearEl = document.getElementById('footerYear');
-      if (footerYearEl) footerYearEl.textContent = yr;
-
+      var yearIds = ['footerYear', 'serviceYear', 'serviceYearMobile'];
+      for (var i = 0; i < yearIds.length; i++) {
+        var el = document.getElementById(yearIds[i]);
+        if (el) el.textContent = yr;
+      }
+      /* Modal dates */
       var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
         'August', 'September', 'October', 'November', 'December'];
       var now = new Date();
@@ -1278,10 +2076,12 @@
       if (pd) pd.textContent = monthYear;
       if (td) td.textContent = monthYear;
 
-      /* ── Google Sheets endpoint ── */
+      /* Open all bullets on desktop and tablet */
+      var incMore = document.getElementById('incMore');
+      if (incMore && window.innerWidth > 600) { incMore.open = true; }
+
       var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzq7TmxCA1Wogb1ZKYbJx6ewhy49rT_w0IDmXMc3OEEuqEkLMjVmnoiKMn9mSXvpS-exQ/exec';
 
-      /* ── Cookie helpers ── */
       function setCookie(n, v, d) {
         var e = new Date();
         e.setTime(e.getTime() + d * 86400000);
@@ -1293,14 +2093,12 @@
         return m ? decodeURIComponent(m[1]) : '';
       }
 
-      /* ── Read URL params ── */
       var p = new URLSearchParams(window.location.search);
 
       var gclid = p.get('gclid') || getCookie('gclid') || '';
       if (p.get('gclid')) setCookie('gclid', p.get('gclid'), 90);
 
       var keyword = p.get('keyword') || getCookie('keyword') || '';
-      var loc = p.get('loc') || '';
       var utmSource = p.get('utm_source') || getCookie('utm_source') || '';
       var utmMedium = p.get('utm_medium') || getCookie('utm_medium') || '';
       var utmCampaign = p.get('utm_campaign') || getCookie('utm_campaign') || '';
@@ -1310,53 +2108,85 @@
       if (utmMedium) setCookie('utm_medium', utmMedium, 90);
       if (utmCampaign) setCookie('utm_campaign', utmCampaign, 90);
 
-      /* ── Title case helper ── */
+      var MUMBAI = [
+        'mumbai', 'thane', 'navi mumbai', 'navimumbai', 'kalyan', 'dombivli',
+        'virar', 'vasai', 'mira road', 'miraroad', 'borivali', 'andheri',
+        'bandra', 'dadar', 'kurla', 'mulund', 'powai', 'goregaon', 'malad',
+        'kandivali', 'dahisar', 'bhiwandi', 'ulhasnagar', 'ambernath'
+      ];
+
+      var DEST = [
+        'lonavala', 'mahabaleshwar', 'goa', 'shirdi', 'pune', 'nashik', 'alibaug',
+        'matheran', 'kolhapur', 'aurangabad', 'igatpuri', 'lavasa', 'panchgani',
+        'mahad', 'ratnagiri', 'sindhudurg', 'tarkarli', 'wai', 'satara',
+        'trimbakeshwar', 'bhimashankar'
+      ];
+
       function tc(s) {
         return s.replace(/\S+/g, function (w) {
           return w.charAt(0).toUpperCase() + w.slice(1).toLowerCase();
         });
       }
 
-      /* ── DKI: Dynamic Keyword Insertion into H1 ── */
-      function applyDKI() {
-        var headlineEl = document.getElementById('headline');
-        var pillEl = document.getElementById('hiringPill');
-        var locLabelEl = document.getElementById('locLabel');
+      function hasLoc(kw) {
+        var l = kw.toLowerCase();
+        var all = DEST.concat(MUMBAI);
+        for (var j = 0; j < all.length; j++) {
+          if (l.indexOf(all[j]) !== -1) return true;
+        }
+        return false;
+      }
+
+      function setH(t) {
+        var e = document.getElementById('headline');
+        if (e) e.textContent = t;
+      }
+
+      function updatePill(city) {
+        var e = document.getElementById('availPill');
+        if (e && city) e.innerHTML = '<span class="avail-pulse"></span>Available now in ' + city;
+      }
+
+      function applyDKI(city) {
         var kw = keyword.trim();
-        var location = loc.trim();
-        var locationName = location ? tc(location) : 'Bhandup';
-
-        /* Update hiring pill with location */
-        if (pillEl && location) {
-          pillEl.innerHTML = '<span class="hiring-pulse"></span>Hiring in ' + locationName;
-        }
-
-        /* Update location label in facts card */
-        if (locLabelEl && location) {
-          locLabelEl.textContent = locationName + ', Mumbai';
-        }
-
-        /* Update headline with keyword or location */
-        if (headlineEl) {
-          if (kw) {
-            if (kw.length > 45) {
-              headlineEl.textContent = 'Driver Needed in ' + locationName;
-            } else {
-              headlineEl.textContent = tc(kw);
-            }
-          } else if (location) {
-            headlineEl.textContent = 'Driver Needed in ' + locationName;
-          }
+        if (kw) {
+          if (kw.length > 52) { setH('Round Trip Outstation Cab from ' + (city || 'Mumbai')); return; }
+          var fmt = tc(kw);
+          setH(hasLoc(kw) ? fmt : fmt + ' from ' + (city || 'Mumbai'));
+        } else if (city) {
+          setH('Round Trip Outstation Cab from ' + city);
         }
       }
 
-      applyDKI();
+      try {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', 'https://ipapi.co/json/', true);
+        xhr.timeout = 3000;
+        xhr.onreadystatechange = function () {
+          if (xhr.readyState !== 4) return;
+          if (xhr.status === 200) {
+            try {
+              var d = JSON.parse(xhr.responseText);
+              var cl = (d.city || '').toLowerCase();
+              var m = null;
+              for (var k = 0; k < MUMBAI.length; k++) {
+                if (cl.indexOf(MUMBAI[k]) !== -1) { m = tc(d.city); break; }
+              }
+              applyDKI(m);
+              if (m) updatePill(m);
+            } catch (e2) { applyDKI(null); }
+          } else { applyDKI(null); }
+        };
+        xhr.onerror = function () { applyDKI(null); };
+        xhr.ontimeout = function () { applyDKI(null); };
+        xhr.send();
+      } catch (e3) { applyDKI(null); }
 
-      /* ── Page load event to Google Sheet ── */
+      /* Page load event to Google Sheet */
       var payload = {
         conversionTime: new Date().toISOString(),
         gclid: gclid,
-        conversionName: 'Driver Lead',
+        conversionName: 'Phone Lead',
         conversionValue: '',
         conversionCurrency: 'INR',
         keyword: keyword,
@@ -1372,7 +2202,7 @@
         body: JSON.stringify(payload)
       }).catch(function () { });
 
-      /* ── Call event logger ── */
+      /* Call event logger */
       function logEvent(name) {
         var t = {};
         for (var k in payload) { if (payload.hasOwnProperty(k)) t[k] = payload[k]; }
@@ -1385,7 +2215,6 @@
         }).catch(function () { });
       }
 
-      /* ── Mobile detection ── */
       function isMobileDevice() {
         if (navigator.userAgentData && typeof navigator.userAgentData.mobile === 'boolean') {
           return navigator.userAgentData.mobile;
@@ -1393,18 +2222,19 @@
         return /Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
       }
 
-      var isMobile = isMobileDevice();
+      var phoneLinkEl = document.getElementById('phoneLink');
       var callBtnEl = document.getElementById('callBtn');
       var callBtnTextEl = document.getElementById('callBtnText');
-      var callBtn2El = document.getElementById('callBtn2');
-      var callBtnText2El = document.getElementById('callBtnText2');
       var callRevealEl = document.getElementById('callReveal');
+      var callNumberEl = document.getElementById('callNumber');
       var copyBtnEl = document.getElementById('copyNumberBtn');
       var copyStatusEl = document.getElementById('copyStatus');
+      var isMobile = isMobileDevice();
 
-      var phoneRaw = '+919833498678';
+      var phoneDisplay = phoneLinkEl ? phoneLinkEl.textContent.trim() : '+91 98765 43210';
+      var phoneRaw = phoneLinkEl ? (phoneLinkEl.getAttribute('href') || '').replace(/^tel:/, '') : '+919876543210';
+      if (callNumberEl && phoneDisplay) callNumberEl.textContent = phoneDisplay;
 
-      /* ── Show number panel for desktop users ── */
       function showCallReveal() {
         if (!callRevealEl) return;
         callRevealEl.classList.add('is-visible');
@@ -1416,12 +2246,9 @@
       if (!isMobile) {
         showCallReveal();
         if (callBtnTextEl) callBtnTextEl.textContent = 'Copy Number';
-        if (callBtnText2El) callBtnText2El.textContent = 'Copy Number';
         if (callBtnEl) callBtnEl.setAttribute('aria-label', 'Copy phone number');
-        if (callBtn2El) callBtn2El.setAttribute('aria-label', 'Copy phone number');
       }
 
-      /* ── Copy number helpers ── */
       function setCopyStatus(msg, ok) {
         if (!copyStatusEl) return;
         if (ok === undefined) ok = true;
@@ -1430,6 +2257,7 @@
       }
 
       function copyNumber() {
+        if (!phoneRaw) return;
         if (navigator.clipboard && navigator.clipboard.writeText) {
           navigator.clipboard.writeText(phoneRaw).then(function () {
             setCopyStatus('Number copied');
@@ -1453,12 +2281,11 @@
           document.execCommand('copy');
           setCopyStatus('Number copied');
         } catch (e) {
-          setCopyStatus('Copy failed', false);
+          setCopyStatus('Copy failed - select and copy', false);
         }
         document.body.removeChild(temp);
       }
 
-      /* ── Handle call/copy click ── */
       function handleCallAction(e) {
         if (isMobile) {
           logEvent('call_tap');
@@ -1473,7 +2300,68 @@
         logEvent('copy_number');
       }
 
-      var btnIds = ['callBtn', 'callBtn2', 'stickyCallBtn'];
+      /* Drag-scroll with momentum for routes strip */
+      var routesScroll = document.querySelector('.routes-scroll');
+      if (routesScroll) {
+        var isDragging = false;
+        var startX = 0;
+        var scrollLeft = 0;
+        var lastX = 0;
+        var lastTime = 0;
+        var velocity = 0;
+        var rafId = null;
+
+        routesScroll.addEventListener('mousedown', function (e) {
+          isDragging = true;
+          startX = e.pageX - routesScroll.offsetLeft;
+          scrollLeft = routesScroll.scrollLeft;
+          lastX = e.pageX;
+          lastTime = Date.now();
+          velocity = 0;
+          if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
+          routesScroll.classList.add('is-dragging');
+          e.preventDefault();
+        });
+
+        document.addEventListener('mousemove', function (e) {
+          if (!isDragging) return;
+          var now = Date.now();
+          var dt = now - lastTime;
+          if (dt > 0) {
+            velocity = (e.pageX - lastX) / dt;
+            lastX = e.pageX;
+            lastTime = now;
+          }
+          var x = e.pageX - routesScroll.offsetLeft;
+          routesScroll.scrollLeft = scrollLeft - (x - startX);
+        });
+
+        document.addEventListener('mouseup', function () {
+          if (!isDragging) return;
+          isDragging = false;
+          routesScroll.classList.remove('is-dragging');
+
+          /* Momentum — keep scrolling with friction after release */
+          var v = velocity * 14;
+          function glide() {
+            if (Math.abs(v) < 0.5) return;
+            routesScroll.scrollLeft -= v;
+            v *= 0.92;
+            rafId = requestAnimationFrame(glide);
+          }
+          rafId = requestAnimationFrame(glide);
+        });
+
+        /* Prevent chip click firing after a drag */
+        routesScroll.addEventListener('click', function (e) {
+          if (Math.abs(routesScroll.scrollLeft - scrollLeft) > 6) {
+            e.preventDefault();
+            e.stopPropagation();
+          }
+        });
+      }
+
+      var btnIds = ['callBtn', 'stickyCallBtn', 'phoneLink', 'routesCallBtn'];
       for (var b = 0; b < btnIds.length; b++) {
         var btn = document.getElementById(btnIds[b]);
         if (btn) btn.addEventListener('click', handleCallAction);
@@ -1489,7 +2377,6 @@
 
     }());
 
-    /* ── Modal open/close ── */
     function openModal(id) {
       var m = document.getElementById(id);
       if (m) m.classList.add('open');
@@ -1509,7 +2396,6 @@
       }
     });
   </script>
-  <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v8c78df7c7c0f484497ecbca7046644da1771523124516" integrity="sha512-8DS7rgIrAmghBFwoOTujcf6D9rXvH8xm8JQ1Ja01h9QX8EzXldiszufYa4IFfKdLUKTTrnSFXLDkUEOTrZQ8Qg==" data-cf-beacon='{"version":"2024.11.0","token":"fc28803adec241b9b046d6da6ecd749c","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
 </body>
 
 </html>
