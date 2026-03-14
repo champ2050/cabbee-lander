@@ -407,12 +407,6 @@
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
     }
 
-    .call-reveal.is-visible {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
     .call-reveal-title {
       font-size: 11px;
       color: var(--grey);
@@ -862,6 +856,12 @@
     @media (min-width: 601px) {
       .main {
         padding: 20px 20px 32px;
+      }
+
+      .call-reveal {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
       }
     }
 
@@ -1418,7 +1418,6 @@
       /* ── Show number panel for desktop users ── */
       function showCallReveal() {
         if (!callRevealEl) return;
-        callRevealEl.classList.add('is-visible');
         callRevealEl.setAttribute('aria-hidden', 'false');
         if (callBtnEl) callBtnEl.setAttribute('aria-expanded', 'true');
         if (copyStatusEl) copyStatusEl.textContent = '';
@@ -1478,9 +1477,6 @@
         e.preventDefault();
         showCallReveal();
         copyNumber();
-        if (callRevealEl && e && e.currentTarget && e.currentTarget.id !== 'callBtn') {
-          callRevealEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
         logEvent('copy_number');
       }
 
