@@ -33,7 +33,12 @@
     the image immediately, in parallel with everything else.
     fetchpriority="high" ensures it is not deprioritised behind other requests.
   -->
-  <link rel="preload" as="image" href="/images/Maruti Suzuki Dzire Tour S CNG Windows Up.webp" type="image/webp" fetchpriority="high">
+  <link rel="preload" as="image"
+    href="/images/Maruti%20Suzuki%20Dzire%20Tour%20S%20CNG%20Windows%20Up-700w.webp"
+    imagesrcset="/images/Maruti%20Suzuki%20Dzire%20Tour%20S%20CNG%20Windows%20Up-360w.webp 360w, /images/Maruti%20Suzuki%20Dzire%20Tour%20S%20CNG%20Windows%20Up-480w.webp 480w, /images/Maruti%20Suzuki%20Dzire%20Tour%20S%20CNG%20Windows%20Up-600w.webp 600w, /images/Maruti%20Suzuki%20Dzire%20Tour%20S%20CNG%20Windows%20Up-700w.webp 700w"
+    imagesizes="(min-width: 901px) 392px, 100vw"
+    type="image/webp"
+    fetchpriority="high">
 
   <!--
     FIX: font-display override.
@@ -1002,7 +1007,7 @@
       <div class="facts-card">
         <div class="fact-car-image-container">
           <!--
-            FIX 7: Added width, height, fetchpriority, and loading attributes
+            FIX 7: Added width/height and responsive candidates
             to the LCP image element.
 
             width + height: These tell the browser the intrinsic dimensions
@@ -1011,8 +1016,9 @@
             preventing Cumulative Layout Shift (CLS). The actual rendered size
             is still controlled by the CSS height:230px + object-fit:contain —
             these attributes are purely for the browser's layout reservation.
-            Using 1200x630 as a standard wide-format car image ratio.
 
+            srcset + sizes: Ensure the browser downloads a right-sized image
+            instead of the oversized original, reducing LCP bytes.
             fetchpriority="high": Elevates this image in the browser's fetch
             queue. Without this, the browser may deprioritise it behind other
             resources. For the LCP element this is critical.
@@ -1021,20 +1027,20 @@
             and third-party scripts apply lazy loading heuristics that could
             defer the LCP image. This ensures it always loads immediately.
 
-            decoding="sync": Tells the browser to decode this image synchronously
-            before displaying the page, preventing a flash of unstyled content
-            on the initial paint. Worth the small tradeoff for the LCP element.
+            decoding="async": Avoids sync decode on the main thread to keep
+            initial render smooth.
           -->
           <img
-            src="../images/Maruti Suzuki Dzire Tour S CNG Windows Up.webp"
+            src="../images/Maruti%20Suzuki%20Dzire%20Tour%20S%20CNG%20Windows%20Up-700w.webp"
+            srcset="../images/Maruti%20Suzuki%20Dzire%20Tour%20S%20CNG%20Windows%20Up-360w.webp 360w, ../images/Maruti%20Suzuki%20Dzire%20Tour%20S%20CNG%20Windows%20Up-480w.webp 480w, ../images/Maruti%20Suzuki%20Dzire%20Tour%20S%20CNG%20Windows%20Up-600w.webp 600w, ../images/Maruti%20Suzuki%20Dzire%20Tour%20S%20CNG%20Windows%20Up-700w.webp 700w"
+            sizes="(min-width: 901px) 392px, 100vw"
             alt="Maruti Dzire Tour S CNG 2023"
             class="fact-car-image"
-            width="800"
-            height="600"
-            sizes="(max-width: 360px) 360px, (max-width: 600px) 100vw, (max-width: 900px) 700px, 700px"
+            width="700"
+            height="526"
             fetchpriority="high"
             loading="eager"
-            decoding="sync"
+            decoding="async"
           >
         </div>
         <div class="fact-content">
