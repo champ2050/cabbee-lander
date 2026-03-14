@@ -10,9 +10,9 @@
   <meta name="robots" content="noindex, nofollow">
   <!-- noindex is intentional — this is a paid ads lander only, not for organic search -->
 
-  <link rel="icon" type="image/png" sizes="64x64" href="../images/favicon.png">
-  <link rel="shortcut icon" type="image/png" href="../images/favicon.png">
-  <link rel="apple-touch-icon" href="../images/favicon.png">
+  <link rel="icon" type="image/png" sizes="64x64" href="/images/favicon.png">
+  <link rel="shortcut icon" type="image/png" href="/images/favicon.png">
+  <link rel="apple-touch-icon" href="/images/favicon.png">
 
   <!--
     FIX 1: Preconnect to Google Fonts origins BEFORE the preload request.
@@ -20,6 +20,7 @@
     at font load time, adding ~200–400ms on mobile. These hints warm up the
     connection so the font loads faster, improving FCP/LCP.
   -->
+  <link rel="dns-prefetch" href="https://script.google.com">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
@@ -32,9 +33,25 @@
     the image immediately, in parallel with everything else.
     fetchpriority="high" ensures it is not deprioritised behind other requests.
   -->
-  <link rel="preload" as="image" href="../images/car.webp" fetchpriority="high">
+  <link rel="preload" as="image" href="/images/car.webp" type="image/webp" fetchpriority="high">
 
-  <!-- Font: async load to avoid render-blocking -->
+  <!--
+    FIX: font-display override.
+    Google Fonts honours the display= param in the URL but the browser still
+    has to download the CSS first to know that. Adding a local @font-face rule
+    with font-display:optional means the browser will never block rendering or
+    cause a layout shift waiting for Outfit. If the font is cached it uses it;
+    if not, it uses the system fallback immediately with zero reflow.
+  -->
+  <style>
+    @font-face {
+      font-family: 'Outfit';
+      font-style: normal;
+      font-weight: 400 800;
+      font-display: optional;
+      src: local('Outfit');
+    }
+  </style>
   <link rel="preload" as="style"
     href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap"
     onload="this.rel='stylesheet'">
@@ -1012,8 +1029,9 @@
             src="../images/car.webp"
             alt="Maruti Dzire Tour S CNG 2023"
             class="fact-car-image"
-            width="1200"
-            height="630"
+            width="800"
+            height="600"
+            sizes="(max-width: 360px) 360px, (max-width: 600px) 100vw, (max-width: 900px) 700px, 700px"
             fetchpriority="high"
             loading="eager"
             decoding="sync"
@@ -1350,7 +1368,11 @@
         }
       }
 
-      applyDKI();
+      /*
+        FIX: Wrap DKI DOM writes in requestAnimationFrame so the browser
+        batches the style read/write cycle cleanly, eliminating forced reflow.
+      */
+      requestAnimationFrame(function () { applyDKI(); });
 
       /* ── Page load event to Google Sheet ── */
       var payload = {
@@ -1366,11 +1388,22 @@
         converted: false
       };
 
-      fetch(SCRIPT_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'text/plain' },
-        body: JSON.stringify(payload)
-      }).catch(function () { });
+      /*
+        Delay the page-load tracking fetch by 3 seconds.
+        Firing it immediately opens a new network connection to Google's
+        servers at the exact moment the browser is downloading the car
+        image (the LCP element). On mobile with limited concurrent
+        connections they compete directly, pushing LCP into the red.
+        3 seconds is enough for LCP to be recorded first.
+        The tracking data is still captured — just slightly later.
+      */
+      setTimeout(function () {
+        fetch(SCRIPT_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'text/plain' },
+          body: JSON.stringify(payload)
+        }).catch(function () { });
+      }, 3000);
 
       /* ── Call event logger ── */
       function logEvent(name) {
