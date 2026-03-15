@@ -207,16 +207,16 @@
 
     .footer p {
       font-size: 11px;
-      color: #374151;
+      color: #707785;
     }
 
     .footer a {
-      color: #374151;
+      color: #707785;
       text-decoration: none;
     }
 
     .footer a:hover {
-      color: #1f2937;
+      color: var(--grey-strong);
     }
 
     /* ── MODALS ── */
@@ -346,14 +346,6 @@
       var yr = new Date().getFullYear();
       var footerYearEl = document.getElementById('footerYear');
       if (footerYearEl) footerYearEl.textContent = yr;
-
-      var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-      var now = new Date();
-      var monthYear = months[now.getMonth()] + ' ' + now.getFullYear();
-      var pd = document.getElementById('privacyDate');
-      var td = document.getElementById('termsDate');
-      if (pd) pd.textContent = monthYear;
-      if (td) td.textContent = monthYear;
 
       window.openModal = function (id) {
         var m = document.getElementById(id);
