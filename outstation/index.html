@@ -1567,7 +1567,7 @@
       <span class="logo-text" aria-label="Cabbee">Cabbee<span class="logo-dot"></span></span>
       <span class="avail-pill" id="availPill">
         <span class="avail-pulse"></span>
-        Available now in Mumbai
+        Available near Mumbai
       </span>
     </header>
 
@@ -2021,6 +2021,14 @@
         return false;
       }
 
+      function hasRouteTerms(kw) {
+        return /\b(to|from|2|via|towards|return|round\s*trip|roundtrip|one\s*way|oneway)\b/i.test(kw);
+      }
+
+      function hasLandmarkTerms(kw) {
+        return /\b(airport|station|railway|terminal|metro|csmt|vt|t1|t2)\b/i.test(kw);
+      }
+
       function setH(t) {
         var e = document.getElementById('headline');
         if (e) e.textContent = t;
@@ -2028,7 +2036,7 @@
 
       function updatePill(city) {
         var e = document.getElementById('availPill');
-        if (e && city) e.innerHTML = '<span class="avail-pulse"></span>Available now in ' + city;
+        if (e && city) e.innerHTML = '<span class="avail-pulse"></span>Available near ' + city;
       }
 
       function applyDKI(city) {
@@ -2036,7 +2044,7 @@
         if (kw) {
           if (kw.length > 52) { setH('Round Trip Outstation Cab from ' + (city || 'Mumbai')); return; }
           var fmt = tc(kw);
-          setH(hasLoc(kw) ? fmt : fmt + ' from ' + (city || 'Mumbai'));
+          setH((hasLoc(kw) || hasRouteTerms(kw) || hasLandmarkTerms(kw)) ? fmt : fmt + ' from ' + (city || 'Mumbai'));
         } else if (city) {
           setH('Round Trip Outstation Cab from ' + city);
         }
@@ -2054,13 +2062,14 @@
             if (xhr.status === 200) {
               try {
                 var d = JSON.parse(xhr.responseText);
-                var cl = (d.city || '').toLowerCase();
-                var m = null;
-                for (var k = 0; k < MUMBAI.length; k++) {
-                  if (cl.indexOf(MUMBAI[k]) !== -1) { m = tc(d.city); break; }
+                var city = (d.city || '').trim();
+                if (city) {
+                  var m = tc(city);
+                  applyDKI(m);
+                  updatePill(m);
+                } else {
+                  applyDKI(null);
                 }
-                applyDKI(m);
-                if (m) updatePill(m);
               } catch (e2) { applyDKI(null); }
             } else { applyDKI(null); }
           };
