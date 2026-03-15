@@ -1123,7 +1123,6 @@
       if (p.get('gclid')) setCookie('gclid', p.get('gclid'), 90);
 
       var keyword = p.get('keyword') || getCookie('keyword') || '';
-      var loc = p.get('loc') || '';
       var utmSource = p.get('utm_source') || getCookie('utm_source') || '';
       var utmMedium = p.get('utm_medium') || getCookie('utm_medium') || '';
       var utmCampaign = p.get('utm_campaign') || getCookie('utm_campaign') || '';
@@ -1144,19 +1143,18 @@
         var pillEl = document.getElementById('hiringPill');
         var locLabelEl = document.getElementById('locLabel');
         var kw = keyword.trim();
-        var location = loc.trim();
-        var locationName = location ? tc(location) : 'Bhandup';
+        var locationName = 'Bhandup';
 
-        if (pillEl && location) {
+        if (pillEl) {
           pillEl.innerHTML = '<span class="hiring-pulse"></span>Hiring in ' + locationName;
         }
-        if (locLabelEl && location) {
+        if (locLabelEl) {
           locLabelEl.textContent = locationName + ', Mumbai';
         }
         if (headlineEl) {
           if (kw) {
             headlineEl.textContent = kw.length > 45 ? 'Driver Needed in ' + locationName : tc(kw);
-          } else if (location) {
+          } else {
             headlineEl.textContent = 'Driver Needed in ' + locationName;
           }
         }
