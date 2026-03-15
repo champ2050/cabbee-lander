@@ -13,7 +13,12 @@
   <link rel="apple-touch-icon" href="/images/common/favicon.png">
   <meta name="msapplication-TileImage" content="/images/common/favicon.png">
 
-  <link rel="preload" as="image" href="/images/outstation/Maruti Suzuki Dzire Tour S CNG With Driver Pic.webp">
+  <link rel="preload" as="image"
+    href="/images/outstation/Maruti%20Suzuki%20Dzire%20Tour%20S%20CNG%20With%20Driver%20Pic-480w.webp"
+    media="(max-width: 600px)">
+  <link rel="preload" as="image"
+    href="/images/outstation/Maruti%20Suzuki%20Dzire%20Tour%20S%20CNG%20With%20Driver%20Pic-480w.webp"
+    media="(min-width: 601px)">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preload" as="style"
@@ -35,9 +40,10 @@
     :root {
       --black: #181c20;
       --grey: #6b7280;
+      --grey-strong: #4b5563;
       --lgrey: #f3f4f6;
       --border: #e5e7eb;
-      --green: #1a8a3c;
+      --green: #15803d;
       --green-d: #146e30;
       --green-l: #dcfce7;
       --green-b: #a7f3c0;
@@ -624,6 +630,10 @@
       .inc-list-extra {
         display: flex;
       }
+
+      details.inc-more:not([open]) > .inc-list-extra {
+        display: flex;
+      }
     }
 
     /* Car credential line — below driver row in desktop card */
@@ -731,7 +741,7 @@
 
     .excl-body {
       font-size: 12px;
-      color: var(--grey);
+      color: #374151;
       line-height: 1.6;
     }
 
@@ -763,7 +773,7 @@
 
     .halts-body {
       font-size: 12px;
-      color: var(--grey);
+      color: #374151;
       line-height: 1.6;
     }
 
@@ -900,7 +910,7 @@
       align-items: center;
       justify-content: center;
       gap: 9px;
-      background: var(--green);
+      background: var(--green-d);
       color: var(--white);
       text-decoration: none;
       font-family: var(--font);
@@ -956,7 +966,7 @@
 
     .call-reveal-title {
       font-size: 11px;
-      color: var(--grey);
+      color: var(--grey-strong);
       font-weight: 600;
     }
 
@@ -1057,16 +1067,16 @@
 
     .footer p {
       font-size: 11px;
-      color: #b0b8c1;
+      color: #374151;
     }
 
     .footer a {
-      color: #b0b8c1;
+      color: #374151;
       text-decoration: none;
     }
 
     .footer a:hover {
-      color: var(--grey);
+      color: #1f2937;
     }
 
     /* ── MODALS ── */
@@ -1475,7 +1485,7 @@
         left: 0;
         right: 0;
         z-index: 150;
-        background: var(--green);
+        background: var(--green-d);
         padding: 12px 16px;
         padding-bottom: calc(12px + env(safe-area-inset-bottom));
         box-shadow: 0 -2px 12px rgba(26, 138, 60, 0.25);
@@ -1590,8 +1600,12 @@
 
       <!-- MOBILE HERO — shown only on mobile -->
       <div class="mobile-hero">
-        <img class="mobile-hero-img" src="/images/outstation/Maruti Suzuki Dzire Tour S CNG With Driver Pic.webp" alt="Maruti Suzuki Dzire Tour S CNG outstation cab"
-          loading="eager" fetchpriority="high" decoding="async" width="640" height="480">
+        <img class="mobile-hero-img"
+          src="/images/outstation/Maruti%20Suzuki%20Dzire%20Tour%20S%20CNG%20With%20Driver%20Pic-480w.webp"
+          srcset="/images/outstation/Maruti%20Suzuki%20Dzire%20Tour%20S%20CNG%20With%20Driver%20Pic-360w.webp 360w, /images/outstation/Maruti%20Suzuki%20Dzire%20Tour%20S%20CNG%20With%20Driver%20Pic-480w.webp 480w, /images/outstation/Maruti%20Suzuki%20Dzire%20Tour%20S%20CNG%20With%20Driver%20Pic.webp 800w"
+          sizes="100vw"
+          alt="Maruti Suzuki Dzire Tour S CNG outstation cab" loading="eager" fetchpriority="high" decoding="async"
+          width="480" height="361">
         <div class="mobile-hero-proof">
           <span class="stars" aria-label="4.8 out of 5">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
           <span class="rating-num">4.8</span>
@@ -1607,8 +1621,9 @@
           &nbsp;&middot;&nbsp; Single owner
         </div>
         <div class="mobile-driver-row">
-          <img src="/images/outstation/Passport Size Driver Pic.webp" alt="Rahul Desai, your driver" class="driver-avatar" loading="lazy" width="36"
-            height="36">
+          <img src="/images/outstation/Passport%20Size%20Driver%20Pic-72w.webp"
+            srcset="/images/outstation/Passport%20Size%20Driver%20Pic-72w.webp 72w, /images/outstation/Passport%20Size%20Driver%20Pic-108w.webp 108w"
+            sizes="36px" alt="Rahul Desai, your driver" class="driver-avatar" loading="lazy" width="36" height="36">
           <div class="driver-info">
             <span class="driver-name">Rahul Desai</span>
             <span class="driver-cred">11 years, Mumbai outstation routes · ID verified</span>
@@ -1684,8 +1699,12 @@
         </div>
 
         <div class="card-right">
-          <img class="car-photo" src="/images/outstation/Maruti Suzuki Dzire Tour S CNG With Driver Pic.webp" alt="Maruti Suzuki Dzire Tour S CNG outstation cab"
-            loading="eager" fetchpriority="high" decoding="async" width="640" height="480">
+          <img class="car-photo"
+            src="/images/outstation/Maruti%20Suzuki%20Dzire%20Tour%20S%20CNG%20With%20Driver%20Pic-480w.webp"
+            srcset="/images/outstation/Maruti%20Suzuki%20Dzire%20Tour%20S%20CNG%20With%20Driver%20Pic-360w.webp 360w, /images/outstation/Maruti%20Suzuki%20Dzire%20Tour%20S%20CNG%20With%20Driver%20Pic-480w.webp 480w, /images/outstation/Maruti%20Suzuki%20Dzire%20Tour%20S%20CNG%20With%20Driver%20Pic.webp 800w"
+            sizes="(max-width: 600px) 0px, 392px"
+            alt="Maruti Suzuki Dzire Tour S CNG outstation cab" loading="eager" fetchpriority="high" decoding="async"
+            width="480" height="361">
           <div class="social-proof">
             <div class="social-proof-row">
               <span class="stars" aria-label="4.8 out of 5">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
@@ -1693,8 +1712,10 @@
               <span class="rating-sub">200+ trips completed</span>
             </div>
             <div class="driver-row">
-              <img src="/images/outstation/Passport Size Driver Pic.webp" alt="Rahul Desai, your driver" class="driver-avatar" loading="lazy"
-                width="36" height="36">
+              <img src="/images/outstation/Passport%20Size%20Driver%20Pic-72w.webp"
+                srcset="/images/outstation/Passport%20Size%20Driver%20Pic-72w.webp 72w, /images/outstation/Passport%20Size%20Driver%20Pic-108w.webp 108w"
+                sizes="36px" alt="Rahul Desai, your driver" class="driver-avatar" loading="lazy" width="36"
+                height="36">
               <div class="driver-info">
                 <span class="driver-name">Rahul Desai</span>
                 <span class="driver-cred">11 years, Mumbai outstation routes · ID verified</span>
@@ -1930,7 +1951,7 @@
     <span class="sticky-cta-text">Call Now to Book</span>
   </a>
 
-<script src="../footer.js"></script>
+<script src="../footer.js" defer></script>
   <script defer>
     (function () {
       'use strict';
@@ -1952,10 +1973,6 @@
       var td = document.getElementById('termsDate');
       if (pd) pd.textContent = monthYear;
       if (td) td.textContent = monthYear;
-
-      /* Open all bullets on desktop and tablet */
-      var incMore = document.getElementById('incMore');
-      if (incMore && window.innerWidth > 600) { incMore.open = true; }
 
       var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzq7TmxCA1Wogb1ZKYbJx6ewhy49rT_w0IDmXMc3OEEuqEkLMjVmnoiKMn9mSXvpS-exQ/exec';
 
@@ -2035,29 +2052,39 @@
         }
       }
 
-      try {
-        var xhr = new XMLHttpRequest();
-        xhr.open('GET', 'https://ipapi.co/json/', true);
-        xhr.timeout = 3000;
-        xhr.onreadystatechange = function () {
-          if (xhr.readyState !== 4) return;
-          if (xhr.status === 200) {
-            try {
-              var d = JSON.parse(xhr.responseText);
-              var cl = (d.city || '').toLowerCase();
-              var m = null;
-              for (var k = 0; k < MUMBAI.length; k++) {
-                if (cl.indexOf(MUMBAI[k]) !== -1) { m = tc(d.city); break; }
-              }
-              applyDKI(m);
-              if (m) updatePill(m);
-            } catch (e2) { applyDKI(null); }
-          } else { applyDKI(null); }
-        };
-        xhr.onerror = function () { applyDKI(null); };
-        xhr.ontimeout = function () { applyDKI(null); };
-        xhr.send();
-      } catch (e3) { applyDKI(null); }
+      applyDKI(null);
+
+      function runGeoLookup() {
+        try {
+          var xhr = new XMLHttpRequest();
+          xhr.open('GET', 'https://ipapi.co/json/', true);
+          xhr.timeout = 3000;
+          xhr.onreadystatechange = function () {
+            if (xhr.readyState !== 4) return;
+            if (xhr.status === 200) {
+              try {
+                var d = JSON.parse(xhr.responseText);
+                var cl = (d.city || '').toLowerCase();
+                var m = null;
+                for (var k = 0; k < MUMBAI.length; k++) {
+                  if (cl.indexOf(MUMBAI[k]) !== -1) { m = tc(d.city); break; }
+                }
+                applyDKI(m);
+                if (m) updatePill(m);
+              } catch (e2) { applyDKI(null); }
+            } else { applyDKI(null); }
+          };
+          xhr.onerror = function () { applyDKI(null); };
+          xhr.ontimeout = function () { applyDKI(null); };
+          xhr.send();
+        } catch (e3) { applyDKI(null); }
+      }
+
+      if ('requestIdleCallback' in window) {
+        requestIdleCallback(runGeoLookup, { timeout: 2500 });
+      } else {
+        setTimeout(runGeoLookup, 2000);
+      }
 
       /* Page load event to Google Sheet */
       var payload = {
@@ -2183,6 +2210,7 @@
         var isDragging = false;
         var startX = 0;
         var scrollLeft = 0;
+        var routesOffsetLeft = 0;
         var lastX = 0;
         var lastTime = 0;
         var velocity = 0;
@@ -2190,7 +2218,8 @@
 
         routesScroll.addEventListener('mousedown', function (e) {
           isDragging = true;
-          startX = e.pageX - routesScroll.offsetLeft;
+          routesOffsetLeft = routesScroll.offsetLeft;
+          startX = e.pageX - routesOffsetLeft;
           scrollLeft = routesScroll.scrollLeft;
           lastX = e.pageX;
           lastTime = Date.now();
@@ -2209,7 +2238,7 @@
             lastX = e.pageX;
             lastTime = now;
           }
-          var x = e.pageX - routesScroll.offsetLeft;
+          var x = e.pageX - routesOffsetLeft;
           routesScroll.scrollLeft = scrollLeft - (x - startX);
         });
 
